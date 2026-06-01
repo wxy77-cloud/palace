@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>纸间行旅 - 心灵宫殿</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Noto+Serif+SC:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/books.css">
+</head>
+<body class="page page-books">
+  <!-- Header -->
+  <header class="page-header container">
+    <a href="../index.html" class="back-btn">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+        <path d="M12 4L6 10L12 16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
+      </svg>
+      返回宫殿
+    </a>
+    <h1 class="page-title">📚 纸间行旅</h1>
+  </header>
+
+  <!-- Content -->
+  <main class="page-content container">
+    <p class="mb-3 stone-text book-intro">每一本书都是一段灵魂的漂泊，在字里行间寻找共鸣的回声。</p>
+
+    <!-- Input Section -->
+    <section class="input-section book-input-section">
+      <button id="add-btn" class="add-btn book-add-btn">
+        <svg viewBox="0 0 20 20" fill="currentColor">
+          <path d="M10 3v14M3 10h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        添加书籍记录
+      </button>
+
+      <form id="input-form" class="input-form book-form">
+        <div class="form-row">
+          <label class="form-label" for="book-title">书名</label>
+          <input type="text" id="book-title" class="form-input book-input" placeholder="请输入书名" required>
+        </div>
+        <div class="form-row">
+          <label class="form-label" for="book-author">作者</label>
+          <input type="text" id="book-author" class="form-input book-input" placeholder="请输入作者姓名">
+        </div>
+        <div class="form-row">
+          <label class="form-label">评分</label>
+          <div class="star-rating" id="star-rating">
+            <span class="star" data-value="1">★</span>
+            <span class="star" data-value="2">★</span>
+            <span class="star" data-value="3">★</span>
+            <span class="star" data-value="4">★</span>
+            <span class="star" data-value="5">★</span>
+          </div>
+          <input type="hidden" id="book-rating" value="0">
+        </div>
+        <div class="form-row">
+          <label class="form-label" for="book-date">阅读日期</label>
+          <input type="date" id="book-date" class="form-input book-input">
+        </div>
+        <div class="form-row">
+          <label class="form-label" for="book-review">书评</label>
+          <textarea id="book-review" class="form-textarea book-textarea" placeholder="写下你的读后感和摘录..." required></textarea>
+        </div>
+        <div class="form-actions">
+          <button type="button" id="cancel-form" class="cancel-btn book-cancel-btn">取消</button>
+          <button type="submit" class="submit-btn book-submit-btn">收入书架</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- Entries Container -->
+    <section id="entries-container">
+      <div class="empty-state">
+        <div class="empty-state__icon">📖</div>
+        <p class="empty-state__text">暂无记录，点击上方按钮添加第一笔珍藏</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p class="footer__text">～ 每一页都是通往远方的船票 ～</p>
+  </footer>
+
+  <script src="../js/books.js"></script>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>网文之渊 - 心灵宫殿</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Noto+Serif+SC:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body class="page">
+  <!-- Header -->
+  <header class="page-header container">
+    <a href="../index.html" class="back-btn">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+        <path d="M12 4L6 10L12 16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
+      </svg>
+      返回宫殿
+    </a>
+    <h1 class="page-title">🌙 网文之渊</h1>
+  </header>
+
+  <!-- Content -->
+  <main class="page-content container">
+    <p class="mb-3 stone-text">畅游于网络文学的深海，那些让人废寝忘食的故事与世界观。</p>
+
+    <!-- Input Section -->
+    <section class="input-section">
+      <button id="add-btn" class="add-btn">
+        <svg viewBox="0 0 20 20" fill="currentColor">
+          <path d="M10 3v14M3 10h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        添加网文记录
+      </button>
+
+      <form id="input-form" class="input-form">
+        <div class="form-row">
+          <label class="form-label" for="entry-title">作品名</label>
+          <input type="text" id="entry-title" class="form-input" placeholder="请输入作品名" required>
+        </div>
+        <div class="form-row">
+          <label class="form-label" for="entry-content">推荐理由 / 精彩片段</label>
+          <textarea id="entry-content" class="form-textarea" placeholder="写下推荐理由和精彩片段..." required></textarea>
+        </div>
+        <div class="form-actions">
+          <button type="button" id="cancel-form" class="cancel-btn">取消</button>
+          <button type="submit" class="submit-btn">提交</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- Entries Container -->
+    <section id="entries-container">
+      <div class="empty-state">
+        <div class="empty-state__icon">🌙</div>
+        <p class="empty-state__text">暂无记录，点击上方按钮添加第一笔珍藏</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p class="footer__text">～ 文字的海洋，深不见底 ～</p>
+  </footer>
+
+  <script src="../js/common.js"></script>
+</body>
+</html>

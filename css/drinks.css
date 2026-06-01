@@ -1,0 +1,645 @@
+/* ========================================
+   贪杯笔记 - 饮品标签纸样式
+   ======================================== */
+
+.drink-tags-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  padding: 20px 0 40px;
+  justify-content: flex-start;
+}
+
+.drink-tag {
+  width: 150px;
+  height: 200px;
+  border-radius: 8px;
+  padding: 16px 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s ease;
+  box-shadow:
+    3px 3px 8px rgba(0, 0, 0, 0.15),
+    -1px -1px 4px rgba(255, 255, 255, 0.5);
+}
+
+.drink-tag::before {
+  content: '';
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  right: 8px;
+  bottom: 8px;
+  border: 1px dashed rgba(139, 109, 76, 0.2);
+  border-radius: 4px;
+  pointer-events: none;
+}
+
+.drink-tag:hover {
+  transform: translateY(-12px) rotate(0deg) !important;
+  box-shadow:
+    6px 12px 20px rgba(0, 0, 0, 0.25),
+    -2px -2px 8px rgba(255, 255, 255, 0.6);
+  z-index: 10;
+}
+
+.drink-tag__icon {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 12px;
+  opacity: 0.7;
+}
+
+.drink-tag__name {
+  font-family: var(--font-chinese), var(--font-body), serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #4A3B2F;
+  text-align: center;
+  margin-bottom: 8px;
+  line-height: 1.4;
+  max-height: 44px;
+  overflow: hidden;
+}
+
+.drink-tag__shop {
+  font-size: 0.8rem;
+  color: #8B7B6B;
+  text-align: center;
+  margin-bottom: 10px;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.drink-tag__rating {
+  color: #DAA520;
+  font-size: 1.1rem;
+  letter-spacing: 2px;
+}
+
+.drink-tag__type-badge {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.7rem;
+  padding: 3px 8px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.6);
+  color: #6B5A4A;
+}
+
+/* 饮品类型背景色 */
+.drink-tag--yogurt {
+  background: linear-gradient(145deg, #FFFEF5 0%, #F5F0E6 50%, #EBE6DA 100%);
+}
+
+.drink-tag--coffee {
+  background: linear-gradient(145deg, #F5E6D3 0%, #E8D4B8 50%, #DCC8A8 100%);
+}
+
+.drink-tag--milktea {
+  background: linear-gradient(145deg, #FFF3E0 0%, #FFE4C4 50%, #FFD8A8 100%);
+}
+
+.drink-tag--fruittea {
+  background: linear-gradient(145deg, #FFF0E6 0%, #FFE0CC 50%, #FFD0B0 100%);
+}
+
+.drink-tag--other {
+  background: linear-gradient(145deg, #F0E8F5 0%, #E8DCF0 50%, #DCD0E8 100%);
+}
+
+/* 空状态 */
+.drinks-empty {
+  text-align: center;
+  padding: 80px 20px;
+  color: #A89880;
+}
+
+.drinks-empty__icon {
+  font-size: 80px;
+  margin-bottom: 20px;
+  opacity: 0.5;
+}
+
+.drinks-empty__text {
+  font-size: 1.1rem;
+  font-style: italic;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* 浮动添加按钮 */
+.floating-add-btn {
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #E8D4B8 0%, #D4B896 50%, #C4A070 100%);
+  border: 3px solid #A67B5B;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow:
+    0 6px 20px rgba(107, 68, 35, 0.4),
+    inset 0 2px 4px rgba(255, 255, 255, 0.3),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  z-index: 100;
+}
+
+.floating-add-btn:hover {
+  transform: scale(1.1) rotate(5deg);
+  box-shadow:
+    0 10px 30px rgba(107, 68, 35, 0.5),
+    inset 0 2px 4px rgba(255, 255, 255, 0.4),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.floating-add-btn svg {
+  width: 36px;
+  height: 36px;
+  color: #5D4E37;
+}
+
+/* 详情模态框 */
+.drink-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 0.3s ease;
+}
+
+.drink-modal.active {
+  display: flex;
+}
+
+.drink-modal__content {
+  background:
+    radial-gradient(ellipse at 30% 20%, rgba(220, 200, 170, 0.4) 0%, transparent 50%),
+    linear-gradient(145deg, #FFFEF5 0%, #F5F0E6 30%, #EBE6DA 70%, #E0D8C8 100%);
+  border-radius: 12px;
+  padding: 32px;
+  max-width: 480px;
+  width: 90%;
+  max-height: 85vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow:
+    0 0 0 1px rgba(139, 109, 76, 0.3),
+    0 20px 60px rgba(0, 0, 0, 0.4),
+    inset 0 0 60px rgba(139, 109, 76, 0.08);
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.drink-modal__close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 36px;
+  height: 36px;
+  background: transparent;
+  border: 2px solid #A67B5B;
+  border-radius: 50%;
+  color: #A67B5B;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.drink-modal__close:hover {
+  background: #A67B5B;
+  color: #fff;
+}
+
+.drink-modal__header {
+  text-align: center;
+  margin-bottom: 24px;
+  padding-bottom: 20px;
+  border-bottom: 1px dashed rgba(139, 109, 76, 0.3);
+}
+
+.drink-modal__icon {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 16px;
+  opacity: 0.8;
+}
+
+.drink-modal__title {
+  font-size: 1.6rem;
+  color: #3D2E1F;
+  font-family: var(--font-display), var(--font-chinese);
+  margin-bottom: 8px;
+}
+
+.drink-modal__shop {
+  font-size: 1rem;
+  color: #8B7B6B;
+  margin-bottom: 8px;
+}
+
+.drink-modal__rating {
+  color: #DAA520;
+  font-size: 1.4rem;
+  letter-spacing: 4px;
+}
+
+.drink-modal__type {
+  display: inline-block;
+  margin-top: 12px;
+  font-size: 0.85rem;
+  padding: 4px 12px;
+  border-radius: 12px;
+  background: rgba(139, 109, 76, 0.15);
+  color: #6B5A4A;
+}
+
+.drink-modal__body {
+  margin-bottom: 24px;
+}
+
+.drink-modal__label {
+  font-size: 0.85rem;
+  color: #8B7B6B;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.drink-modal__notes {
+  color: #4A3D2F;
+  font-size: 1.05rem;
+  line-height: 1.8;
+  white-space: pre-wrap;
+}
+
+.drink-modal__toppings {
+  margin-top: 16px;
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 8px;
+}
+
+.drink-modal__toppings-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.drink-modal__topping {
+  padding: 4px 10px;
+  background: rgba(139, 109, 76, 0.1);
+  border-radius: 12px;
+  font-size: 0.85rem;
+  color: #5D4E37;
+}
+
+.drink-modal__footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 16px;
+  border-top: 1px dashed rgba(139, 109, 76, 0.3);
+}
+
+.drink-modal__date {
+  font-size: 0.85rem;
+  color: #A89880;
+}
+
+.drink-modal__actions {
+  display: flex;
+  gap: 12px;
+}
+
+.drink-modal__actions button {
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.drink-modal__edit {
+  background: transparent;
+  border: 2px solid #A67B5B;
+  color: #A67B5B;
+}
+
+.drink-modal__edit:hover {
+  background: #A67B5B;
+  color: #fff;
+}
+
+.drink-modal__delete {
+  background: transparent;
+  border: 2px solid #A0522D;
+  color: #A0522D;
+}
+
+.drink-modal__delete:hover {
+  background: #A0522D;
+  color: #fff;
+}
+
+/* 添加表单模态框 */
+.add-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 0.3s ease;
+}
+
+.add-modal.active {
+  display: flex;
+}
+
+.add-modal__content {
+  background:
+    radial-gradient(ellipse at 50% 10%, rgba(220, 200, 170, 0.4) 0%, transparent 50%),
+    linear-gradient(145deg, #FFFEF5 0%, #F5F0E6 50%, #EBE6DA 100%);
+  border-radius: 12px;
+  padding: 32px;
+  max-width: 420px;
+  width: 90%;
+  position: relative;
+  box-shadow:
+    0 0 0 1px rgba(139, 109, 76, 0.3),
+    0 20px 60px rgba(0, 0, 0, 0.4);
+  animation: slideUp 0.3s ease;
+}
+
+.add-modal__title {
+  font-size: 1.4rem;
+  color: #3D2E1F;
+  font-family: var(--font-display), var(--font-chinese);
+  text-align: center;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px dashed rgba(139, 109, 76, 0.3);
+}
+
+.add-modal__close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 32px;
+  height: 32px;
+  background: transparent;
+  border: 2px solid #A67B5B;
+  border-radius: 50%;
+  color: #A67B5B;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.add-modal__close:hover {
+  background: #A67B5B;
+  color: #fff;
+}
+
+.drink-form .form-row {
+  margin-bottom: 18px;
+}
+
+.drink-form .form-label {
+  display: block;
+  color: #5D4E37;
+  font-family: var(--font-chinese), var(--font-body);
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-bottom: 6px;
+  letter-spacing: 0.5px;
+}
+
+.drink-form .form-input,
+.drink-form .form-textarea,
+.drink-form .form-select {
+  width: 100%;
+  padding: 10px 14px;
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(139, 109, 76, 0.4);
+  border-radius: 6px;
+  color: #3D2E1F;
+  font-family: var(--font-chinese), var(--font-body);
+  font-size: 1rem;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+.drink-form .form-input:focus,
+.drink-form .form-textarea:focus,
+.drink-form .form-select:focus {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: #A67B5B;
+  box-shadow:
+    inset 0 1px 3px rgba(0, 0, 0, 0.08),
+    0 0 0 2px rgba(166, 123, 91, 0.2);
+  outline: none;
+}
+
+.drink-form .form-input::placeholder,
+.drink-form .form-textarea::placeholder {
+  color: #A89880;
+  font-style: italic;
+}
+
+.drink-form .form-textarea {
+  min-height: 100px;
+  resize: vertical;
+  line-height: 1.6;
+}
+
+.drink-form .form-select {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236B5A4A' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 36px;
+}
+
+.drink-form .star-rating {
+  display: inline-flex;
+  gap: 4px;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 6px;
+}
+
+.drink-form .star-rating .star {
+  font-size: 1.5rem;
+  color: #C4B8A0;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.drink-form .star-rating .star:hover,
+.drink-form .star-rating .star.active {
+  color: #DAA520;
+}
+
+.drink-form .star-rating .star.active {
+  animation: starPop 0.3s ease;
+}
+
+@keyframes starPop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+.drink-form__actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px dashed rgba(139, 109, 76, 0.3);
+}
+
+.drink-form__cancel {
+  flex: 1;
+  padding: 12px;
+  background: transparent;
+  border: 2px solid rgba(139, 109, 76, 0.5);
+  border-radius: 6px;
+  color: #6B5A4A;
+  font-family: var(--font-chinese), var(--font-body);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.drink-form__cancel:hover {
+  background: rgba(139, 109, 76, 0.1);
+  border-color: #A67B5B;
+  color: #5D4E37;
+}
+
+.drink-form__submit {
+  flex: 2;
+  padding: 12px;
+  background: linear-gradient(145deg, #A67B5B 0%, #8B6914 50%, #A67B5B 100%);
+  border: 2px solid #6B4423;
+  border-radius: 6px;
+  color: #FFF8F0;
+  font-family: var(--font-chinese), var(--font-body);
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 2px;
+  cursor: pointer;
+  box-shadow:
+    0 4px 12px rgba(107, 68, 35, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.drink-form__submit:hover {
+  background: linear-gradient(145deg, #B8896B 0%, #A67B5B 50%, #B8896B 100%);
+  box-shadow: 0 6px 20px rgba(107, 68, 35, 0.5);
+  transform: translateY(-2px);
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+  .drink-tags-container {
+    gap: 20px;
+    justify-content: center;
+  }
+
+  .drink-tag {
+    width: 140px;
+    height: 190px;
+  }
+
+  .floating-add-btn {
+    width: 60px;
+    height: 60px;
+    bottom: 30px;
+    right: 30px;
+  }
+
+  .floating-add-btn svg {
+    width: 30px;
+    height: 30px;
+  }
+
+  .drink-modal__content {
+    padding: 24px 20px;
+  }
+
+  .add-modal__content {
+    padding: 24px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .drink-tag {
+    width: 130px;
+    height: 180px;
+    padding: 14px 10px;
+  }
+
+  .drink-tag__name {
+    font-size: 0.9rem;
+  }
+
+  .drink-tag__icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .floating-add-btn {
+    width: 56px;
+    height: 56px;
+    bottom: 24px;
+    right: 24px;
+  }
+}

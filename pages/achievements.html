@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>成就星图 - 心灵宫殿</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Noto+Serif+SC:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/achievements.css">
+</head>
+<body class="page page-achievements">
+  <!-- Starry Sky Background -->
+  <div class="starry-sky"></div>
+
+  <!-- Header -->
+  <header class="page-header container" style="position:relative; z-index:10;">
+    <a href="../index.html" class="back-btn">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+        <path d="M12 4L6 10L12 16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
+      </svg>
+      返回宫殿
+    </a>
+    <h1 class="page-title">⭐ 成就星图</h1>
+  </header>
+
+  <!-- Content -->
+  <main class="page-content container">
+    <!-- Empty State -->
+    <div id="achievements-empty" class="achievements-empty" style="display:none;">
+      <div class="achievements-empty__icon">⭐</div>
+      <p class="achievements-empty__text">暂无成就，点击右下角星星添加第一个里程碑</p>
+    </div>
+  </main>
+
+  <!-- Stars Container -->
+  <div id="stars-container" class="stars-container"></div>
+
+  <!-- Floating Add Button -->
+  <button id="floating-add-btn" class="floating-add-btn" title="添加成就">
+    <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M32 4L38 24L58 26L42 40L46 60L32 50L18 60L22 40L6 26L26 24L32 4Z" fill="currentColor"/>
+    </svg>
+  </button>
+
+  <!-- Detail Modal -->
+  <div id="achievement-modal" class="achievement-modal"></div>
+
+  <!-- Add/Edit Modal -->
+  <div id="add-modal" class="add-modal">
+    <div class="add-modal__content">
+      <button id="close-add-modal" class="add-modal__close">&times;</button>
+      <h2 class="add-modal__title">记录成就</h2>
+
+      <form id="achievement-form" class="achievement-form">
+        <div class="form-row">
+          <label class="form-label" for="achievement-title">成就名称</label>
+          <input type="text" id="achievement-title" class="form-input" placeholder="请输入成就名称" required>
+        </div>
+
+        <div class="form-row">
+          <label class="form-label" for="achievement-content">成就描述</label>
+          <textarea id="achievement-content" class="form-textarea" placeholder="写下成就的描述和达成的感想..."></textarea>
+        </div>
+
+        <div class="achievement-form__actions">
+          <button type="button" id="cancel-achievement" class="achievement-form__cancel">取消</button>
+          <button type="submit" class="achievement-form__submit">保存</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer" style="position:relative; z-index:10;">
+    <p class="footer__text">～ 每颗星都是闪亮的我 ～</p>
+  </footer>
+
+  <script src="../js/achievements.js"></script>
+</body>
+</html>

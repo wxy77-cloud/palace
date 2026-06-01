@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>贪杯笔记 - 心灵宫殿</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Noto+Serif+SC:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/drinks.css">
+</head>
+<body class="page page-drinks">
+  <!-- Header -->
+  <header class="page-header container">
+    <a href="../index.html" class="back-btn">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+        <path d="M12 4L6 10L12 16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
+      </svg>
+      返回宫殿
+    </a>
+    <h1 class="page-title">🍷 贪杯笔记</h1>
+  </header>
+
+  <!-- Content -->
+  <main class="page-content container">
+    <p class="mb-3 stone-text" style="text-align:center; font-style:italic; margin-bottom:30px !important;">品味世间的醇香与苦涩，每一杯饮品背后的故事与心情。</p>
+
+    <!-- Entries Container -->
+    <section id="entries-container">
+      <div class="drinks-empty">
+        <div class="drinks-empty__icon">🍷</div>
+        <p class="drinks-empty__text">暂无记录，点击右下角酒杯添加第一杯珍藏</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- Floating Add Button -->
+  <button id="floating-add-btn" class="floating-add-btn" title="添加饮品">
+    <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M32 8L20 20v4h24v-4L32 8z" fill="currentColor" opacity="0.6"/>
+      <path d="M18 24h28v4H18v-4z" fill="currentColor"/>
+      <path d="M16 28h32l-4 28H20l-4-28z" fill="currentColor" opacity="0.8"/>
+      <ellipse cx="32" cy="56" rx="14" ry="4" fill="currentColor" opacity="0.5"/>
+      <path d="M32 32v8M28 36h8" stroke="#F5F0E6" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+  </button>
+
+  <!-- Detail Modal -->
+  <div id="detail-modal" class="drink-modal">
+  </div>
+
+  <!-- Add/Edit Modal -->
+  <div id="add-modal" class="add-modal">
+    <div class="add-modal__content">
+      <button id="close-add-modal" class="add-modal__close">&times;</button>
+      <h2 class="add-modal__title">添加饮品</h2>
+
+      <form id="drink-form" class="drink-form">
+        <div class="form-row">
+          <label class="form-label" for="drink-name">饮品名称</label>
+          <input type="text" id="drink-name" class="form-input" placeholder="请输入饮品名称" required>
+        </div>
+
+        <div class="form-row">
+          <label class="form-label" for="drink-shop">来源</label>
+          <input type="text" id="drink-shop" class="form-input" placeholder="请输入邂逅之所">
+        </div>
+
+        <div class="form-row">
+          <label class="form-label" for="drink-type">饮品类型</label>
+          <select id="drink-type" class="form-select">
+            <option value="yogurt">酸奶</option>
+            <option value="coffee">咖啡</option>
+            <option value="milktea">奶茶</option>
+            <option value="fruittea">果茶</option>
+            <option value="other">其他</option>
+          </select>
+        </div>
+
+        <div class="form-row">
+          <label class="form-label">评分</label>
+          <div class="star-rating" id="add-star-rating">
+            <span class="star" data-value="1">★</span>
+            <span class="star" data-value="2">★</span>
+            <span class="star" data-value="3">★</span>
+            <span class="star" data-value="4">★</span>
+            <span class="star" data-value="5">★</span>
+          </div>
+          <input type="hidden" id="drink-rating" value="0">
+        </div>
+
+        <div class="form-row">
+          <label class="form-label" for="drink-notes">品鉴感受</label>
+          <textarea id="drink-notes" class="form-textarea" placeholder="写下品尝感受、配料或其他备注..."></textarea>
+        </div>
+
+        <div class="drink-form__actions">
+          <button type="button" id="cancel-drink" class="drink-form__cancel">取消</button>
+          <button type="submit" class="drink-form__submit">保存</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p class="footer__text">～ 杯中映人生，细品皆故事 ～</p>
+  </footer>
+
+  <script src="../js/drinks.js"></script>
+</body>
+</html>

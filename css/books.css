@@ -1,0 +1,755 @@
+/* ========================================
+   纸间行旅 - 书籍模块专用样式
+   ======================================== */
+
+/* 木质书架容器 */
+.bookshelf-container {
+  width: 100%;
+  min-height: 400px;
+  padding: 20px 0 40px;
+  position: relative;
+}
+
+/* 木质书架背景 */
+.bookshelf {
+  background:
+    linear-gradient(90deg,
+      rgba(139, 90, 43, 0.08) 0%,
+      transparent 2%,
+      transparent 98%,
+      rgba(139, 90, 43, 0.08) 100%
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 30px,
+      rgba(139, 90, 43, 0.02) 30px,
+      rgba(139, 90, 43, 0.02) 31px
+    ),
+    linear-gradient(180deg,
+      #E8D4B8 0%,
+      #D7B586 15%,
+      #C4A070 30%,
+      #D7B586 50%,
+      #C4A070 70%,
+      #D7B586 90%,
+      #E8D4B8 100%
+    );
+  border-radius: 4px;
+  padding: 15px 20px 25px;
+  position: relative;
+  box-shadow:
+    inset 0 2px 4px rgba(255, 255, 255, 0.3),
+    inset 0 -3px 6px rgba(0, 0, 0, 0.15),
+    0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+/* 书架层 */
+.bookshelf-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+  gap: 8px;
+  padding: 12px 10px 8px;
+  min-height: 180px;
+  border-bottom: 12px solid #B8956A;
+  position: relative;
+  background: #E5D3BD;
+}
+
+/* 书架层底部阴影 */
+.bookshelf-row::after {
+  content: '';
+  position: absolute;
+  bottom: -12px;
+  left: 0;
+  right: 0;
+  height: 12px;
+  background: linear-gradient(
+    to bottom,
+    rgba(139, 90, 43, 0.25),
+    rgba(139, 90, 43, 0.08) 50%,
+    transparent
+  );
+}
+
+/* 书脊基础样式 */
+.book-spine {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(90deg,
+    rgba(0, 0, 0, 0.08) 0%,
+    transparent 12%,
+    transparent 88%,
+    rgba(0, 0, 0, 0.08) 100%
+  ),
+  linear-gradient(180deg,
+    #F5E6D3 0%,
+    #E8D4B8 10%,
+    #DEC9A8 50%,
+    #D4B896 90%,
+    #C9A87C 100%
+  );
+  border-radius: 2px 2px 0 0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    2px 0 4px rgba(0, 0, 0, 0.15),
+    -1px 0 2px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  transform-origin: bottom center;
+}
+
+.book-spine:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    4px 0 8px rgba(0, 0, 0, 0.3),
+    -2px 0 4px rgba(0, 0, 0, 0.2),
+    0 12px 24px rgba(0, 0, 0, 0.3);
+  z-index: 10;
+}
+
+.book-spine:active {
+  transform: translateY(-4px) scale(1.01);
+}
+
+/* 书脊顶部装饰 */
+.book-spine::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: linear-gradient(to bottom,
+    rgba(139, 90, 43, 0.6),
+    transparent
+  );
+  border-radius: 2px 2px 0 0;
+}
+
+/* 书脊书名 */
+.book-spine__title {
+  font-family: var(--font-chinese), var(--font-body), serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #4A3B2F;
+  text-align: center;
+  padding: 10px 6px;
+  letter-spacing: 2px;
+  line-height: 1.4;
+  max-height: 140px;
+  overflow: hidden;
+  text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.5);
+}
+
+/* 书脊颜色变体 */
+.book-spine--cream { /* 柔杏 */
+  background: linear-gradient(90deg,
+    rgba(0, 0, 0, 0.06) 0%,
+    transparent 12%,
+    transparent 88%,
+    rgba(0, 0, 0, 0.06) 100%
+  ),
+  linear-gradient(180deg,
+    #F5E8D8 0%,
+    #E8C9A0 20%,
+    #DEC9A8 50%,
+    #D4B896 80%,
+    #C9A87C 100%
+  );
+}
+
+.book-spine--pink { /* 雾粉 */
+  background: linear-gradient(90deg,
+    rgba(0, 0, 0, 0.06) 0%,
+    transparent 12%,
+    transparent 88%,
+    rgba(0, 0, 0, 0.06) 100%
+  ),
+  linear-gradient(180deg,
+    #F5E8E8 0%,
+    #D9A7A0 20%,
+    #C89898 50%,
+    #B88888 80%,
+    #A87878 100%
+  );
+}
+
+.book-spine--sage { /* 淡鼠尾草绿 */
+  background: linear-gradient(90deg,
+    rgba(0, 0, 0, 0.06) 0%,
+    transparent 12%,
+    transparent 88%,
+    rgba(0, 0, 0, 0.06) 100%
+  ),
+  linear-gradient(180deg,
+    #E8F0E8 0%,
+    #B8C4A5 20%,
+    #A8B495 50%,
+    #98A485 80%,
+    #889475 100%
+  );
+}
+
+.book-spine--sky { /* 晴空蓝 */
+  background: linear-gradient(90deg,
+    rgba(0, 0, 0, 0.06) 0%,
+    transparent 12%,
+    transparent 88%,
+    rgba(0, 0, 0, 0.06) 100%
+  ),
+  linear-gradient(180deg,
+    #E8F0F8 0%,
+    #A3B5C7 20%,
+    #93A5B7 50%,
+    #8395A7 80%,
+    #738595 100%
+  );
+}
+
+.book-spine--milktea { /* 奶茶色 */
+  background: linear-gradient(90deg,
+    rgba(0, 0, 0, 0.06) 0%,
+    transparent 12%,
+    transparent 88%,
+    rgba(0, 0, 0, 0.06) 100%
+  ),
+  linear-gradient(180deg,
+    #F0E8E0 0%,
+    #C4A882 20%,
+    #B49872 50%,
+    #A48862 80%,
+    #947852 100%
+  );
+}
+
+.book-spine--lavender { /* 淡紫灰 */
+  background: linear-gradient(90deg,
+    rgba(0, 0, 0, 0.06) 0%,
+    transparent 12%,
+    transparent 88%,
+    rgba(0, 0, 0, 0.06) 100%
+  ),
+  linear-gradient(180deg,
+    #F0E8F0 0%,
+    #C4B7C9 20%,
+    #B4A7B9 50%,
+    #A497A9 80%,
+    #948799 100%
+  );
+}
+
+.book-spine--butter { /* 奶油黄 */
+  background: linear-gradient(90deg,
+    rgba(0, 0, 0, 0.06) 0%,
+    transparent 12%,
+    transparent 88%,
+    rgba(0, 0, 0, 0.06) 100%
+  ),
+  linear-gradient(180deg,
+    #F8F4E8 0%,
+    #F2E3C6 20%,
+    #E8DAB8 50%,
+    #D8CAA8 80%,
+    #C8BA98 100%
+  );
+}
+
+/* 书籍详情模态框 */
+.book-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.75);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 0.3s ease;
+}
+
+.book-modal.active {
+  display: flex;
+}
+
+.book-modal__content {
+  background:
+    radial-gradient(ellipse at 30% 20%, rgba(210, 180, 140, 0.3) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 80%, rgba(180, 140, 100, 0.2) 0%, transparent 50%),
+    linear-gradient(135deg, #F7EDD8 0%, #EFE0C4 25%, #E8D4A8 50%, #DCC696 75%, #D4B880 100%);
+  border-radius: 8px;
+  padding: 32px;
+  max-width: 600px;
+  width: 90%;
+  max-height: 85vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow:
+    0 0 0 1px rgba(139, 109, 76, 0.3),
+    0 20px 60px rgba(0, 0, 0, 0.5),
+    inset 0 0 60px rgba(139, 109, 76, 0.1);
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 模态框关闭按钮 */
+.book-modal__close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 36px;
+  height: 36px;
+  background: transparent;
+  border: 2px solid #8B5A2B;
+  border-radius: 50%;
+  color: #8B5A2B;
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.book-modal__close:hover {
+  background: #8B5A2B;
+  color: #fff;
+}
+
+/* 模态框内容 */
+.book-modal__title {
+  font-size: 1.8rem;
+  color: #3D2E1F;
+  font-family: var(--font-display), var(--font-chinese);
+  margin-bottom: 8px;
+  padding-right: 40px;
+}
+
+.book-modal__author {
+  font-size: 1.1rem;
+  color: #6B5A4A;
+  margin-bottom: 16px;
+}
+
+.book-modal__meta {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(139, 109, 76, 0.3);
+}
+
+.book-modal__rating {
+  color: #DAA520;
+  font-size: 1.3rem;
+  letter-spacing: 3px;
+}
+
+.book-modal__date {
+  color: #8B7B6B;
+  font-size: 1rem;
+}
+
+.book-modal__review {
+  color: #4A3D2F;
+  font-size: 1.05rem;
+  line-height: 1.9;
+  white-space: pre-wrap;
+}
+
+.book-modal__footer {
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(139, 109, 76, 0.3);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.book-modal__edit-count {
+  color: #8B7B6B;
+  font-size: 0.9rem;
+}
+
+.book-modal__actions {
+  display: flex;
+  gap: 12px;
+}
+
+.book-modal__actions button {
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.book-modal__edit {
+  background: transparent;
+  border: 2px solid #8B5A2B;
+  color: #8B5A2B;
+}
+
+.book-modal__edit:hover {
+  background: #8B5A2B;
+  color: #fff;
+}
+
+.book-modal__delete {
+  background: transparent;
+  border: 2px solid #A0522D;
+  color: #A0522D;
+}
+
+.book-modal__delete:hover {
+  background: #A0522D;
+  color: #fff;
+}
+
+/* 编辑模式 */
+.book-modal.editing .book-modal__review {
+  display: none;
+}
+
+.book-modal.editing .edit-textarea {
+  display: block;
+  width: 100%;
+  min-height: 150px;
+  padding: 16px;
+  background: rgba(0, 0, 0, 0.05);
+  border: 2px solid #A67B5B;
+  border-radius: 4px;
+  color: #3D2E1F;
+  font-family: var(--font-body), var(--font-chinese);
+  font-size: 1.05rem;
+  line-height: 1.9;
+  resize: vertical;
+}
+
+.edit-textarea {
+  display: none;
+}
+
+/* 空状态 */
+.bookshelf-empty {
+  text-align: center;
+  padding: 60px 20px;
+  color: #D4C4A8;
+}
+
+.bookshelf-empty__icon {
+  font-size: 64px;
+  margin-bottom: 16px;
+  opacity: 0.6;
+}
+
+.bookshelf-empty__text {
+  font-size: 1.1rem;
+  font-style: italic;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* ========================================
+   输入表单样式 - 羊皮纸风格
+   ======================================== */
+
+.book-input-section {
+  margin-bottom: 40px;
+}
+
+.book-add-btn {
+  background: linear-gradient(135deg, #8B6914 0%, #A67B5B 50%, #8B6914 100%);
+  border: 2px solid #6B4423;
+  color: #F5E6D3;
+  font-family: var(--font-chinese), var(--font-body), serif;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  box-shadow:
+    0 4px 12px rgba(107, 68, 35, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.book-add-btn:hover {
+  background: linear-gradient(135deg, #A67B5B 0%, #B8896B 50%, #A67B5B 100%);
+  box-shadow:
+    0 6px 20px rgba(107, 68, 35, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+.book-form {
+  background:
+    radial-gradient(ellipse at 20% 10%, rgba(210, 180, 140, 0.4) 0%, transparent 40%),
+    radial-gradient(ellipse at 80% 90%, rgba(180, 140, 100, 0.3) 0%, transparent 40%),
+    radial-gradient(ellipse at 50% 50%, rgba(200, 160, 120, 0.2) 0%, transparent 60%),
+    linear-gradient(135deg,
+      #F7EDD8 0%,
+      #EFE0C4 15%,
+      #E8D4A8 30%,
+      #DCC696 50%,
+      #E8D4A8 70%,
+      #EFE0C4 85%,
+      #F7EDD8 100%
+    );
+  border: none;
+  border-radius: 4px;
+  padding: 32px;
+  position: relative;
+  box-shadow:
+    8px 8px 20px rgba(0, 0, 0, 0.15),
+    -4px -4px 12px rgba(255, 255, 255, 0.1),
+    0 0 0 1px rgba(139, 109, 76, 0.2),
+    inset 0 0 80px rgba(139, 109, 76, 0.08);
+  margin-top: 20px;
+}
+
+.book-form::before,
+.book-form::after {
+  content: '';
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, rgba(139, 109, 76, 0.3) 0%, transparent 50%);
+  border-radius: 50%;
+}
+
+.book-form::before {
+  top: -8px;
+  right: -8px;
+  transform: rotate(45deg);
+}
+
+.book-form::after {
+  bottom: -8px;
+  left: -8px;
+  transform: rotate(225deg);
+}
+
+.book-form .form-row {
+  margin-bottom: 20px;
+}
+
+.book-form .form-label {
+  color: #5D4E37;
+  font-family: var(--font-chinese), var(--font-body), serif;
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 1px;
+  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.book-input,
+.book-textarea {
+  background: rgba(255, 248, 240, 0.6);
+  border: 1px solid rgba(139, 109, 76, 0.4);
+  border-radius: 3px;
+  color: #3D2E1F;
+  font-family: var(--font-chinese), var(--font-body), serif;
+  font-size: 1rem;
+  box-shadow:
+    inset 0 1px 3px rgba(0, 0, 0, 0.1),
+    0 1px 0 rgba(255, 255, 255, 0.5);
+  transition: all 0.3s ease;
+}
+
+.book-input:focus,
+.book-textarea:focus {
+  background: rgba(255, 248, 240, 0.8);
+  border-color: #8B5A2B;
+  box-shadow:
+    inset 0 1px 3px rgba(0, 0, 0, 0.1),
+    0 0 0 2px rgba(139, 90, 43, 0.2),
+    0 1px 0 rgba(255, 255, 255, 0.5);
+  outline: none;
+}
+
+.book-input::placeholder,
+.book-textarea::placeholder {
+  color: #A89880;
+  font-style: italic;
+}
+
+.book-textarea {
+  min-height: 120px;
+  resize: vertical;
+  line-height: 1.6;
+}
+
+.star-rating {
+  display: inline-flex;
+  gap: 4px;
+  padding: 8px 12px;
+  background: rgba(255, 248, 240, 0.5);
+  border-radius: 3px;
+}
+
+.star-rating .star {
+  font-size: 1.5rem;
+  color: #C4B8A0;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.star-rating .star:hover,
+.star-rating .star.active {
+  color: #DAA520;
+  text-shadow: 0 0 8px rgba(218, 165, 32, 0.5);
+}
+
+.star-rating .star.active {
+  animation: starPop 0.3s ease;
+}
+
+@keyframes starPop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+.book-cancel-btn {
+  background: transparent;
+  border: 2px solid rgba(139, 109, 76, 0.5);
+  color: #6B5A4A;
+  font-family: var(--font-chinese), var(--font-body), serif;
+  font-weight: 600;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+}
+
+.book-cancel-btn:hover {
+  background: rgba(139, 109, 76, 0.1);
+  border-color: #8B5A2B;
+  color: #5D4E37;
+}
+
+.book-submit-btn {
+  background: linear-gradient(135deg, #8B6914 0%, #A67B5B 50%, #8B6914 100%);
+  border: 2px solid #6B4423;
+  color: #F5E6D3;
+  font-family: var(--font-chinese), var(--font-body), serif;
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 2px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+  box-shadow:
+    0 4px 12px rgba(107, 68, 35, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.book-submit-btn:hover {
+  background: linear-gradient(135deg, #A67B5B 0%, #B8896B 50%, #A67B5B 100%);
+  box-shadow:
+    0 6px 20px rgba(107, 68, 35, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+.book-submit-btn:active {
+  transform: translateY(0);
+  box-shadow:
+    0 2px 8px rgba(107, 68, 35, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.book-intro {
+  text-align: center;
+  font-style: italic;
+  color: #FFFFFF;
+  font-size: 1.1rem;
+  margin-bottom: 30px !important;
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+  .bookshelf-row {
+    min-height: 150px;
+    gap: 6px;
+    padding: 10px 8px 6px;
+  }
+
+  .book-spine {
+    width: 28px !important;
+  }
+
+  .book-spine__title {
+    font-size: 12px;
+    padding: 8px 4px;
+  }
+
+  .book-modal__content {
+    padding: 24px 20px;
+    width: 95%;
+  }
+
+  .book-modal__title {
+    font-size: 1.4rem;
+  }
+
+  .book-form {
+    padding: 24px 20px;
+  }
+
+  .book-form::before,
+  .book-form::after {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+@media (max-width: 480px) {
+  .bookshelf {
+    padding: 10px 12px 18px;
+  }
+
+  .bookshelf-row {
+    min-height: 130px;
+    gap: 4px;
+  }
+
+  .book-spine {
+    width: 24px !important;
+  }
+
+  .book-spine__title {
+    font-size: 11px;
+  }
+
+  .book-form {
+    padding: 20px 16px;
+  }
+
+  .star-rating .star {
+    font-size: 1.3rem;
+  }
+}
