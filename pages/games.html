@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>游戏人生 - 心灵宫殿</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Noto+Serif+SC:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/games.css">
+</head>
+<body class="page">
+  <header class="page-header container">
+    <a href="../index.html" class="back-btn">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+        <path d="M12 4L6 10L12 16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
+      </svg>
+      返回宫殿
+    </a>
+    <h1 class="page-title">🎮 游戏人生</h1>
+  </header>
+
+  <main class="page-content container">
+    <p class="mb-3 stone-text">记录通关、沉迷、联机与那些难忘关卡，把每段冒险都存入档案。</p>
+
+    <section class="input-section game-input-section">
+      <button id="add-btn" class="add-btn">
+        <svg viewBox="0 0 20 20" fill="currentColor">
+          <path d="M10 3v14M3 10h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        添加游戏记录
+      </button>
+
+      <form id="input-form" class="input-form game-form">
+        <div class="game-form__grid">
+          <div class="form-row">
+            <label class="form-label" for="game-title">游戏名称</label>
+            <input type="text" id="game-title" class="form-input" placeholder="请输入游戏名称" required>
+          </div>
+
+          <div class="form-row">
+            <label class="form-label" for="game-platform">平台</label>
+            <input type="text" id="game-platform" class="form-input" placeholder="PC、Switch、PS5、手游等">
+          </div>
+
+          <div class="form-row">
+            <label class="form-label" for="game-status">游玩状态</label>
+            <select id="game-status" class="form-input game-select">
+              <option value="想玩">想玩</option>
+              <option value="在玩">在玩</option>
+              <option value="已通关">已通关</option>
+              <option value="白金 / 全成就">白金 / 全成就</option>
+              <option value="搁置">搁置</option>
+              <option value="弃坑">弃坑</option>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <label class="form-label" for="game-date">记录日期</label>
+            <input type="date" id="game-date" class="form-input">
+          </div>
+
+          <div class="form-row">
+            <label class="form-label" for="game-playtime">游玩时长</label>
+            <input type="text" id="game-playtime" class="form-input" placeholder="例如：42 小时、三周目">
+          </div>
+
+          <div class="form-row">
+            <label class="form-label">评分</label>
+            <div class="game-star-rating" id="game-star-rating" aria-label="游戏评分">
+              <button class="game-star" type="button" data-value="1" aria-label="1星">★</button>
+              <button class="game-star" type="button" data-value="2" aria-label="2星">★</button>
+              <button class="game-star" type="button" data-value="3" aria-label="3星">★</button>
+              <button class="game-star" type="button" data-value="4" aria-label="4星">★</button>
+              <button class="game-star" type="button" data-value="5" aria-label="5星">★</button>
+            </div>
+            <input type="hidden" id="game-rating" value="0">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <span class="form-label">标签</span>
+          <div class="game-tag-options" id="game-tag-options" aria-label="常用标签">
+            <button class="game-tag-option" type="button" data-tag="RPG">RPG</button>
+            <button class="game-tag-option" type="button" data-tag="动作">动作</button>
+            <button class="game-tag-option" type="button" data-tag="冒险">冒险</button>
+            <button class="game-tag-option" type="button" data-tag="解谜">解谜</button>
+            <button class="game-tag-option" type="button" data-tag="策略">策略</button>
+            <button class="game-tag-option" type="button" data-tag="开放世界">开放世界</button>
+            <button class="game-tag-option" type="button" data-tag="多人联机">多人联机</button>
+            <button class="game-tag-option" type="button" data-tag="独立游戏">独立游戏</button>
+          </div>
+          <input type="text" id="game-custom-tags" class="form-input" placeholder="也可以自己敲，用逗号、顿号或空格分隔">
+        </div>
+
+        <div class="form-row">
+          <label class="form-label" for="game-highlight">高光时刻</label>
+          <textarea id="game-highlight" class="form-textarea" placeholder="最难忘的关卡、角色、剧情、Boss 战或联机瞬间..."></textarea>
+        </div>
+
+        <div class="form-row">
+          <label class="form-label" for="game-notes">游玩笔记</label>
+          <textarea id="game-notes" class="form-textarea" placeholder="记录攻略心得、吐槽、待完成事项或想推荐给谁..."></textarea>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" id="cancel-form" class="cancel-btn">取消</button>
+          <button type="submit" class="submit-btn">保存游戏</button>
+        </div>
+      </form>
+    </section>
+
+    <section id="entries-container">
+      <div class="empty-state">
+        <div class="empty-state__icon">🎮</div>
+        <p class="empty-state__text">暂无记录，点击上方按钮添加第一款游戏。</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p class="footer__text">～ 存档未完，冒险继续 ～</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../js/supabaseClient.js"></script>
+  <script src="../js/games.js"></script>
+</body>
+</html>

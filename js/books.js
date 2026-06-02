@@ -8,6 +8,7 @@
   function formatDate(dateStr) {
     if (!dateStr) return '未记录';
     const date = new Date(dateStr);
+    if (Number.isNaN(date.getTime())) return dateStr;
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const day = String(date.getDate()).padStart(2, '0');
@@ -22,38 +23,136 @@
   }
 
   function renderStars(rating) {
-    let stars = '';
-    for (let i = 1; i <= 5; i += 1) {
-      stars += i <= rating ? '★' : '☆';
-    }
-    return stars;
+    const value = Math.max(0, Math.min(5, parseInt(rating, 10) || 0));
+    return '★'.repeat(value) + '☆'.repeat(5 - value);
   }
 
   function calculateSpineWidth(title) {
-    const len = title.length;
-    if (len <= 3) return 32;
-    if (len <= 5) return 36;
-    if (len <= 8) return 42;
-    if (len <= 12) return 48;
-    return 54;
+    const len = String(title || '').length;
+    if (len <= 3) return 38;
+    if (len <= 5) return 44;
+    if (len <= 8) return 50;
+    if (len <= 12) return 58;
+    return 64;
   }
 
-  function getSpineColor(title) {
-    const colors = ['cream', 'pink', 'sage', 'sky', 'milktea', 'lavender', 'butter'];
-    let hash = 0;
-    for (let i = 0; i < title.length; i += 1) {
-      hash = title.charCodeAt(i) + ((hash << 5) - hash);
+  function getSpineColor(entry) {
+    const rating = parseInt(entry.rating, 10) || 0;
+    const bookType = entry.type || entry.bookType || '';
+    
+    const typeColorMap = {
+      fantasy: ['stardust', 'nebula', 'moonstone', 'gold'],
+      science: ['cosmic-blue', 'galaxy', 'aurora', 'teal'],
+      mystery: ['midnight', 'shadow-purple', 'violet-mist', 'burgundy'],
+      fiction: ['lavender', 'rose-gold', 'forest', 'plum'],
+      history: ['antique-gold', 'parchment', 'sage', 'amber'],
+      philosophy: ['silver-mist', 'ash', 'dusty-lavender', 'slate'],
+      'self-help': ['sunrise', 'peach', 'sage', 'mint'],
+      poetry: ['dream-pink', 'lilac', 'amethyst', 'rose-quartz'],
+      other: ['starlight', 'cosmic-purple', 'twilight', 'mist']
+    };
+    
+    const colorsByRating = {
+      5: ['stardust', 'gold', 'aurora', 'moonstone'],
+      4: ['nebula', 'midnight', 'cosmic-blue', 'amethyst'],
+      3: ['lavender', 'lilac', 'galaxy', 'rose-gold'],
+      2: ['sage', 'peach', 'parchment', 'slate'],
+      1: ['ash', 'silver-mist', 'dusty-lavender', 'mist']
+    };
+    
+    let availableColors = colorsByRating[rating] || colorsByRating[3];
+    if (typeColorMap[bookType]) {
+      availableColors = typeColorMap[bookType];
     }
-    return colors[Math.abs(hash) % colors.length];
+    
+    const title = entry.title || '';
+    let hash = 0;
+    title.split('').forEach((char) => {
+      hash = char.charCodeAt(0) + ((hash << 5) - hash);
+    });
+    return availableColors[Math.abs(hash) % availableColors.length];
+  }
+
+  function getBookLean(index) {
+    const leans = [-2.2, 0.9, -0.7, 1.6, -1.2, 0.4, 2.1, -0.4, 1.3];
+    return leans[index % leans.length];
+  }
+
+  function getBookHeight(row, index) {
+    return 152 + ((row * 9 + index) % 7) * 7;
+  }
+
+  function getDisplayTitle(entry) {
+    return entry.title || entry.bookTitle || '未命名书籍';
+  }
+
+  function renderShelfDecor(rowBooks, row) {
+    const decorTypes = ['candle', 'crystal', 'owl', 'vase', 'stack'];
+    
+    if (rowBooks.length < 6) {
+      const firstDecor = decorTypes[row % decorTypes.length];
+      const secondDecor = decorTypes[(row + 2) % decorTypes.length];
+      
+      let html = '';
+      if (firstDecor === 'owl') {
+        html += `
+          <div class="shelf-object shelf-object--owl" aria-hidden="true">
+            <span class="owl-eye"></span>
+            <span class="owl-eye"></span>
+          </div>
+        `;
+      } else {
+        html += `<div class="shelf-object shelf-object--${firstDecor}" aria-hidden="true"></div>`;
+      }
+      
+      if (secondDecor !== firstDecor && rowBooks.length < 5) {
+        if (secondDecor === 'owl') {
+          html += `
+            <div class="shelf-object shelf-object--owl" aria-hidden="true">
+              <span class="owl-eye"></span>
+              <span class="owl-eye"></span>
+            </div>
+          `;
+        } else {
+          html += `<div class="shelf-object shelf-object--${secondDecor}" aria-hidden="true"></div>`;
+        }
+      }
+      
+      return html;
+    }
+    
+    if (rowBooks.length < 8) {
+      const decor = decorTypes[(row + 1) % decorTypes.length];
+      if (decor === 'owl') {
+        return `
+          <div class="shelf-object shelf-object--owl" aria-hidden="true">
+            <span class="owl-eye"></span>
+            <span class="owl-eye"></span>
+          </div>
+        `;
+      }
+      return `<div class="shelf-object shelf-object--${decor}" aria-hidden="true"></div>`;
+    }
+    
+    if (row % 3 === 0) {
+      return '<div class="shelf-object shelf-object--bookend" aria-hidden="true"></div>';
+    }
+    
+    if (row % 4 === 1) {
+      return '<div class="shelf-object shelf-object--candle" aria-hidden="true"></div>';
+    }
+    
+    return '';
   }
 
   async function renderEntries() {
     const container = document.getElementById('entries-container');
-    const user = await window.PalaceDB.ensureSignedIn('entries-container');
-    if (!container || !user) return;
+    if (!container) return;
 
     try {
-      currentEntries = await window.PalaceDB.listEntries(page);
+      const key = `palace_${page}_entries`;
+      const data = localStorage.getItem(key);
+      currentEntries = data ? JSON.parse(data) : [];
     } catch (error) {
       container.innerHTML = `<div class="bookshelf-empty"><p>${escapeHtml(error.message || '加载失败。')}</p></div>`;
       return;
@@ -69,29 +168,41 @@
       return;
     }
 
-    const booksPerRow = 8;
+    const booksPerRow = 9;
     const rowCount = Math.ceil(currentEntries.length / booksPerRow);
-    let html = '<div class="bookshelf-container"><div class="bookshelf">';
+    let html = `
+      <div class="library-cabinet" aria-label="读过的书架">
+        <div class="library-cabinet__crown">纸间藏书阁</div>
+        <div class="bookshelf">
+    `;
 
     for (let row = 0; row < rowCount; row += 1) {
       const rowBooks = currentEntries.slice(row * booksPerRow, (row + 1) * booksPerRow);
       html += '<div class="bookshelf-row">';
+      html += '<div class="shelf-bookend shelf-bookend--left" aria-hidden="true"></div>';
 
       rowBooks.forEach((entry, index) => {
-        const spineWidth = calculateSpineWidth(entry.title);
-        const spineColor = getSpineColor(entry.title);
-        const height = 140 + ((row * booksPerRow + index) % 5) * 4;
+        const title = getDisplayTitle(entry);
+        const spineWidth = calculateSpineWidth(title);
+        const spineColor = getSpineColor(entry);
+        const height = getBookHeight(row, index);
+        const lean = getBookLean(row * booksPerRow + index);
 
         html += `
-          <div class="book-spine book-spine--${spineColor}"
-               style="width: ${spineWidth}px; height: ${height}px;"
-               data-id="${escapeHtml(entry.id)}"
-               title="${escapeHtml(entry.title)}">
-            <span class="book-spine__title">${escapeHtml(entry.title)}</span>
-          </div>
+          <button class="book-spine book-spine--${spineColor}"
+                  style="width: ${spineWidth}px; height: ${height}px; --lean: ${lean}deg;"
+                  data-id="${escapeHtml(entry.id)}"
+                  type="button"
+                  title="${escapeHtml(title)}">
+            <span class="book-spine__cap" aria-hidden="true"></span>
+            <span class="book-spine__title">${escapeHtml(title)}</span>
+            <span class="book-spine__bottom" aria-hidden="true"></span>
+          </button>
         `;
       });
 
+      html += renderShelfDecor(rowBooks, row);
+      html += '<div class="shelf-bookend shelf-bookend--right" aria-hidden="true"></div>';
       html += '</div>';
     }
 
@@ -100,22 +211,31 @@
       <div class="book-modal" id="book-modal">
         <div class="book-modal__content">
           <button class="book-modal__close" id="modal-close" type="button">×</button>
-          <h2 class="book-modal__title" id="modal-title"></h2>
-          <p class="book-modal__author" id="modal-author"></p>
-          <div class="book-modal__meta">
-            <span class="book-modal__rating" id="modal-rating"></span>
-            <span class="book-modal__date" id="modal-date"></span>
-          </div>
-          <div class="book-modal__review" id="modal-review"></div>
-          <textarea class="edit-textarea" id="modal-textarea"></textarea>
-          <div class="book-modal__footer">
-            <span class="book-modal__edit-count" id="modal-edit-count"></span>
-            <div class="book-modal__actions">
-              <button class="book-modal__edit" id="modal-edit-btn" type="button">编辑</button>
-              <button class="book-modal__save" id="modal-save-btn" type="button" style="display:none">保存</button>
-              <button class="book-modal__cancel" id="modal-cancel-btn" type="button" style="display:none">取消</button>
-              <button class="book-modal__delete" id="modal-delete-btn" type="button">删除</button>
-            </div>
+          <div class="book-modal__spread">
+            <section class="book-modal__page book-modal__page--left">
+              <span class="book-modal__label">藏书票</span>
+              <h2 class="book-modal__title" id="modal-title"></h2>
+              <p class="book-modal__author" id="modal-author"></p>
+              <span class="book-modal__type" id="modal-type"></span>
+              <div class="book-modal__meta">
+                <span class="book-modal__rating" id="modal-rating"></span>
+                <span class="book-modal__date" id="modal-date"></span>
+              </div>
+            </section>
+            <section class="book-modal__page book-modal__page--right">
+              <span class="book-modal__label">读书笔记</span>
+              <div class="book-modal__review" id="modal-review"></div>
+              <textarea class="edit-textarea" id="modal-textarea"></textarea>
+              <div class="book-modal__footer">
+                <span class="book-modal__edit-count" id="modal-edit-count"></span>
+                <div class="book-modal__actions">
+                  <button class="book-modal__edit" id="modal-edit-btn" type="button">编辑</button>
+                  <button class="book-modal__save" id="modal-save-btn" type="button" style="display:none">保存</button>
+                  <button class="book-modal__cancel" id="modal-cancel-btn" type="button" style="display:none">取消</button>
+                  <button class="book-modal__delete" id="modal-delete-btn" type="button">删除</button>
+                </div>
+              </div>
+            </section>
           </div>
         </div>
       </div>
@@ -143,15 +263,38 @@
     document.getElementById('modal-delete-btn').addEventListener('click', deleteCurrentEntry);
   }
 
+  function getTypeName(type) {
+    const typeNames = {
+      fantasy: '奇幻魔法',
+      science: '科幻探索',
+      mystery: '悬疑推理',
+      fiction: '文学小说',
+      history: '历史传记',
+      philosophy: '哲学思考',
+      'self-help': '自我成长',
+      poetry: '诗歌散文',
+      other: '其他'
+    };
+    return typeNames[type] || '';
+  }
+
   function openModal(entry) {
     currentEntryId = entry.id;
-    document.getElementById('modal-title').textContent = entry.title;
+    document.getElementById('modal-title').textContent = getDisplayTitle(entry);
     document.getElementById('modal-author').textContent = entry.author || '未知作者';
     document.getElementById('modal-rating').textContent = renderStars(entry.rating || 0);
-    document.getElementById('modal-date').textContent = entry.readDate || '未记录';
-    document.getElementById('modal-review').textContent = entry.review || '';
-    document.getElementById('modal-textarea').value = entry.review || '';
+    document.getElementById('modal-date').textContent = entry.readDate || '未记录日期';
+    document.getElementById('modal-review').textContent = entry.review || entry.content || '暂无书评';
+    document.getElementById('modal-textarea').value = entry.review || entry.content || '';
     document.getElementById('modal-edit-count').textContent = `编辑 ${entry.editCount || 0} 次`;
+    
+    const typeSpan = document.getElementById('modal-type');
+    if (typeSpan) {
+      const typeName = getTypeName(entry.type);
+      typeSpan.textContent = typeName ? `【${typeName}】` : '';
+      typeSpan.style.display = typeName ? 'inline' : 'none';
+    }
+    
     document.getElementById('book-modal').classList.add('active');
     document.body.style.overflow = 'hidden';
   }
@@ -173,7 +316,7 @@
 
   function cancelEditing() {
     const entry = currentEntries.find((item) => item.id === currentEntryId);
-    if (entry) document.getElementById('modal-textarea').value = entry.review || '';
+    if (entry) document.getElementById('modal-textarea').value = entry.review || entry.content || '';
     document.getElementById('book-modal').classList.remove('editing');
     document.getElementById('modal-edit-btn').style.display = 'inline-block';
     document.getElementById('modal-save-btn').style.display = 'none';
@@ -186,7 +329,12 @@
     if (!entry || !review) return;
 
     try {
-      await window.PalaceDB.updateEntry(entry.id, { ...entry, review, content: review });
+      const key = `palace_${page}_entries`;
+      entry.review = review;
+      entry.content = review;
+      entry.updatedAt = new Date().toISOString();
+      entry.editCount = (entry.editCount || 0) + 1;
+      localStorage.setItem(key, JSON.stringify(currentEntries));
       closeModal();
       await renderEntries();
     } catch (error) {
@@ -197,7 +345,12 @@
   async function deleteCurrentEntry() {
     if (!currentEntryId || !confirm('确定要删除这本书吗？')) return;
     try {
-      await window.PalaceDB.deleteEntry(currentEntryId);
+      const key = `palace_${page}_entries`;
+      const index = currentEntries.findIndex((item) => item.id === currentEntryId);
+      if (index !== -1) {
+        currentEntries.splice(index, 1);
+        localStorage.setItem(key, JSON.stringify(currentEntries));
+      }
       closeModal();
       await renderEntries();
     } catch (error) {
@@ -216,7 +369,8 @@
     }
 
     stars.forEach((star) => {
-      star.addEventListener('click', () => {
+      star.addEventListener('click', (e) => {
+        e.preventDefault();
         const value = parseInt(star.dataset.value, 10);
         ratingInput.value = value;
         updateStars(value);
@@ -251,12 +405,13 @@
 
       const title = document.getElementById('book-title').value.trim();
       const author = document.getElementById('book-author').value.trim();
+      const bookType = document.getElementById('book-type').value;
       const rating = parseInt(document.getElementById('book-rating').value, 10) || 0;
       const readDate = document.getElementById('book-date').value;
       const review = document.getElementById('book-review').value.trim();
 
-      if (!title || !review) {
-        alert('请填写书名和书评。');
+      if (!title) {
+        alert('请填写书名。');
         return;
       }
 
@@ -264,10 +419,13 @@
       submitBtn.disabled = true;
 
       try {
+        const key = `palace_${page}_entries`;
         const now = new Date();
-        await window.PalaceDB.createEntry(page, {
+        const newEntry = {
+          id: Date.now().toString(36) + Math.random().toString(36).substr(2, 9),
           title,
           author,
+          type: bookType,
           rating,
           readDate: formatDate(readDate),
           review,
@@ -275,7 +433,10 @@
           createdAt: now.toISOString(),
           updatedAt: null,
           editCount: 0
-        });
+        };
+        
+        currentEntries.push(newEntry);
+        localStorage.setItem(key, JSON.stringify(currentEntries));
 
         inputForm.reset();
         document.getElementById('book-rating').value = 0;

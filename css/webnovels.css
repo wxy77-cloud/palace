@@ -1,0 +1,606 @@
+.page-webnovels {
+  background:
+    radial-gradient(circle at 52% 118%, rgba(8, 221, 201, 0.22), transparent 28%),
+    radial-gradient(circle at 80% 8%, rgba(212, 175, 55, 0.16), transparent 22%),
+    linear-gradient(160deg, #111b32 0%, #281a45 46%, #07101f 100%);
+}
+
+.page-webnovels::after {
+  content: '';
+  position: fixed;
+  inset: auto 0 0;
+  height: 42vh;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 50% 100%, rgba(119, 214, 201, 0.28), transparent 56%),
+    linear-gradient(180deg, transparent, rgba(2, 10, 22, 0.78));
+  z-index: -1;
+}
+
+.page-webnovels .page-content {
+  max-width: 1120px;
+}
+
+.webnovel-intro {
+  max-width: 760px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.webnovel-abyss {
+  position: relative;
+  min-height: 420px;
+  padding: 34px 0 90px;
+  border-radius: var(--radius-md);
+}
+
+.webnovel-abyss__mist {
+  position: absolute;
+  inset: auto 2% 10px;
+  height: 160px;
+  pointer-events: none;
+  border-radius: 50%;
+  background:
+    radial-gradient(ellipse at 50% 50%, rgba(119, 214, 201, 0.22), transparent 58%),
+    repeating-radial-gradient(ellipse at 50% 50%, rgba(212, 175, 55, 0.14) 0 1px, transparent 2px 32px);
+  filter: blur(1px);
+  opacity: 0.82;
+  animation: abyssPulse 6s ease-in-out infinite;
+}
+
+.webnovel-manuscript-stage {
+  position: relative;
+  z-index: 1;
+}
+
+.webnovel-empty {
+  border: 1px solid rgba(119, 214, 201, 0.25);
+  border-radius: var(--radius-md);
+  background: rgba(4, 13, 26, 0.28);
+}
+
+.webnovel-portal {
+  position: fixed;
+  right: 28px;
+  bottom: 28px;
+  z-index: 20;
+  pointer-events: none;
+}
+
+.webnovel-portal__button {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 118px;
+  height: 118px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  color: #fff7d6;
+  cursor: pointer;
+  pointer-events: auto;
+  background: transparent;
+  font-family: var(--font-chinese), var(--font-body);
+  filter: drop-shadow(0 0 24px rgba(119, 214, 201, 0.48));
+}
+
+.webnovel-portal__halo,
+.webnovel-portal__core {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+}
+
+.webnovel-portal__halo {
+  border: 2px solid rgba(212, 175, 55, 0.82);
+  background:
+    conic-gradient(from 45deg, rgba(119, 214, 201, 0.16), rgba(212, 175, 55, 0.58), rgba(119, 214, 201, 0.18), rgba(212, 175, 55, 0.62), rgba(119, 214, 201, 0.16));
+  animation: portalSpin 7s linear infinite;
+}
+
+.webnovel-portal__core {
+  inset: 18px;
+  background:
+    radial-gradient(circle, rgba(255, 249, 205, 0.96) 0 9%, rgba(119, 214, 201, 0.6) 24%, rgba(43, 22, 77, 0.68) 56%, rgba(3, 10, 21, 0.9) 72%);
+  box-shadow:
+    inset 0 0 24px rgba(255, 250, 210, 0.52),
+    0 0 28px rgba(119, 214, 201, 0.72);
+  animation: portalBreathe 2.8s ease-in-out infinite;
+}
+
+.webnovel-portal__text {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  z-index: 1;
+  font-size: 0.98rem;
+  font-weight: 600;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.78);
+}
+
+.webnovel-portal.portal-open .webnovel-portal__halo {
+  animation: portalOpen 520ms ease-out forwards;
+}
+
+.webnovel-portal.portal-saving .webnovel-form {
+  animation: manuscriptReturn 620ms ease-in forwards;
+}
+
+.webnovel-form {
+  position: fixed;
+  right: 34px;
+  bottom: 152px;
+  width: min(760px, calc(100vw - 48px));
+  max-height: min(760px, calc(100vh - 190px));
+  overflow: auto;
+  display: none;
+  padding: 30px;
+  pointer-events: auto;
+  border: 1px solid rgba(255, 244, 202, 0.58);
+  border-radius: var(--radius-md);
+  color: #2f2540;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(247, 238, 210, 0.96)),
+    radial-gradient(circle at top right, rgba(119, 214, 201, 0.35), transparent 34%);
+  background-size: 100% 100%, 100% 100%;
+  box-shadow:
+    0 18px 46px rgba(0, 0, 0, 0.42),
+    0 0 42px rgba(119, 214, 201, 0.34),
+    inset 0 0 32px rgba(255, 255, 255, 0.35);
+  transform-origin: calc(100% - 58px) 100%;
+}
+
+.webnovel-form.active {
+  display: block;
+  animation: manuscriptArrive 620ms cubic-bezier(.2, .9, .18, 1.08) both;
+}
+
+.webnovel-form__scroll {
+  position: absolute;
+  inset: 10px;
+  pointer-events: none;
+  border: 1px solid rgba(143, 105, 58, 0.22);
+  border-radius: var(--radius-sm);
+}
+
+.webnovel-form__header {
+  position: relative;
+  margin-bottom: 20px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(107, 76, 154, 0.22);
+}
+
+.webnovel-form__eyebrow {
+  display: block;
+  color: #6c5b7e;
+  font-size: 0.86rem;
+  font-family: var(--font-chinese), var(--font-body);
+}
+
+.webnovel-form__title {
+  color: #513870;
+  font-family: var(--font-display), var(--font-chinese);
+  font-size: 1.56rem;
+  letter-spacing: 0;
+}
+
+.webnovel-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 18px;
+}
+
+.webnovel-form .form-label {
+  color: #6c5b7e;
+}
+
+.webnovel-form .form-input,
+.webnovel-form .form-textarea {
+  background: rgba(255, 255, 255, 0.86);
+  border-color: rgba(107, 76, 154, 0.26);
+  color: #241a33;
+}
+
+.webnovel-form .form-input:focus,
+.webnovel-form .form-textarea:focus {
+  border-color: #6d908f;
+  box-shadow: 0 0 0 3px rgba(119, 214, 201, 0.2);
+}
+
+.webnovel-star-rating {
+  display: inline-flex;
+  gap: 4px;
+  padding: 8px 12px;
+  background: rgba(81, 56, 112, 0.08);
+  border: 1px solid rgba(107, 76, 154, 0.22);
+  border-radius: var(--radius-md);
+}
+
+.webnovel-star {
+  width: 32px;
+  height: 32px;
+  background: transparent;
+  border: 0;
+  color: rgba(81, 56, 112, 0.32);
+  cursor: pointer;
+  font-size: 1.45rem;
+  line-height: 1;
+  transition: color var(--transition-fast), transform var(--transition-fast);
+}
+
+.webnovel-star:hover,
+.webnovel-star.active {
+  color: #b08a22;
+  transform: translateY(-1px);
+}
+
+.webnovel-tag-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.webnovel-tag-option {
+  min-height: 34px;
+  padding: 6px 12px;
+  background: rgba(81, 56, 112, 0.08);
+  border: 1px solid rgba(107, 76, 154, 0.24);
+  border-radius: var(--radius-sm);
+  color: #513870;
+  cursor: pointer;
+  font-family: var(--font-chinese), var(--font-body);
+  transition: background var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
+}
+
+.webnovel-tag-option:hover,
+.webnovel-tag-option.active {
+  background: rgba(119, 214, 201, 0.18);
+  border-color: #6d908f;
+  color: #264c4c;
+}
+
+.webnovel-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  cursor: pointer;
+  color: #513870;
+  font-family: var(--font-chinese), var(--font-body);
+}
+
+.webnovel-switch input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.webnovel-switch__track {
+  position: relative;
+  width: 50px;
+  height: 28px;
+  border: 1px solid rgba(107, 76, 154, 0.28);
+  border-radius: 999px;
+  background: rgba(81, 56, 112, 0.1);
+  transition: background var(--transition-fast), border-color var(--transition-fast);
+}
+
+.webnovel-switch__track::after {
+  content: '';
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #8c809b;
+  transition: transform var(--transition-fast), background var(--transition-fast);
+}
+
+.webnovel-switch input:checked + .webnovel-switch__track {
+  border-color: #b08a22;
+  background: rgba(212, 175, 55, 0.2);
+}
+
+.webnovel-switch input:checked + .webnovel-switch__track::after {
+  transform: translateX(22px);
+  background: #b08a22;
+}
+
+.webnovel-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px;
+  align-items: start;
+}
+
+.webnovel-manuscript {
+  position: relative;
+  min-height: 260px;
+  padding: 28px 28px 24px;
+  border: 1px solid rgba(255, 244, 202, 0.38);
+  border-radius: var(--radius-md);
+  color: #fbf5dd;
+  background:
+    linear-gradient(90deg, rgba(255, 244, 202, 0.05) 0 1px, transparent 1px 100%),
+    linear-gradient(145deg, rgba(255, 253, 231, 0.2), rgba(119, 214, 201, 0.07) 46%, rgba(31, 22, 52, 0.34)),
+    rgba(6, 15, 29, 0.56);
+  background-size: 30px 100%, 100% 100%, 100% 100%;
+  box-shadow:
+    0 18px 44px rgba(0, 0, 0, 0.28),
+    0 0 28px rgba(119, 214, 201, 0.2),
+    inset 0 0 30px rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(10px);
+  transform: translateY(0) rotate(var(--tilt, -0.8deg));
+  animation: manuscriptFloat 5.2s ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+}
+
+.webnovel-manuscript:nth-child(2n) {
+  --tilt: 0.9deg;
+  --delay: -1.6s;
+}
+
+.webnovel-manuscript:nth-child(3n) {
+  --tilt: -1.3deg;
+  --delay: -3s;
+}
+
+.webnovel-manuscript::before {
+  content: '';
+  position: absolute;
+  inset: 12px;
+  pointer-events: none;
+  border: 1px solid rgba(255, 244, 202, 0.18);
+  border-radius: var(--radius-sm);
+}
+
+.webnovel-manuscript--favorite {
+  border-color: rgba(212, 175, 55, 0.58);
+  box-shadow:
+    0 18px 44px rgba(0, 0, 0, 0.3),
+    0 0 34px rgba(212, 175, 55, 0.28),
+    inset 0 0 30px rgba(255, 255, 255, 0.08);
+}
+
+.webnovel-manuscript__header {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  align-items: flex-start;
+}
+
+.webnovel-manuscript__title {
+  color: #fff4b8;
+  font-family: var(--font-display), var(--font-chinese);
+  font-size: 1.32rem;
+  letter-spacing: 0;
+  overflow-wrap: anywhere;
+}
+
+.webnovel-manuscript__author {
+  margin-top: 5px;
+  color: rgba(232, 224, 240, 0.78);
+  font-size: 0.94rem;
+}
+
+.webnovel-manuscript__rating {
+  flex: 0 0 auto;
+  color: var(--golden-accent);
+  font-size: 1rem;
+  letter-spacing: 2px;
+  white-space: nowrap;
+}
+
+.webnovel-manuscript__badges,
+.webnovel-manuscript__meta,
+.webnovel-manuscript__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.webnovel-manuscript__badge,
+.webnovel-manuscript__tag {
+  padding: 3px 9px;
+  border: 1px solid rgba(119, 214, 201, 0.28);
+  border-radius: var(--radius-sm);
+  color: #d7fbf6;
+  background: rgba(119, 214, 201, 0.08);
+  font-size: 0.86rem;
+}
+
+.webnovel-manuscript__badge--favorite {
+  border-color: rgba(212, 175, 55, 0.48);
+  color: var(--golden-accent);
+  background: rgba(212, 175, 55, 0.12);
+}
+
+.webnovel-manuscript__meta {
+  color: rgba(232, 224, 240, 0.72);
+  font-size: 0.91rem;
+}
+
+.webnovel-manuscript__review {
+  margin-top: 14px;
+  color: rgba(250, 248, 252, 0.9);
+  line-height: 1.8;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.webnovel-manuscript__footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(212, 175, 55, 0.14);
+}
+
+.webnovel-manuscript__edit-count {
+  color: rgba(232, 224, 240, 0.62);
+  font-size: 0.82rem;
+}
+
+.webnovel-manuscript__actions {
+  display: flex;
+  gap: 8px;
+}
+
+.webnovel-manuscript__actions button {
+  padding: 6px 12px;
+  background: rgba(0, 0, 0, 0.12);
+  border: 1px solid rgba(232, 224, 240, 0.36);
+  border-radius: var(--radius-sm);
+  color: rgba(250, 248, 252, 0.84);
+  cursor: pointer;
+  font-family: var(--font-body), var(--font-chinese);
+  transition: border-color var(--transition-fast), color var(--transition-fast), background var(--transition-fast);
+}
+
+.webnovel-manuscript__actions button:hover {
+  border-color: var(--golden-accent);
+  color: var(--golden-accent);
+  background: rgba(212, 175, 55, 0.1);
+}
+
+@keyframes portalSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes portalBreathe {
+  0%, 100% {
+    transform: scale(0.95);
+    opacity: 0.86;
+  }
+  50% {
+    transform: scale(1.04);
+    opacity: 1;
+  }
+}
+
+@keyframes portalOpen {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(8.5);
+    opacity: 0;
+  }
+}
+
+@keyframes manuscriptArrive {
+  0% {
+    opacity: 0;
+    transform: translate(90px, 120px) scale(0.18) rotate(18deg);
+    filter: blur(12px);
+  }
+  60% {
+    opacity: 1;
+    filter: blur(0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0, 0) scale(1) rotate(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes manuscriptReturn {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) scale(1) rotate(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(90px, 120px) scale(0.16) rotate(-16deg);
+    filter: blur(10px);
+  }
+}
+
+@keyframes manuscriptFloat {
+  0%, 100% {
+    transform: translateY(0) rotate(var(--tilt, -0.8deg));
+  }
+  50% {
+    transform: translateY(-10px) rotate(calc(var(--tilt, -0.8deg) * -1));
+  }
+}
+
+@keyframes abyssPulse {
+  0%, 100% {
+    transform: scaleX(0.96);
+    opacity: 0.62;
+  }
+  50% {
+    transform: scaleX(1.04);
+    opacity: 0.94;
+  }
+}
+
+@media (max-width: 860px) {
+  .webnovel-list {
+    grid-template-columns: 1fr;
+  }
+
+  .webnovel-form {
+    right: 18px;
+    bottom: 138px;
+    width: calc(100vw - 36px);
+  }
+}
+
+@media (max-width: 640px) {
+  .webnovel-portal {
+    right: 18px;
+    bottom: 18px;
+  }
+
+  .webnovel-portal__button {
+    width: 96px;
+    height: 96px;
+  }
+
+  .webnovel-form {
+    padding: 24px 18px;
+    max-height: calc(100vh - 140px);
+    bottom: 116px;
+  }
+
+  .webnovel-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .webnovel-manuscript__header,
+  .webnovel-manuscript__footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .webnovel-manuscript__actions {
+    width: 100%;
+  }
+
+  .webnovel-manuscript__actions button {
+    flex: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .webnovel-abyss__mist,
+  .webnovel-manuscript,
+  .webnovel-portal__halo,
+  .webnovel-portal__core,
+  .webnovel-form.active,
+  .webnovel-portal.portal-saving .webnovel-form {
+    animation: none;
+  }
+}

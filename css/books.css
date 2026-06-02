@@ -1,47 +1,118 @@
 /* ========================================
-   纸间行旅 - 书籍模块专用样式
+   纸间行旅 - 魔法学院图书馆风格
    ======================================== */
 
-/* 木质书架容器 */
-.bookshelf-container {
-  width: 100%;
-  min-height: 400px;
-  padding: 20px 0 40px;
+/* 图书馆整体容器 */
+.library-cabinet {
   position: relative;
+  margin-top: 30px;
+}
+
+.library-cabinet::before {
+  content: '';
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 30px;
+  background: 
+    radial-gradient(circle at 50% 100%, #8B6914 0%, #6B4F10 50%, transparent 70%),
+    linear-gradient(to bottom, #D4AF37, #B8960B);
+  border-radius: 50% 50% 0 0;
+  box-shadow: 
+    0 2px 10px rgba(212, 175, 55, 0.4),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.library-cabinet__crown {
+  text-align: center;
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 1.8rem;
+  color: #C9A962;
+  text-shadow: 
+    0 2px 4px rgba(0, 0, 0, 0.3),
+    0 0 20px rgba(201, 169, 98, 0.3);
+  letter-spacing: 8px;
+  margin-bottom: 16px;
+  padding: 12px;
+  border-bottom: 2px solid rgba(201, 169, 98, 0.3);
+  position: relative;
+}
+
+.library-cabinet__crown::before,
+.library-cabinet__crown::after {
+  content: '✧';
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.2rem;
+  color: #D4AF37;
+  opacity: 0.6;
+}
+
+.library-cabinet__crown::before {
+  left: 10%;
+}
+
+.library-cabinet__crown::after {
+  right: 10%;
 }
 
 /* 木质书架背景 */
 .bookshelf {
-  background:
-    linear-gradient(90deg,
-      rgba(139, 90, 43, 0.08) 0%,
-      transparent 2%,
-      transparent 98%,
-      rgba(139, 90, 43, 0.08) 100%
-    ),
-    repeating-linear-gradient(
-      90deg,
-      transparent,
-      transparent 30px,
-      rgba(139, 90, 43, 0.02) 30px,
-      rgba(139, 90, 43, 0.02) 31px
-    ),
+  background: 
     linear-gradient(180deg,
-      #E8D4B8 0%,
-      #D7B586 15%,
-      #C4A070 30%,
-      #D7B586 50%,
-      #C4A070 70%,
-      #D7B586 90%,
-      #E8D4B8 100%
+      #1a120a 0%,
+      #2d1f14 20%,
+      #3d2a1a 50%,
+      #2d1f14 80%,
+      #1a120a 100%
     );
-  border-radius: 4px;
-  padding: 15px 20px 25px;
+  border-radius: 12px;
+  padding: 24px 20px;
   position: relative;
   box-shadow:
-    inset 0 2px 4px rgba(255, 255, 255, 0.3),
-    inset 0 -3px 6px rgba(0, 0, 0, 0.15),
-    0 8px 24px rgba(0, 0, 0, 0.3);
+    inset 0 0 80px rgba(0, 0, 0, 0.5),
+    0 10px 40px rgba(0, 0, 0, 0.4),
+    0 0 0 2px rgba(184, 149, 106, 0.3),
+    inset 0 2px 0 rgba(255, 255, 255, 0.05);
+}
+
+.bookshelf::before {
+  content: '';
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  right: 8px;
+  height: 4px;
+  background: 
+    linear-gradient(90deg,
+      transparent 0%,
+      rgba(201, 169, 98, 0.3) 20%,
+      rgba(201, 169, 98, 0.5) 50%,
+      rgba(201, 169, 98, 0.3) 80%,
+      transparent 100%
+    );
+  border-radius: 2px;
+}
+
+.bookshelf::after {
+  content: '';
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  right: 8px;
+  height: 4px;
+  background: 
+    linear-gradient(90deg,
+      transparent 0%,
+      rgba(139, 109, 76, 0.4) 20%,
+      rgba(139, 109, 76, 0.6) 50%,
+      rgba(139, 109, 76, 0.4) 80%,
+      transparent 100%
+    );
+  border-radius: 2px;
 }
 
 /* 书架层 */
@@ -49,28 +120,332 @@
   display: flex;
   align-items: flex-end;
   justify-content: flex-start;
-  gap: 8px;
-  padding: 12px 10px 8px;
+  gap: 6px;
+  padding: 15px 12px 10px;
   min-height: 180px;
-  border-bottom: 12px solid #B8956A;
+  border-bottom: 14px solid #5D4037;
   position: relative;
-  background: #E5D3BD;
+  background: 
+    linear-gradient(180deg,
+      rgba(184, 149, 106, 0.15) 0%,
+      rgba(184, 149, 106, 0.08) 100%
+    );
+  margin-bottom: 2px;
 }
 
 /* 书架层底部阴影 */
 .bookshelf-row::after {
   content: '';
   position: absolute;
-  bottom: -12px;
+  bottom: -14px;
   left: 0;
   right: 0;
+  height: 14px;
+  background: 
+    linear-gradient(to bottom,
+      #4A3428 0%,
+      #3D2A1F 40%,
+      #2D1F14 100%
+    );
+  box-shadow: 
+    inset 0 2px 4px rgba(255, 255, 255, 0.1),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* 书架层底部立体效果 */
+.bookshelf-row::before {
+  content: '';
+  position: absolute;
+  bottom: -16px;
+  left: 4px;
+  right: 4px;
+  height: 8px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 0 0 4px 4px;
+}
+
+/* 书架末端装饰 */
+.shelf-bookend {
+  width: 24px;
+  height: 160px;
+  background: 
+    linear-gradient(90deg,
+      #3D2A1F 0%,
+      #5D4037 20%,
+      #4A3428 50%,
+      #5D4037 80%,
+      #3D2A1F 100%
+    );
+  border-radius: 4px;
+  flex-shrink: 0;
+  box-shadow: 
+    inset 0 0 10px rgba(0, 0, 0, 0.3),
+    2px 0 6px rgba(0, 0, 0, 0.3);
+}
+
+.shelf-bookend--right {
+  height: 155px;
+}
+
+/* 书架装饰物 */
+.shelf-object {
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+/* 魔法蜡烛 */
+.shelf-object--candle {
+  width: 20px;
+  height: 70px;
+  background: 
+    linear-gradient(90deg,
+      #F5E6D3 0%,
+      #FFFAF0 30%,
+      #F5E6D3 70%,
+      #E8D4B8 100%
+    );
+  border-radius: 3px 3px 0 0;
+  position: relative;
+  box-shadow: 
+    2px 2px 8px rgba(0, 0, 0, 0.3),
+    inset -1px 0 3px rgba(0, 0, 0, 0.1);
+}
+
+.shelf-object--candle::before {
+  content: '';
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 14px;
+  height: 14px;
+  background: 
+    radial-gradient(circle,
+      #FFE4B5 0%,
+      #FFD700 30%,
+      #FFA500 60%,
+      #FF6347 100%
+    );
+  border-radius: 50%;
+  animation: candleGlow 2s ease-in-out infinite;
+  box-shadow: 
+    0 0 20px rgba(255, 215, 0, 0.8),
+    0 0 40px rgba(255, 165, 0, 0.5),
+    0 0 60px rgba(255, 99, 71, 0.3);
+}
+
+.shelf-object--candle::after {
+  content: '';
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 6px;
+  height: 8px;
+  background: linear-gradient(to top, #2D1F14, #4A3428);
+  border-radius: 0 0 2px 2px;
+}
+
+@keyframes candleGlow {
+  0%, 100% {
+    transform: translateX(-50%) scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: translateX(-50%) scale(1.15);
+    opacity: 0.85;
+  }
+}
+
+/* 水晶球 */
+.shelf-object--crystal {
+  width: 48px;
+  height: 48px;
+  background: 
+    radial-gradient(circle at 30% 30%,
+      rgba(173, 216, 230, 0.9) 0%,
+      rgba(135, 206, 250, 0.6) 20%,
+      rgba(100, 149, 237, 0.4) 50%,
+      rgba(70, 130, 180, 0.3) 80%,
+      rgba(30, 80, 130, 0.2) 100%
+    );
+  border-radius: 50%;
+  position: relative;
+  box-shadow: 
+    0 4px 12px rgba(0, 0, 0, 0.4),
+    inset 0 0 20px rgba(173, 216, 230, 0.5);
+  animation: crystalFloat 4s ease-in-out infinite;
+}
+
+.shelf-object--crystal::before {
+  content: '';
+  position: absolute;
+  top: 8px;
+  left: 12px;
+  width: 12px;
   height: 12px;
-  background: linear-gradient(
-    to bottom,
-    rgba(139, 90, 43, 0.25),
-    rgba(139, 90, 43, 0.08) 50%,
-    transparent
-  );
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+}
+
+.shelf-object--crystal::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 12px;
+  background: linear-gradient(to bottom, #8B7355, #6B5344);
+  border-radius: 0 0 4px 4px;
+}
+
+@keyframes crystalFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+/* 魔法花瓶 */
+.shelf-object--vase {
+  width: 36px;
+  height: 80px;
+  background: 
+    linear-gradient(135deg,
+      #8B5A2B 0%,
+      #A67B5B 30%,
+      #8B5A2B 70%,
+      #6B4423 100%
+    );
+  border-radius: 4px 4px 12px 12px;
+  position: relative;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.shelf-object--vase::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 44px;
+  height: 12px;
+  background: #D4AF37;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.shelf-object--vase::after {
+  content: '✦';
+  position: absolute;
+  top: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 14px;
+  color: #D4AF37;
+  opacity: 0.7;
+  text-shadow: 0 0 8px rgba(212, 175, 55, 0.5);
+}
+
+/* 书籍堆叠 */
+.shelf-object--stack {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  margin-left: 10px;
+}
+
+.shelf-object--stack span {
+  display: block;
+  background: linear-gradient(90deg, #4A3428, #6B4423);
+  border-radius: 2px;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.shelf-object--stack span:nth-child(1) { width: 48px; height: 6px; }
+.shelf-object--stack span:nth-child(2) { width: 42px; height: 5px; }
+.shelf-object--stack span:nth-child(3) { width: 38px; height: 7px; }
+
+/* 猫头鹰装饰 */
+.shelf-object--owl {
+  width: 40px;
+  height: 50px;
+  position: relative;
+  background: 
+    radial-gradient(ellipse at 50% 60%,
+      #5D4E37 0%,
+      #4A3E2E 50%,
+      #3D3326 100%
+    );
+  border-radius: 50% 50% 40% 40%;
+  box-shadow: 2px 3px 8px rgba(0, 0, 0, 0.4);
+}
+
+.shelf-object--owl::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: 8px;
+  width: 10px;
+  height: 15px;
+  background: linear-gradient(to top, #5D4E37, #6B5E47);
+  border-radius: 50% 50% 0 0;
+}
+
+.shelf-object--owl::after {
+  content: '';
+  position: absolute;
+  top: -10px;
+  right: 8px;
+  width: 10px;
+  height: 15px;
+  background: linear-gradient(to top, #5D4E37, #6B5E47);
+  border-radius: 50% 50% 0 0;
+}
+
+.shelf-object--owl .owl-eye {
+  position: absolute;
+  top: 18px;
+  width: 12px;
+  height: 12px;
+  background: #D4AF37;
+  border-radius: 50%;
+  box-shadow: 
+    inset 0 0 4px rgba(0, 0, 0, 0.3),
+    0 0 8px rgba(212, 175, 55, 0.5);
+}
+
+.shelf-object--owl .owl-eye:first-child { left: 6px; }
+.shelf-object--owl .owl-eye:last-child { right: 6px; }
+
+/* 金属书立 */
+.shelf-object--bookend {
+  width: 32px;
+  height: 170px;
+  background: 
+    linear-gradient(90deg,
+      #2D1F14 0%,
+      #4A3428 30%,
+      #3D2A1F 70%,
+      #2D1F14 100%
+    );
+  border-radius: 2px;
+  margin-left: auto;
+  box-shadow: 
+    inset 2px 0 8px rgba(255, 255, 255, 0.1),
+    3px 0 10px rgba(0, 0, 0, 0.4);
+}
+
+.shelf-object--bookend::before {
+  content: '✧';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 18px;
+  color: #D4AF37;
+  opacity: 0.5;
+  text-shadow: 0 0 8px rgba(212, 175, 55, 0.3);
 }
 
 /* 书脊基础样式 */
@@ -79,191 +454,1028 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(90deg,
-    rgba(0, 0, 0, 0.08) 0%,
-    transparent 12%,
-    transparent 88%,
-    rgba(0, 0, 0, 0.08) 100%
-  ),
-  linear-gradient(180deg,
-    #F5E6D3 0%,
-    #E8D4B8 10%,
-    #DEC9A8 50%,
-    #D4B896 90%,
-    #C9A87C 100%
-  );
-  border-radius: 2px 2px 0 0;
   cursor: pointer;
   transition: all 0.3s ease;
   position: relative;
+  transform: rotate(var(--lean, 0deg));
+  transform-origin: bottom center;
+  border-radius: 3px 3px 0 0;
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.4),
-    2px 0 4px rgba(0, 0, 0, 0.15),
-    -1px 0 2px rgba(0, 0, 0, 0.1);
+    3px 0 8px rgba(0, 0, 0, 0.4),
+    -1px 0 4px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
   overflow: hidden;
   writing-mode: vertical-rl;
   text-orientation: mixed;
-  transform-origin: bottom center;
+  flex-shrink: 0;
+  border: none;
+  padding: 0;
 }
 
 .book-spine:hover {
-  transform: translateY(-8px) scale(1.02);
+  transform: rotate(var(--lean, 0deg)) translateY(-12px) scale(1.03);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.5),
-    4px 0 8px rgba(0, 0, 0, 0.3),
-    -2px 0 4px rgba(0, 0, 0, 0.2),
-    0 12px 24px rgba(0, 0, 0, 0.3);
-  z-index: 10;
-}
-
-.book-spine:active {
-  transform: translateY(-4px) scale(1.01);
+    5px 0 16px rgba(0, 0, 0, 0.5),
+    -2px 0 8px rgba(0, 0, 0, 0.3),
+    0 15px 30px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  z-index: 20;
 }
 
 /* 书脊顶部装饰 */
-.book-spine::before {
-  content: '';
+.book-spine__cap {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  height: 6px;
+  height: 8px;
   background: linear-gradient(to bottom,
-    rgba(139, 90, 43, 0.6),
+    rgba(0, 0, 0, 0.4),
     transparent
   );
-  border-radius: 2px 2px 0 0;
+  border-radius: 3px 3px 0 0;
+}
+
+/* 书脊底部 */
+.book-spine__bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: rgba(0, 0, 0, 0.3);
 }
 
 /* 书脊书名 */
 .book-spine__title {
-  font-family: var(--font-chinese), var(--font-body), serif;
-  font-size: 14px;
+  font-family: 'Noto Serif SC', 'Cormorant Garamond', serif;
+  font-size: 13px;
   font-weight: 600;
-  color: #4A3B2F;
+  color: #F5E6D3;
   text-align: center;
-  padding: 10px 6px;
-  letter-spacing: 2px;
-  line-height: 1.4;
+  padding: 12px 6px;
+  letter-spacing: 1.5px;
+  line-height: 1.5;
   max-height: 140px;
   overflow: hidden;
-  text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.5);
+  text-shadow: 
+    1px 1px 2px rgba(0, 0, 0, 0.8),
+    0 0 8px rgba(201, 169, 98, 0.2);
 }
 
-/* 书脊颜色变体 */
-.book-spine--cream { /* 柔杏 */
+/* 书脊颜色变体 - 根据评分区分 */
+
+/* 五星书籍 - 尊贵色系 */
+.book-spine--oxblood {
   background: linear-gradient(90deg,
-    rgba(0, 0, 0, 0.06) 0%,
-    transparent 12%,
-    transparent 88%,
-    rgba(0, 0, 0, 0.06) 100%
+    rgba(0, 0, 0, 0.3) 0%,
+    rgba(0, 0, 0, 0.1) 15%,
+    transparent 30%,
+    transparent 70%,
+    rgba(0, 0, 0, 0.1) 85%,
+    rgba(0, 0, 0, 0.3) 100%
   ),
   linear-gradient(180deg,
-    #F5E8D8 0%,
-    #E8C9A0 20%,
-    #DEC9A8 50%,
-    #D4B896 80%,
-    #C9A87C 100%
+    #8B2635 0%,
+    #6B1E29 30%,
+    #5B1822 70%,
+    #4A141B 100%
   );
 }
 
-.book-spine--pink { /* 雾粉 */
+.book-spine--gold {
   background: linear-gradient(90deg,
-    rgba(0, 0, 0, 0.06) 0%,
-    transparent 12%,
-    transparent 88%,
-    rgba(0, 0, 0, 0.06) 100%
+    rgba(0, 0, 0, 0.2) 0%,
+    rgba(0, 0, 0, 0.05) 15%,
+    transparent 30%,
+    transparent 70%,
+    rgba(0, 0, 0, 0.05) 85%,
+    rgba(0, 0, 0, 0.2) 100%
   ),
   linear-gradient(180deg,
-    #F5E8E8 0%,
-    #D9A7A0 20%,
-    #C89898 50%,
-    #B88888 80%,
-    #A87878 100%
+    #D4AF37 0%,
+    #B8960B 30%,
+    #A08008 70%,
+    #886806 100%
   );
 }
 
-.book-spine--sage { /* 淡鼠尾草绿 */
+.book-spine--gold .book-spine__title {
+  color: #F5E6C8;
+}
+
+.book-spine--emerald {
   background: linear-gradient(90deg,
-    rgba(0, 0, 0, 0.06) 0%,
-    transparent 12%,
-    transparent 88%,
-    rgba(0, 0, 0, 0.06) 100%
+    rgba(0, 0, 0, 0.25) 0%,
+    rgba(0, 0, 0, 0.08) 15%,
+    transparent 30%,
+    transparent 70%,
+    rgba(0, 0, 0, 0.08) 85%,
+    rgba(0, 0, 0, 0.25) 100%
   ),
   linear-gradient(180deg,
-    #E8F0E8 0%,
-    #B8C4A5 20%,
-    #A8B495 50%,
-    #98A485 80%,
-    #889475 100%
+    #006B3C 0%,
+    #005A32 30%,
+    #004A28 70%,
+    #003A1E 100%
   );
 }
 
-.book-spine--sky { /* 晴空蓝 */
+/* 四星书籍 - 深邃色系 */
+.book-spine--royal {
   background: linear-gradient(90deg,
-    rgba(0, 0, 0, 0.06) 0%,
-    transparent 12%,
-    transparent 88%,
-    rgba(0, 0, 0, 0.06) 100%
+    rgba(0, 0, 0, 0.2) 0%,
+    rgba(0, 0, 0, 0.06) 15%,
+    transparent 30%,
+    transparent 70%,
+    rgba(0, 0, 0, 0.06) 85%,
+    rgba(0, 0, 0, 0.2) 100%
   ),
   linear-gradient(180deg,
-    #E8F0F8 0%,
-    #A3B5C7 20%,
-    #93A5B7 50%,
-    #8395A7 80%,
-    #738595 100%
+    #4169E1 0%,
+    #2E4EC9 30%,
+    #2540B0 70%,
+    #1C3296 100%
   );
 }
 
-.book-spine--milktea { /* 奶茶色 */
+.book-spine--indigo {
   background: linear-gradient(90deg,
-    rgba(0, 0, 0, 0.06) 0%,
-    transparent 12%,
-    transparent 88%,
-    rgba(0, 0, 0, 0.06) 100%
+    rgba(0, 0, 0, 0.22) 0%,
+    rgba(0, 0, 0, 0.07) 15%,
+    transparent 30%,
+    transparent 70%,
+    rgba(0, 0, 0, 0.07) 85%,
+    rgba(0, 0, 0, 0.22) 100%
   ),
   linear-gradient(180deg,
-    #F0E8E0 0%,
-    #C4A882 20%,
-    #B49872 50%,
-    #A48862 80%,
-    #947852 100%
+    #4B0082 0%,
+    #3D006B 30%,
+    #320059 70%,
+    #270047 100%
   );
 }
 
-.book-spine--lavender { /* 淡紫灰 */
+.book-spine--burgundy {
   background: linear-gradient(90deg,
-    rgba(0, 0, 0, 0.06) 0%,
-    transparent 12%,
-    transparent 88%,
-    rgba(0, 0, 0, 0.06) 100%
+    rgba(0, 0, 0, 0.25) 0%,
+    rgba(0, 0, 0, 0.08) 15%,
+    transparent 30%,
+    transparent 70%,
+    rgba(0, 0, 0, 0.08) 85%,
+    rgba(0, 0, 0, 0.25) 100%
   ),
   linear-gradient(180deg,
-    #F0E8F0 0%,
-    #C4B7C9 20%,
-    #B4A7B9 50%,
-    #A497A9 80%,
-    #948799 100%
+    #722F37 0%,
+    #5C262E 30%,
+    #4A1F25 70%,
+    #3D1A1F 100%
   );
 }
 
-.book-spine--butter { /* 奶油黄 */
+/* 三星书籍 - 自然色系 */
+.book-spine--forest {
   background: linear-gradient(90deg,
-    rgba(0, 0, 0, 0.06) 0%,
-    transparent 12%,
-    transparent 88%,
-    rgba(0, 0, 0, 0.06) 100%
+    rgba(0, 0, 0, 0.18) 0%,
+    rgba(0, 0, 0, 0.05) 15%,
+    transparent 30%,
+    transparent 70%,
+    rgba(0, 0, 0, 0.05) 85%,
+    rgba(0, 0, 0, 0.18) 100%
   ),
   linear-gradient(180deg,
-    #F8F4E8 0%,
-    #F2E3C6 20%,
-    #E8DAB8 50%,
-    #D8CAA8 80%,
-    #C8BA98 100%
+    #228B22 0%,
+    #1A6B1A 30%,
+    #145414 70%,
+    #0F420F 100%
   );
 }
 
-/* 书籍详情模态框 */
+.book-spine--teal {
+  background: linear-gradient(90deg,
+    rgba(0, 0, 0, 0.15) 0%,
+    rgba(0, 0, 0, 0.04) 15%,
+    transparent 30%,
+    transparent 70%,
+    rgba(0, 0, 0, 0.04) 85%,
+    rgba(0, 0, 0, 0.15) 100%
+  ),
+  linear-gradient(180deg,
+    #008080 0%,
+    #006A6A 30%,
+    #005454 70%,
+    #004040 100%
+  );
+}
+
+.book-spine--plum {
+  background: linear-gradient(90deg,
+    rgba(0, 0, 0, 0.18) 0%,
+    rgba(0, 0, 0, 0.06) 15%,
+    transparent 30%,
+    transparent 70%,
+    rgba(0, 0, 0, 0.06) 85%,
+    rgba(0, 0, 0, 0.18) 100%
+  ),
+  linear-gradient(180deg,
+    #7D4D6E 0%,
+    #6B405E 30%,
+    #59344E 70%,
+    #472A3E 100%
+  );
+}
+
+/* 二星书籍 - 柔和色系 */
+.book-spine--sage {
+  background: linear-gradient(90deg,
+    rgba(0, 0, 0, 0.12) 0%,
+    rgba(0, 0, 0, 0.03) 15%,
+    transparent 30%,
+    transparent 70%,
+    rgba(0, 0, 0, 0.03) 85%,
+    rgba(0, 0, 0, 0.12) 100%
+  ),
+  linear-gradient(180deg,
+    #B8C4A5 0%,
+    #A0B08D 30%,
+    #889875 70%,
+    #70805D 100%
+  );
+}
+
+.book-spine--sage .book-spine__title {
+  color: #2D3A2D;
+}
+
+.book-spine--mauve {
+  background: linear-gradient(90deg,
+    rgba(0, 0, 0, 0.1) 0%,
+    rgba(0, 0, 0, 0.03) 15%,
+    transparent 30%,
+    transparent 70%,
+    rgba(0, 0, 0, 0.03) 85%,
+    rgba(0, 0, 0, 0.1) 100%
+  ),
+  linear-gradient(180deg,
+    #D4B5C0 0%,
+    #C09FA9 30%,
+    #AC8493 70%,
+    #986B7D 100%
+  );
+}
+
+.book-spine--mauve .book-spine__title {
+  color: #4A353D;
+}
+
+.book-spine--sand {
+  background: linear-gradient(90deg,
+    rgba(0, 0, 0, 0.08) 0%,
+    rgba(0, 0, 0, 0.02) 15%,
+    transparent 30%,
+    transparent 70%,
+    rgba(0, 0, 0, 0.02) 85%,
+    rgba(0, 0, 0, 0.08) 100%
+  ),
+  linear-gradient(180deg,
+    #D4C4A8 0%,
+    #C0B094 30%,
+    #AC9C7A 70%,
+    #988860 100%
+  );
+}
+
+.book-spine--sand .book-spine__title {
+  color: #3D3224;
+}
+
+/* 一星书籍 - 暗淡色系 */
+.book-spine--stone {
+  background: linear-gradient(90deg,
+    rgba(0, 0, 0, 0.1) 0%,
+    rgba(0, 0, 0, 0.03) 15%,
+    transparent 30%,
+    transparent 70%,
+    rgba(0, 0, 0, 0.03) 85%,
+    rgba(0, 0, 0, 0.1) 100%
+  ),
+  linear-gradient(180deg,
+    #989898 0%,
+    #808080 30%,
+    #686868 70%,
+    #505050 100%
+  );
+}
+
+.book-spine--stone .book-spine__title {
+  color: #E8E8E8;
+}
+
+.book-spine--ash {
+  background: linear-gradient(90deg,
+    rgba(0, 0, 0, 0.08) 0%,
+    rgba(0, 0, 0, 0.02) 15%,
+    transparent 30%,
+    transparent 70%,
+    rgba(0, 0, 0, 0.02) 85%,
+    rgba(0, 0, 0, 0.08) 100%
+  ),
+  linear-gradient(180deg,
+    #B8B8B8 0%,
+    #A0A0A0 30%,
+    #888888 70%,
+    #707070 100%
+  );
+}
+
+.book-spine--ash .book-spine__title {
+  color: #383838;
+}
+
+.book-spine--dusty {
+  background: linear-gradient(90deg,
+    rgba(0, 0, 0, 0.06) 0%,
+    rgba(0, 0, 0, 0.02) 15%,
+    transparent 30%,
+    transparent 70%,
+    rgba(0, 0, 0, 0.02) 85%,
+    rgba(0, 0, 0, 0.06) 100%
+  ),
+  linear-gradient(180deg,
+    #C8C0B0 0%,
+    #B0A898 30%,
+    #989080 70%,
+    #807870 100%
+  );
+}
+
+.book-spine--dusty .book-spine__title {
+  color: #484438;
+}
+
+/* ========================================
+   梦幻色系 - 星空紫、星云等
+   ======================================== */
+
+/* 星空紫 */
+.book-spine--stardust {
+  background: linear-gradient(90deg,
+    rgba(0, 0, 0, 0.2) 0%,
+    rgba(0, 0, 0, 0.05) 20%,
+    transparent 40%,
+    transparent 60%,
+    rgba(0, 0, 0, 0.05) 80%,
+    rgba(0, 0, 0, 0.2) 100%
+  ),
+  linear-gradient(180deg,
+    #9B4DCA 0%,
+    #7B3DB0 20%,
+    #5A2A85 50%,
+    #3D1A60 80%,
+    #2A0F40 100%
+  );
+  box-shadow:
+    3px 0 8px rgba(0, 0, 0, 0.4),
+    -1px 0 4px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    0 0 20px rgba(155, 77, 202, 0.3);
+}
+
+.book-spine--stardust .book-spine__title {
+  color: #E8D4FF;
+  text-shadow: 
+    1px 1px 2px rgba(0, 0, 0, 0.8),
+    0 0 12px rgba(155, 77, 202, 0.5);
+}
+
+/* 星云紫 */
+.book-spine--nebula {
+  background: linear-gradient(90deg,
+    rgba(0, 0, 0, 0.15) 0%,
+    rgba(0, 0, 0, 0.03) 25%,
+    transparent 45%,
+    transparent 55%,
+    rgba(0, 0, 0, 0.03) 75%,
+    rgba(0, 0, 0, 0.15) 100%
+  ),
+  linear-gradient(180deg,
+    #8B5CF6 0%,
+    #6D28D9 25%,
+    #4C1D95 50%,
+    #3B0764 75%,
+    #2D0652 100%
+  );
+  box-shadow:
+    3px 0 8px rgba(0, 0, 0, 0.4),
+    -1px 0 4px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15),
+    0 0 15px rgba(139, 92, 246, 0.25);
+}
+
+.book-spine--nebula .book-spine__title {
+  color: #EDE9FE;
+  text-shadow: 
+    1px 1px 2px rgba(0, 0, 0, 0.8),
+    0 0 10px rgba(139, 92, 246, 0.4);
+}
+
+/* 月光石 */
+.book-spine--moonstone {
+  background: linear-gradient(90deg,
+    rgba(0, 0, 0, 0.12) 0%,
+    rgba(0, 0, 0, 0.02) 25%,
+    transparent 45%,
+    transparent 55%,
+    rgba(0, 0, 0, 0.02) 75%,
+    rgba(0, 0, 0, 0.12) 100%
+  ),
+  linear-gradient(180deg,
+    #C4B5FD 0%,
+    #A78BFA 25%,
+    #8B5CF6 50%,
+    #7C3AED 75%,
+    #6D28D9 100%
+  );
+}
+
+.book-spine--moonstone .book-spine__title {
+  color: #1E1B4B;
+  text-shadow: 
+    1px 1px 2px rgba(255, 255, 255, 0.5);
+}
+
+/* 宇宙蓝 */
+.book-spine--cosmic-blue {
+  background: linear-gradient(90deg,
+    rgba(0, 0, 0, 0.18) 0%,
+    rgba(0, 0, 0, 0.04) 20%,
+    transparent 40%,
+    transparent 60%,
+    rgba(0, 0, 0, 0.04) 80%,
+    rgba(0, 0, 0, 0.18) 100%
+  ),
+  linear-gradient(180deg,
+    #3B82F6 0%,
+    #1D4ED8 25%,
+    #1E3A8A 50%,
+    #172554 75%,
+    #0F172A 100%
+  );
+}
+
+/* 银河紫 */
+.book-spine--galaxy {
+  background: linear-gradient(90deg,
+    rgba(0, 0, 0, 0.22) 0%,
+    rgba(0, 0, 0, 0.06) 20%,
+    transparent 40%,
+    transparent 60%,
+    rgba(0, 0, 0, 0.06) 80%,
+    rgba(0, 0, 0, 0.22) 100%
+  ),
+  linear-gradient(180deg,
+    #6366F1 0%,
+    #4F46E5 25%,
+    #3730A3 50%,
+    #292560 75%,
+    #1E1B4B 100%
+  );
+}
+
+/* 极光绿 */
+.book-spine--aurora {
+  background: linear-gradient(90deg,
+    rgba(0, 0, 0, 0.15) 0%,
+    rgba(0, 0, 0, 0.03) 25%,
+    transparent 45%,
+    transparent 55%,
+    rgba(0, 0, 0, 0.03) 75%,
+    rgba(0, 0, 0, 0.15) 100%
+  ),
+  linear-gradient(180deg,
+    #34D399 0%,
+    #10B981 25%,
+    #059669 50%,
+    #047857 75%,
+    #065F46 100%
+  );
+  box-shadow:
+    3px 0 8px rgba(0, 0, 0, 0.4),
+    -1px 0 4px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15),
+    0 0 15px rgba(52, 211, 153, 0.25);
+}
+
+/* 午夜黑紫 */
+.book-spine--midnight {
+  background: linear-gradient(90deg,
+    rgba(0, 0, 0, 0.25) 0%,
+    rgba(0, 0, 0, 0.08) 20%,
+    transparent 40%,
+    transparent 60%,
+    rgba(0, 0, 0, 0.08) 80%,
+    rgba(0, 0, 0, 0.25) 100%
+  ),
+  linear-gradient(180deg,
+    #1E1B4B 0%,
+    #312E81 25%,
+    #3730A3 50%,
+    #4C1D95 75%,
+    #5B21B6 100%
+  );
+}
+
+.book-spine--midnight .book-spine__title {
+  color: #C4B5FD;
+  text-shadow: 
+    1px 1px 2px rgba(0, 0, 0, 0.8),
+    0 0 8px rgba(196, 181, 253, 0.4);
+}
+
+/* 暗影紫 */
+.book-spine--shadow-purple {
+  background: linear-gradient(90deg,
+    rgba(0, 0, 0, 0.28) 0%,
+    rgba(0, 0, 0, 0.1) 20%,
+    transparent 40%,
+    transparent 60%,
+    rgba(0, 0, 0, 0.1) 80%,
+    rgba(0, 0, 0, 0.28) 100%
+  ),
+  linear-gradient(180deg,
+    #4C1D95 0%,
+    #43148C 25%,
+    #370617 50%,
+    #1F0029 75%,
+    #0F0014 100%
+  );
+}
+
+/* 紫罗兰薄雾 */
+.book-spine--violet-mist {
+  background: linear-gradient(90deg,
+    rgba(0, 0, 0, 0.1) 0%,
+    rgba(0, 0, 0, 0.02) 25%,
+    transparent 45%,
+    transparent 55%,
+    rgba(0, 0, 0, 0.02) 75%,
+    rgba(0, 0, 0, 0.1) 100%
+  ),
+  linear-gradient(180deg,
+    #A78BFA 0%,
+    #8B5CF6 25%,
+    #7C3AED 50%,
+    #6D28D9 75%,
+    #5B21B6 100%
+  );
+}
+
+.book-spine--violet-mist .book-spine__title {
+  color: #F5F3FF;
+}
+
+/* 薰衣草紫 */
+.book-spine--lavender {
+  background: linear-gradient(90deg,
+    rgba(0, 0, 0, 0.08) 0%,
+    rgba(0, 0, 0, 0.02) 25%,
+    transparent 45%,
+    transparent 55%,
+    rgba(0, 0, 0, 0.02) 75%,
+    rgba(0, 0, 0, 0.08) 100%
+  ),
+  linear-gradient(180deg,
+    #E9D5FF 0%,
+    #D8B4FE 25%,
+    #C084FC 50%,
+    #A855F7 75%,
+    #9333EA 100%
+  );
+}
+
+.book-spine--lavender .book-spine__title {
+  color: #4C1D95;
+}
+
+/* 玫瑰金 */
+.book-spine--rose-gold {
+  background: linear-gradient(90deg,
+    rgba(0, 0, 0, 0.06) 0%,
+    rgba(0, 0, 0, 0.01) 25%,
+    transparent 45%,
+    transparent 55%,
+    rgba(0, 0, 0, 0.01) 75%,
+    rgba(0, 0, 0, 0.06) 100%
+  ),
+  linear-gradient(180deg,
+    #FDF2F8 0%,
+    #FCE7F3 25%,
+    #FBCFE8 50%,
+    #F9A8D4 75%,
+    #F472B6 100%
+  );
+}
+
+.book-spine--rose-gold .book-spine__title {
+  color: #831843;
+}
+
+/* 古董金 */
+.book-spine--antique-gold {
+  background: linear-gradient(90deg,
+    rgba(0, 0, 0, 0.1) 0%,
+    rgba(0, 0, 0, 0.03) 25%,
+    transparent 45%,
+    transparent 55%,
+    rgba(0, 0, 0, 0.03) 75%,
+    rgba(0, 0, 0, 0.1) 100%
+  ),
+  linear-gradient(180deg,
+    #F5E6D3 0%,
+    #E8D4A8 25%,
+    #D4AF37 50%,
+    #B8960B 75%,
+    #9A7B0A 100%
+  );
+}
+
+.book-spine--antique-gold .book-spine__title {
+  color: #3D2E1F;
+}
+
+/* 羊皮纸色 */
+.book-spine--parchment {
+  background: linear-gradient(90deg,
+    rgba(0, 0, 0, 0.05) 0%,
+    rgba(0, 0, 0, 0.01) 25%,
+    transparent 45%,
+    transparent 55%,
+    rgba(0, 0, 0, 0.01) 75%,
+    rgba(0, 0, 0, 0.05) 100%
+  ),
+  linear-gradient(180deg,
+    #FAF0E6 0%,
+    #F5E6D3 25%,
+    #E8D4A8 50%,
+    #DCC696 75%,
+    #D4B880 100%
+  );
+}
+
+.book-spine--parchment .book-spine__title {
+  color: #3D2E1F;
+}
+
+/* 琥珀色 */
+.book-spine--amber {
+  background: linear-gradient(90deg,
+    rgba(0, 0, 0, 0.08) 0%,
+    rgba(0, 0, 0, 0.02) 25%,
+    transparent 45%,
+    transparent 55%,
+    rgba(0, 0, 0, 0.02) 75%,
+    rgba(0, 0, 0, 0.08) 100%
+  ),
+  linear-gradient(180deg,
+    #FCD34D 0%,
+    #F59E0B 25%,
+    #D97706 50%,
+    #B45309 75%,
+    #92400E 100%
+  );
+}
+
+.book-spine--amber .book-spine__title {
+  color: #451A03;
+}
+
+/* 银色薄雾 */
+.book-spine--silver-mist {
+  background: linear-gradient(90deg,
+    rgba(0, 0, 0, 0.06) 0%,
+    rgba(0, 0, 0, 0.01) 25%,
+    transparent 45%,
+    transparent 55%,
+    rgba(0, 0, 0, 0.01) 75%,
+    rgba(0, 0, 0, 0.06) 100%
+  ),
+  linear-gradient(180deg,
+    #F1F5F9 0%,
+    #E2E8F0 25%,
+    #CBD5E1 50%,
+    #94A3B8 75%,
+    #64748B 100%
+  );
+}
+
+.book-spine--silver-mist .book-spine__title {
+  color: #1E293B;
+}
+
+/* 尘土薰衣草 */
+.book-spine--dusty-lavender {
+  background: linear-gradient(90deg,
+    rgba(0, 0, 0, 0.06) 0%,
+    rgba(0, 0, 0, 0.01) 25%,
+    transparent 45%,
+    transparent 55%,
+    rgba(0, 0, 0, 0.01) 75%,
+    rgba(0, 0, 0, 0.06) 100%
+  ),
+  linear-gradient(180deg,
+    #E9D5FF 0%,
+    #DDD6FE 25%,
+    #C4B5FD 50%,
+    #A78BFA 75%,
+    #8B5CF6 100%
+  );
+}
+
+.book-spine--dusty-lavender .book-spine__title {
+  color: #312E81;
+}
+
+/* 石板灰 */
+.book-spine--slate {
+  background: linear-gradient(90deg,
+    rgba(0, 0, 0, 0.08) 0%,
+    rgba(0, 0, 0, 0.02) 25%,
+    transparent 45%,
+    transparent 55%,
+    rgba(0, 0, 0, 0.02) 75%,
+    rgba(0, 0, 0, 0.08) 100%
+  ),
+  linear-gradient(180deg,
+    #64748B 0%,
+    #475569 25%,
+    #334155 50%,
+    #1E293B 75%,
+    #0F172A 100%
+  );
+}
+
+/* 日出橙 */
+.book-spine--sunrise {
+  background: linear-gradient(90deg,
+    rgba(0, 0, 0, 0.06) 0%,
+    rgba(0, 0, 0, 0.01) 25%,
+    transparent 45%,
+    transparent 55%,
+    rgba(0, 0, 0, 0.01) 75%,
+    rgba(0, 0, 0, 0.06) 100%
+  ),
+  linear-gradient(180deg,
+    #FEF3C7 0%,
+    #FDE68A 25%,
+    #FCD34D 50%,
+    #FBBF24 75%,
+    #F59E0B 100%
+  );
+}
+
+.book-spine--sunrise .book-spine__title {
+  color: #78350F;
+}
+
+/* 蜜桃粉 */
+.book-spine--peach {
+  background: linear-gradient(90deg,
+    rgba(0, 0, 0, 0.05) 0%,
+    rgba(0, 0, 0, 0.01) 25%,
+    transparent 45%,
+    transparent 55%,
+    rgba(0, 0, 0, 0.01) 75%,
+    rgba(0, 0, 0, 0.05) 100%
+  ),
+  linear-gradient(180deg,
+    #FFFBF5 0%,
+    #FFE7D9 25%,
+    #FFDCC4 50%,
+    #FFC4A3 75%,
+    #FFA878 100%
+  );
+}
+
+.book-spine--peach .book-spine__title {
+  color: #9A3412;
+}
+
+/* 薄荷绿 */
+.book-spine--mint {
+  background: linear-gradient(90deg,
+    rgba(0, 0, 0, 0.05) 0%,
+    rgba(0, 0, 0, 0.01) 25%,
+    transparent 45%,
+    transparent 55%,
+    rgba(0, 0, 0, 0.01) 75%,
+    rgba(0, 0, 0, 0.05) 100%
+  ),
+  linear-gradient(180deg,
+    #F0FDF4 0%,
+    #DCFCE7 25%,
+    #BBF7D0 50%,
+    #86EFAC 75%,
+    #4ADE80 100%
+  );
+}
+
+.book-spine--mint .book-spine__title {
+  color: #166534;
+}
+
+/* 梦幻粉 */
+.book-spine--dream-pink {
+  background: linear-gradient(90deg,
+    rgba(0, 0, 0, 0.04) 0%,
+    rgba(0, 0, 0, 0.01) 25%,
+    transparent 45%,
+    transparent 55%,
+    rgba(0, 0, 0, 0.01) 75%,
+    rgba(0, 0, 0, 0.04) 100%
+  ),
+  linear-gradient(180deg,
+    #FDF2F8 0%,
+    #FCE7F3 25%,
+    #FBCFE8 50%,
+    #F9A8D4 75%,
+    #F472B6 100%
+  );
+}
+
+.book-spine--dream-pink .book-spine__title {
+  color: #831843;
+}
+
+/* 丁香紫 */
+.book-spine--lilac {
+  background: linear-gradient(90deg,
+    rgba(0, 0, 0, 0.06) 0%,
+    rgba(0, 0, 0, 0.02) 25%,
+    transparent 45%,
+    transparent 55%,
+    rgba(0, 0, 0, 0.02) 75%,
+    rgba(0, 0, 0, 0.06) 100%
+  ),
+  linear-gradient(180deg,
+    #F3E8FF 0%,
+    #E9D5FF 25%,
+    #D8B4FE 50%,
+    #C084FC 75%,
+    #A855F7 100%
+  );
+}
+
+.book-spine--lilac .book-spine__title {
+  color: #5B21B6;
+}
+
+/* 紫水晶 */
+.book-spine--amethyst {
+  background: linear-gradient(90deg,
+    rgba(0, 0, 0, 0.15) 0%,
+    rgba(0, 0, 0, 0.04) 25%,
+    transparent 45%,
+    transparent 55%,
+    rgba(0, 0, 0, 0.04) 75%,
+    rgba(0, 0, 0, 0.15) 100%
+  ),
+  linear-gradient(180deg,
+    #E9D5FF 0%,
+    #C084FC 25%,
+    #9333EA 50%,
+    #7C3AED 75%,
+    #6D28D9 100%
+  );
+  box-shadow:
+    3px 0 8px rgba(0, 0, 0, 0.4),
+    -1px 0 4px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15),
+    0 0 15px rgba(147, 51, 234, 0.3);
+}
+
+.book-spine--amethyst .book-spine__title {
+  color: #F5F3FF;
+  text-shadow: 
+    1px 1px 2px rgba(0, 0, 0, 0.8),
+    0 0 10px rgba(147, 51, 234, 0.4);
+}
+
+/* 玫瑰石英 */
+.book-spine--rose-quartz {
+  background: linear-gradient(90deg,
+    rgba(0, 0, 0, 0.05) 0%,
+    rgba(0, 0, 0, 0.01) 25%,
+    transparent 45%,
+    transparent 55%,
+    rgba(0, 0, 0, 0.01) 75%,
+    rgba(0, 0, 0, 0.05) 100%
+  ),
+  linear-gradient(180deg,
+    #FDF2F8 0%,
+    #FCE7F3 25%,
+    #FBCFE8 50%,
+    #F9A8D4 75%,
+    #F472B6 100%
+  );
+}
+
+/* 星光白 */
+.book-spine--starlight {
+  background: linear-gradient(90deg,
+    rgba(0, 0, 0, 0.03) 0%,
+    transparent 25%,
+    transparent 75%,
+    rgba(0, 0, 0, 0.03) 100%
+  ),
+  linear-gradient(180deg,
+    #FFFFFF 0%,
+    #F8FAFC 25%,
+    #F1F5F9 50%,
+    #E2E8F0 75%,
+    #CBD5E1 100%
+  );
+}
+
+.book-spine--starlight .book-spine__title {
+  color: #1E293B;
+}
+
+/* 宇宙紫 */
+.book-spine--cosmic-purple {
+  background: linear-gradient(90deg,
+    rgba(0, 0, 0, 0.2) 0%,
+    rgba(0, 0, 0, 0.05) 20%,
+    transparent 40%,
+    transparent 60%,
+    rgba(0, 0, 0, 0.05) 80%,
+    rgba(0, 0, 0, 0.2) 100%
+  ),
+  linear-gradient(180deg,
+    #A855F7 0%,
+    #9333EA 25%,
+    #7C3AED 50%,
+    #6D28D9 75%,
+    #5B21B6 100%
+  );
+  box-shadow:
+    3px 0 8px rgba(0, 0, 0, 0.4),
+    -1px 0 4px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15),
+    0 0 20px rgba(168, 85, 247, 0.3);
+}
+
+.book-spine--cosmic-purple .book-spine__title {
+  color: #F5F3FF;
+  text-shadow: 
+    1px 1px 2px rgba(0, 0, 0, 0.8),
+    0 0 12px rgba(168, 85, 247, 0.5);
+}
+
+/* 暮光紫 */
+.book-spine--twilight {
+  background: linear-gradient(90deg,
+    rgba(0, 0, 0, 0.18) 0%,
+    rgba(0, 0, 0, 0.04) 25%,
+    transparent 45%,
+    transparent 55%,
+    rgba(0, 0, 0, 0.04) 75%,
+    rgba(0, 0, 0, 0.18) 100%
+  ),
+  linear-gradient(180deg,
+    #7C3AED 0%,
+    #6366F1 25%,
+    #4F46E5 50%,
+    #4338CA 75%,
+    #3730A3 100%
+  );
+}
+
+.book-spine--twilight .book-spine__title {
+  color: #E0E7FF;
+}
+
+/* 薄雾灰 */
+.book-spine--mist {
+  background: linear-gradient(90deg,
+    rgba(0, 0, 0, 0.03) 0%,
+    transparent 25%,
+    transparent 75%,
+    rgba(0, 0, 0, 0.03) 100%
+  ),
+  linear-gradient(180deg,
+    #F8FAFC 0%,
+    #F1F5F9 25%,
+    #E2E8F0 50%,
+    #CBD5E1 75%,
+    #94A3B8 100%
+  );
+}
+
+.book-spine--mist .book-spine__title {
+  color: #334155;
+}
+
+/* 书籍详情模态框 - 打开的书本效果 */
 .book-modal {
   display: none;
   position: fixed;
@@ -271,11 +1483,11 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.75);
+  background: rgba(10, 8, 5, 0.9);
   z-index: 1000;
   justify-content: center;
   align-items: center;
-  animation: fadeIn 0.3s ease;
+  animation: fadeIn 0.4s ease;
 }
 
 .book-modal.active {
@@ -283,22 +1495,20 @@
 }
 
 .book-modal__content {
-  background:
-    radial-gradient(ellipse at 30% 20%, rgba(210, 180, 140, 0.3) 0%, transparent 50%),
-    radial-gradient(ellipse at 70% 80%, rgba(180, 140, 100, 0.2) 0%, transparent 50%),
+  background: 
     linear-gradient(135deg, #F7EDD8 0%, #EFE0C4 25%, #E8D4A8 50%, #DCC696 75%, #D4B880 100%);
-  border-radius: 8px;
-  padding: 32px;
-  max-width: 600px;
+  border-radius: 4px;
+  padding: 0;
+  max-width: 700px;
   width: 90%;
   max-height: 85vh;
-  overflow-y: auto;
+  overflow: hidden;
   position: relative;
   box-shadow:
-    0 0 0 1px rgba(139, 109, 76, 0.3),
-    0 20px 60px rgba(0, 0, 0, 0.5),
-    inset 0 0 60px rgba(139, 109, 76, 0.1);
-  animation: slideUp 0.3s ease;
+    0 0 0 1px rgba(139, 109, 76, 0.4),
+    0 25px 80px rgba(0, 0, 0, 0.6),
+    inset 0 0 80px rgba(139, 109, 76, 0.1);
+  animation: bookOpen 0.5s ease;
 }
 
 @keyframes fadeIn {
@@ -306,14 +1516,14 @@
   to { opacity: 1; }
 }
 
-@keyframes slideUp {
-  from {
+@keyframes bookOpen {
+  0% {
     opacity: 0;
-    transform: translateY(30px);
+    transform: scale(0.9) rotateY(-20deg);
   }
-  to {
+  100% {
     opacity: 1;
-    transform: translateY(0);
+    transform: scale(1) rotateY(0);
   }
 }
 
@@ -324,55 +1534,163 @@
   right: 16px;
   width: 36px;
   height: 36px;
-  background: transparent;
-  border: 2px solid #8B5A2B;
+  background: rgba(139, 90, 43, 0.8);
+  border: 2px solid rgba(255, 240, 220, 0.5);
   border-radius: 50%;
-  color: #8B5A2B;
+  color: #F5E6D3;
   font-size: 20px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: all 0.3s ease;
+  z-index: 10;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 .book-modal__close:hover {
   background: #8B5A2B;
-  color: #fff;
+  transform: rotate(90deg);
+}
+
+/* 书本翻开效果 */
+.book-modal__spread {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  padding: 32px 24px;
+  position: relative;
+}
+
+.book-modal__spread::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: linear-gradient(180deg,
+    #8B5A2B 0%,
+    #A67B5B 50%,
+    #8B5A2B 100%
+  );
+  transform: translateX(-50%);
+  box-shadow: 
+    2px 0 8px rgba(139, 90, 43, 0.3),
+    -2px 0 8px rgba(139, 90, 43, 0.2);
+}
+
+/* 书页 */
+.book-modal__page {
+  padding: 0 24px;
+  position: relative;
+}
+
+.book-modal__page--left {
+  text-align: right;
+}
+
+.book-modal__page--right {
+  text-align: left;
+  border-left: 1px solid rgba(139, 109, 76, 0.2);
+}
+
+/* 书页角落装饰 */
+.book-modal__page::before,
+.book-modal__page::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(139, 109, 76, 0.3);
+}
+
+.book-modal__page--left::before {
+  top: 0;
+  right: 8px;
+  border-right: none;
+  border-bottom: none;
+}
+
+.book-modal__page--left::after {
+  bottom: 0;
+  right: 8px;
+  border-right: none;
+  border-top: none;
+}
+
+.book-modal__page--right::before {
+  top: 0;
+  left: 8px;
+  border-left: none;
+  border-bottom: none;
+}
+
+.book-modal__page--right::after {
+  bottom: 0;
+  left: 8px;
+  border-left: none;
+  border-top: none;
 }
 
 /* 模态框内容 */
+.book-modal__label {
+  font-size: 0.75rem;
+  color: #8B7B6B;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
 .book-modal__title {
-  font-size: 1.8rem;
+  font-size: 1.7rem;
   color: #3D2E1F;
-  font-family: var(--font-display), var(--font-chinese);
+  font-family: 'Noto Serif SC', 'Cormorant Garamond', serif;
   margin-bottom: 8px;
   padding-right: 40px;
+  text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
 }
 
 .book-modal__author {
   font-size: 1.1rem;
   color: #6B5A4A;
-  margin-bottom: 16px;
+  font-style: italic;
+  margin-bottom: 8px;
+}
+
+.book-modal__type {
+  display: inline-block;
+  font-size: 0.85rem;
+  color: #8B6914;
+  font-family: 'Cormorant Garamond', serif;
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+  padding: 4px 12px;
+  background: rgba(212, 175, 55, 0.15);
+  border-radius: 4px;
+  border: 1px solid rgba(139, 105, 20, 0.3);
 }
 
 .book-modal__meta {
   display: flex;
   gap: 24px;
+  justify-content: flex-end;
   margin-bottom: 24px;
   padding-bottom: 16px;
-  border-bottom: 1px solid rgba(139, 109, 76, 0.3);
+  border-bottom: 1px solid rgba(139, 109, 76, 0.25);
 }
 
 .book-modal__rating {
   color: #DAA520;
   font-size: 1.3rem;
   letter-spacing: 3px;
+  text-shadow: 0 0 4px rgba(218, 165, 32, 0.4);
 }
 
 .book-modal__date {
   color: #8B7B6B;
-  font-size: 1rem;
+  font-size: 0.95rem;
 }
 
 .book-modal__review {
@@ -380,12 +1698,14 @@
   font-size: 1.05rem;
   line-height: 1.9;
   white-space: pre-wrap;
+  font-family: 'Noto Serif SC', 'Cormorant Garamond', serif;
+  min-height: 120px;
 }
 
 .book-modal__footer {
   margin-top: 24px;
   padding-top: 16px;
-  border-top: 1px solid rgba(139, 109, 76, 0.3);
+  border-top: 1px solid rgba(139, 109, 76, 0.25);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -393,19 +1713,19 @@
 
 .book-modal__edit-count {
   color: #8B7B6B;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
 }
 
 .book-modal__actions {
   display: flex;
-  gap: 12px;
+  gap: 10px;
 }
 
 .book-modal__actions button {
   padding: 8px 16px;
   border-radius: 4px;
-  font-family: var(--font-body);
-  font-size: 0.95rem;
+  font-family: 'Noto Serif SC', 'Cormorant Garamond', serif;
+  font-size: 0.9rem;
   cursor: pointer;
   transition: all 0.3s ease;
 }
@@ -418,17 +1738,37 @@
 
 .book-modal__edit:hover {
   background: #8B5A2B;
-  color: #fff;
+  color: #F5E6D3;
 }
 
-.book-modal__delete {
+.book-modal__save {
+  background: #8B5A2B;
+  border: 2px solid #6B4423;
+  color: #F5E6D3;
+}
+
+.book-modal__save:hover {
+  background: #9B6B3B;
+}
+
+.book-modal__cancel {
   background: transparent;
   border: 2px solid #A0522D;
   color: #A0522D;
 }
 
+.book-modal__cancel:hover {
+  background: rgba(160, 82, 45, 0.1);
+}
+
+.book-modal__delete {
+  background: transparent;
+  border: 2px solid #8B4513;
+  color: #8B4513;
+}
+
 .book-modal__delete:hover {
-  background: #A0522D;
+  background: #8B4513;
   color: #fff;
 }
 
@@ -442,13 +1782,13 @@
   width: 100%;
   min-height: 150px;
   padding: 16px;
-  background: rgba(0, 0, 0, 0.05);
+  background: rgba(255, 248, 240, 0.8);
   border: 2px solid #A67B5B;
   border-radius: 4px;
   color: #3D2E1F;
-  font-family: var(--font-body), var(--font-chinese);
-  font-size: 1.05rem;
-  line-height: 1.9;
+  font-family: 'Noto Serif SC', 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  line-height: 1.8;
   resize: vertical;
 }
 
@@ -459,19 +1799,26 @@
 /* 空状态 */
 .bookshelf-empty {
   text-align: center;
-  padding: 60px 20px;
-  color: #D4C4A8;
+  padding: 80px 20px;
+  color: #B8A080;
 }
 
 .bookshelf-empty__icon {
-  font-size: 64px;
-  margin-bottom: 16px;
-  opacity: 0.6;
+  font-size: 80px;
+  margin-bottom: 20px;
+  opacity: 0.5;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
 }
 
 .bookshelf-empty__text {
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   font-style: italic;
+  font-family: 'Noto Serif SC', 'Cormorant Garamond', serif;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
 }
 
@@ -484,24 +1831,24 @@
 }
 
 .book-add-btn {
-  background: linear-gradient(135deg, #8B6914 0%, #A67B5B 50%, #8B6914 100%);
-  border: 2px solid #6B4423;
+  background: linear-gradient(135deg, #6B4423 0%, #8B5A2B 50%, #6B4423 100%);
+  border: 2px solid #4A3218;
   color: #F5E6D3;
-  font-family: var(--font-chinese), var(--font-body), serif;
+  font-family: 'Noto Serif SC', 'Cormorant Garamond', serif;
   font-weight: 600;
-  letter-spacing: 1px;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  letter-spacing: 2px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
   box-shadow:
-    0 4px 12px rgba(107, 68, 35, 0.4),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    0 4px 12px rgba(74, 50, 24, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
   transition: all 0.3s ease;
 }
 
 .book-add-btn:hover {
-  background: linear-gradient(135deg, #A67B5B 0%, #B8896B 50%, #A67B5B 100%);
+  background: linear-gradient(135deg, #8B5A2B 0%, #A67B5B 50%, #8B5A2B 100%);
   box-shadow:
-    0 6px 20px rgba(107, 68, 35, 0.5),
-    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    0 6px 20px rgba(74, 50, 24, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
   transform: translateY(-2px);
 }
 
@@ -519,38 +1866,84 @@
       #EFE0C4 85%,
       #F7EDD8 100%
     );
-  border: none;
+  border: 1px solid rgba(139, 109, 76, 0.2);
   border-radius: 4px;
   padding: 32px;
   position: relative;
   box-shadow:
-    8px 8px 20px rgba(0, 0, 0, 0.15),
+    12px 12px 30px rgba(0, 0, 0, 0.15),
     -4px -4px 12px rgba(255, 255, 255, 0.1),
-    0 0 0 1px rgba(139, 109, 76, 0.2),
-    inset 0 0 80px rgba(139, 109, 76, 0.08);
+    0 0 0 1px rgba(139, 109, 76, 0.15),
+    inset 0 0 100px rgba(139, 109, 76, 0.06);
   margin-top: 20px;
 }
 
+/* 卷边效果 */
 .book-form::before,
 .book-form::after {
   content: '';
   position: absolute;
-  width: 40px;
-  height: 40px;
-  background: linear-gradient(135deg, rgba(139, 109, 76, 0.3) 0%, transparent 50%);
+  background: 
+    linear-gradient(135deg, 
+      rgba(139, 109, 76, 0.4) 0%, 
+      rgba(139, 109, 76, 0.1) 40%,
+      transparent 60%
+    );
   border-radius: 50%;
 }
 
 .book-form::before {
-  top: -8px;
-  right: -8px;
+  top: -12px;
+  right: -12px;
+  width: 60px;
+  height: 60px;
   transform: rotate(45deg);
+  box-shadow: 
+    inset 4px 4px 10px rgba(0, 0, 0, 0.1),
+    -2px -2px 8px rgba(255, 255, 255, 0.2);
 }
 
 .book-form::after {
-  bottom: -8px;
-  left: -8px;
+  bottom: -12px;
+  left: -12px;
+  width: 60px;
+  height: 60px;
   transform: rotate(225deg);
+  box-shadow: 
+    inset 4px 4px 10px rgba(0, 0, 0, 0.1),
+    -2px -2px 8px rgba(255, 255, 255, 0.2);
+}
+
+/* 表单头部 */
+.book-form__header {
+  text-align: center;
+  margin-bottom: 28px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(139, 109, 76, 0.2);
+}
+
+.book-form__eyebrow {
+  font-size: 0.75rem;
+  color: #8B7B6B;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+}
+
+.book-form__title {
+  font-size: 1.4rem;
+  color: #3D2E1F;
+  font-family: 'Noto Serif SC', 'Cormorant Garamond', serif;
+  margin-top: 8px;
+  text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
+}
+
+/* 表单网格 */
+.book-form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
 }
 
 .book-form .form-row {
@@ -559,34 +1952,60 @@
 
 .book-form .form-label {
   color: #5D4E37;
-  font-family: var(--font-chinese), var(--font-body), serif;
+  font-family: 'Noto Serif SC', 'Cormorant Garamond', serif;
   font-weight: 600;
   font-size: 0.95rem;
   letter-spacing: 1px;
   text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.5);
+  display: block;
+  margin-bottom: 8px;
 }
 
 .book-input,
-.book-textarea {
+.book-textarea,
+.book-select {
   background: rgba(255, 248, 240, 0.6);
   border: 1px solid rgba(139, 109, 76, 0.4);
-  border-radius: 3px;
+  border-radius: 4px;
   color: #3D2E1F;
-  font-family: var(--font-chinese), var(--font-body), serif;
+  font-family: 'Noto Serif SC', 'Cormorant Garamond', serif;
   font-size: 1rem;
+  padding: 12px 16px;
   box-shadow:
-    inset 0 1px 3px rgba(0, 0, 0, 0.1),
+    inset 0 1px 3px rgba(0, 0, 0, 0.08),
     0 1px 0 rgba(255, 255, 255, 0.5);
   transition: all 0.3s ease;
+  width: 100%;
+  box-sizing: border-box;
+  appearance: none;
+  cursor: pointer;
+  position: relative;
+}
+
+.book-select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20' fill='%235D4E37'%3E%3Cpath d='M5 7l5 5 5-5H5z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 40px;
+}
+
+.book-select:focus {
+  background: rgba(255, 248, 240, 0.9);
+  border-color: #8B5A2B;
+  box-shadow:
+    inset 0 1px 3px rgba(0, 0, 0, 0.08),
+    0 0 0 3px rgba(139, 90, 43, 0.15),
+    0 1px 0 rgba(255, 255, 255, 0.5);
+  outline: none;
 }
 
 .book-input:focus,
 .book-textarea:focus {
-  background: rgba(255, 248, 240, 0.8);
+  background: rgba(255, 248, 240, 0.9);
   border-color: #8B5A2B;
   box-shadow:
-    inset 0 1px 3px rgba(0, 0, 0, 0.1),
-    0 0 0 2px rgba(139, 90, 43, 0.2),
+    inset 0 1px 3px rgba(0, 0, 0, 0.08),
+    0 0 0 3px rgba(139, 90, 43, 0.15),
     0 1px 0 rgba(255, 255, 255, 0.5);
   outline: none;
 }
@@ -598,31 +2017,34 @@
 }
 
 .book-textarea {
-  min-height: 120px;
+  min-height: 140px;
   resize: vertical;
-  line-height: 1.6;
+  line-height: 1.7;
 }
 
 .star-rating {
   display: inline-flex;
-  gap: 4px;
-  padding: 8px 12px;
+  gap: 6px;
+  padding: 10px 14px;
   background: rgba(255, 248, 240, 0.5);
-  border-radius: 3px;
+  border-radius: 4px;
 }
 
 .star-rating .star {
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   color: #C4B8A0;
   cursor: pointer;
   transition: all 0.2s ease;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+  background: none;
+  border: none;
+  padding: 0;
 }
 
 .star-rating .star:hover,
 .star-rating .star.active {
   color: #DAA520;
-  text-shadow: 0 0 8px rgba(218, 165, 32, 0.5);
+  text-shadow: 0 0 10px rgba(218, 165, 32, 0.6);
 }
 
 .star-rating .star.active {
@@ -631,7 +2053,7 @@
 
 @keyframes starPop {
   0% { transform: scale(1); }
-  50% { transform: scale(1.2); }
+  50% { transform: scale(1.3); }
   100% { transform: scale(1); }
 }
 
@@ -639,9 +2061,11 @@
   background: transparent;
   border: 2px solid rgba(139, 109, 76, 0.5);
   color: #6B5A4A;
-  font-family: var(--font-chinese), var(--font-body), serif;
+  font-family: 'Noto Serif SC', 'Cormorant Garamond', serif;
   font-weight: 600;
   letter-spacing: 1px;
+  padding: 12px 24px;
+  border-radius: 4px;
   transition: all 0.3s ease;
 }
 
@@ -652,25 +2076,27 @@
 }
 
 .book-submit-btn {
-  background: linear-gradient(135deg, #8B6914 0%, #A67B5B 50%, #8B6914 100%);
-  border: 2px solid #6B4423;
+  background: linear-gradient(135deg, #6B4423 0%, #8B5A2B 50%, #6B4423 100%);
+  border: 2px solid #4A3218;
   color: #F5E6D3;
-  font-family: var(--font-chinese), var(--font-body), serif;
+  font-family: 'Noto Serif SC', 'Cormorant Garamond', serif;
   font-weight: 700;
   font-size: 1rem;
-  letter-spacing: 2px;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+  letter-spacing: 3px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  padding: 12px 32px;
+  border-radius: 4px;
   box-shadow:
-    0 4px 12px rgba(107, 68, 35, 0.4),
+    0 4px 12px rgba(74, 50, 24, 0.4),
     inset 0 1px 0 rgba(255, 255, 255, 0.2),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+    inset 0 -1px 0 rgba(0, 0, 0, 0.15);
   transition: all 0.3s ease;
 }
 
 .book-submit-btn:hover {
-  background: linear-gradient(135deg, #A67B5B 0%, #B8896B 50%, #A67B5B 100%);
+  background: linear-gradient(135deg, #8B5A2B 0%, #A67B5B 50%, #8B5A2B 100%);
   box-shadow:
-    0 6px 20px rgba(107, 68, 35, 0.5),
+    0 6px 20px rgba(74, 50, 24, 0.5),
     inset 0 1px 0 rgba(255, 255, 255, 0.3);
   transform: translateY(-2px);
 }
@@ -678,7 +2104,7 @@
 .book-submit-btn:active {
   transform: translateY(0);
   box-shadow:
-    0 2px 8px rgba(107, 68, 35, 0.4),
+    0 2px 8px rgba(74, 50, 24, 0.4),
     inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
@@ -686,16 +2112,84 @@
   text-align: center;
   font-style: italic;
   color: #FFFFFF;
-  font-size: 1.1rem;
+  font-size: 1.15rem;
   margin-bottom: 30px !important;
+  font-family: 'Noto Serif SC', 'Cormorant Garamond', serif;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 /* 响应式 */
 @media (max-width: 768px) {
   .bookshelf-row {
     min-height: 150px;
-    gap: 6px;
-    padding: 10px 8px 6px;
+    gap: 4px;
+    padding: 12px 8px 8px;
+  }
+
+  .book-spine {
+    width: 32px !important;
+  }
+
+  .book-spine__title {
+    font-size: 11px;
+    padding: 10px 4px;
+  }
+
+  .shelf-bookend {
+    width: 18px;
+    height: 130px;
+  }
+
+  .library-cabinet__crown {
+    font-size: 1.3rem;
+    letter-spacing: 4px;
+  }
+
+  .book-modal__content {
+    padding: 0;
+    width: 95%;
+  }
+
+  .book-modal__spread {
+    padding: 20px 16px;
+  }
+
+  .book-modal__title {
+    font-size: 1.3rem;
+    padding-right: 0;
+  }
+
+  .book-modal__page {
+    padding: 0 12px;
+  }
+
+  .book-form {
+    padding: 24px 20px;
+  }
+
+  .book-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .book-form::before,
+  .book-form::after {
+    width: 45px;
+    height: 45px;
+  }
+
+  .star-rating .star {
+    font-size: 1.4rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .bookshelf {
+    padding: 12px;
+  }
+
+  .bookshelf-row {
+    min-height: 130px;
+    gap: 3px;
   }
 
   .book-spine {
@@ -703,53 +2197,60 @@
   }
 
   .book-spine__title {
-    font-size: 12px;
-    padding: 8px 4px;
+    font-size: 10px;
+    padding: 8px 3px;
   }
 
-  .book-modal__content {
-    padding: 24px 20px;
-    width: 95%;
-  }
-
-  .book-modal__title {
-    font-size: 1.4rem;
-  }
-
-  .book-form {
-    padding: 24px 20px;
-  }
-
-  .book-form::before,
-  .book-form::after {
-    width: 30px;
-    height: 30px;
-  }
-}
-
-@media (max-width: 480px) {
-  .bookshelf {
-    padding: 10px 12px 18px;
-  }
-
-  .bookshelf-row {
-    min-height: 130px;
-    gap: 4px;
-  }
-
-  .book-spine {
-    width: 24px !important;
-  }
-
-  .book-spine__title {
-    font-size: 11px;
+  .shelf-bookend {
+    width: 14px;
+    height: 110px;
   }
 
   .book-form {
     padding: 20px 16px;
   }
 
+  .book-form__title {
+    font-size: 1.2rem;
+  }
+
   .star-rating .star {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
+  }
+
+  .book-modal__content {
+    max-height: 90vh;
+  }
+
+  .book-modal__spread {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .book-modal__spread::before {
+    display: none;
+  }
+
+  .book-modal__page--right {
+    border-left: none;
+    border-top: 1px solid rgba(139, 109, 76, 0.2);
+    padding-top: 20px;
+  }
+
+  .book-modal__page--left,
+  .book-modal__page--right {
+    text-align: center;
+  }
+
+  .book-modal__meta {
+    justify-content: center;
+  }
+
+  .book-modal__actions {
+    flex-direction: column;
+  }
+
+  .book-modal__actions button {
+    width: 100%;
   }
 }

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>浮生驿站 - 心灵宫殿</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Noto+Serif+SC:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/friends.css">
+</head>
+<body class="page">
+  <header class="page-header container">
+    <a href="../index.html" class="back-btn">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+        <path d="M12 4L6 10L12 16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
+      </svg>
+      返回宫殿
+    </a>
+    <h1 class="page-title">🕯 浮生驿站</h1>
+  </header>
+
+  <main class="page-content container">
+    <p class="mb-3 stone-text">为每位同行过一程的友人留一盏灯，记下称呼、偏好与相处的温度。</p>
+
+    <section class="input-section friend-input-section">
+      <button id="add-btn" class="add-btn">
+        <svg viewBox="0 0 20 20" fill="currentColor">
+          <path d="M10 3v14M3 10h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        添加友人信息
+      </button>
+
+      <form id="input-form" class="input-form friend-form">
+        <div class="friend-form__grid">
+          <div class="form-row">
+            <label class="form-label" for="friend-name">称呼</label>
+            <input type="text" id="friend-name" class="form-input" placeholder="你习惯怎么称呼 TA" required>
+          </div>
+
+          <div class="form-row">
+            <label class="form-label" for="friend-real-name">姓名 / 昵称</label>
+            <input type="text" id="friend-real-name" class="form-input" placeholder="可记录真实姓名、网名或其他昵称">
+          </div>
+
+          <div class="form-row">
+            <label class="form-label" for="friend-relationship">关系</label>
+            <input type="text" id="friend-relationship" class="form-input" placeholder="例如：大学同学、同事、游戏搭子">
+          </div>
+
+          <div class="form-row">
+            <label class="form-label" for="friend-birthday">生日</label>
+            <input type="date" id="friend-birthday" class="form-input">
+          </div>
+
+          <div class="form-row">
+            <label class="form-label" for="friend-contact">联系方式</label>
+            <input type="text" id="friend-contact" class="form-input" placeholder="微信、电话、邮箱或常用平台">
+          </div>
+
+          <div class="form-row">
+            <label class="form-label" for="friend-met">初识</label>
+            <input type="text" id="friend-met" class="form-input" placeholder="时间、地点，或第一次认识的场景">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <span class="form-label">标签</span>
+          <div class="friend-tag-options" id="friend-tag-options" aria-label="常用标签">
+            <button class="friend-tag-option" type="button" data-tag="挚友">挚友</button>
+            <button class="friend-tag-option" type="button" data-tag="同学">同学</button>
+            <button class="friend-tag-option" type="button" data-tag="同事">同事</button>
+            <button class="friend-tag-option" type="button" data-tag="家人">家人</button>
+            <button class="friend-tag-option" type="button" data-tag="网友">网友</button>
+            <button class="friend-tag-option" type="button" data-tag="饭搭子">饭搭子</button>
+            <button class="friend-tag-option" type="button" data-tag="旅行">旅行</button>
+            <button class="friend-tag-option" type="button" data-tag="可靠">可靠</button>
+          </div>
+          <input type="text" id="friend-custom-tags" class="form-input" placeholder="也可以自己敲，用逗号、顿号或空格分隔">
+        </div>
+
+        <div class="form-row">
+          <label class="form-label" for="friend-preferences">偏好 / 雷区</label>
+          <textarea id="friend-preferences" class="form-textarea" placeholder="喜欢的饮品、食物、颜色、话题，或需要避开的事情..."></textarea>
+        </div>
+
+        <div class="form-row">
+          <label class="form-label" for="friend-notes">近况 / 备注</label>
+          <textarea id="friend-notes" class="form-textarea" placeholder="想记住的故事、近况、约定、重要日期或相处提醒..."></textarea>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" id="cancel-form" class="cancel-btn">取消</button>
+          <button type="submit" class="submit-btn">保存友人</button>
+        </div>
+      </form>
+    </section>
+
+    <section id="entries-container">
+      <div class="empty-state">
+        <div class="empty-state__icon">🕯</div>
+        <p class="empty-state__text">暂无记录，点击上方按钮添加第一位友人。</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p class="footer__text">～ 人生驿路，幸有来客 ～</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../js/supabaseClient.js"></script>
+  <script src="../js/friends.js"></script>
+</body>
+</html>

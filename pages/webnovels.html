@@ -8,9 +8,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Noto+Serif+SC:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/webnovels.css">
 </head>
-<body class="page">
-  <!-- Header -->
+<body class="page page-webnovels">
   <header class="page-header container">
     <a href="../index.html" class="back-btn">
       <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
@@ -21,51 +21,135 @@
     <h1 class="page-title">🌙 网文之渊</h1>
   </header>
 
-  <!-- Content -->
   <main class="page-content container">
-    <p class="mb-3 stone-text">畅游于网络文学的深海，那些让人废寝忘食的故事与世界观。</p>
+    <p class="mb-3 stone-text webnovel-intro">把那些熬夜追过、反复回看的故事收进深渊，连同初遇时的心跳一并封存。</p>
 
-    <!-- Input Section -->
-    <section class="input-section">
-      <button id="add-btn" class="add-btn">
-        <svg viewBox="0 0 20 20" fill="currentColor">
-          <path d="M10 3v14M3 10h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-        </svg>
-        添加网文记录
-      </button>
-
-      <form id="input-form" class="input-form">
-        <div class="form-row">
-          <label class="form-label" for="entry-title">作品名</label>
-          <input type="text" id="entry-title" class="form-input" placeholder="请输入作品名" required>
+    <section class="webnovel-abyss" aria-label="网文之渊记录区">
+      <div class="webnovel-abyss__mist" aria-hidden="true"></div>
+      <section id="entries-container" class="webnovel-manuscript-stage">
+        <div class="empty-state webnovel-empty">
+          <div class="empty-state__icon">🌙</div>
+          <p class="empty-state__text">暂无记录，点击右下角的光之门召唤第一页手稿。</p>
         </div>
-        <div class="form-row">
-          <label class="form-label" for="entry-content">推荐理由 / 精彩片段</label>
-          <textarea id="entry-content" class="form-textarea" placeholder="写下推荐理由和精彩片段..." required></textarea>
-        </div>
-        <div class="form-actions">
-          <button type="button" id="cancel-form" class="cancel-btn">取消</button>
-          <button type="submit" class="submit-btn">提交</button>
-        </div>
-      </form>
-    </section>
-
-    <!-- Entries Container -->
-    <section id="entries-container">
-      <div class="empty-state">
-        <div class="empty-state__icon">🌙</div>
-        <p class="empty-state__text">暂无记录，点击上方按钮添加第一笔珍藏</p>
-      </div>
+      </section>
     </section>
   </main>
 
-  <!-- Footer -->
+  <section class="webnovel-portal" id="portal-shell" aria-label="添加网文记录">
+    <button id="add-btn" class="webnovel-portal__button" type="button" aria-label="打开光之门添加网文记录">
+      <span class="webnovel-portal__halo" aria-hidden="true"></span>
+      <span class="webnovel-portal__core" aria-hidden="true"></span>
+      <span class="webnovel-portal__text">光之门</span>
+    </button>
+
+    <form id="input-form" class="webnovel-form" aria-label="网文记录手稿">
+      <div class="webnovel-form__scroll" aria-hidden="true"></div>
+      <div class="webnovel-form__header">
+        <span class="webnovel-form__eyebrow">空白手稿</span>
+        <h2 class="webnovel-form__title">收入深渊</h2>
+      </div>
+
+      <div class="webnovel-form-grid">
+        <div class="form-row">
+          <label class="form-label" for="novel-title">书名</label>
+          <input type="text" id="novel-title" class="form-input" placeholder="请输入书名" required>
+        </div>
+
+        <div class="form-row">
+          <label class="form-label" for="novel-author">作者</label>
+          <input type="text" id="novel-author" class="form-input" placeholder="请输入作者">
+        </div>
+
+        <div class="form-row">
+          <label class="form-label" for="novel-platform">平台（可选）</label>
+          <input type="text" id="novel-platform" class="form-input" placeholder="晋江、起点、番茄、长佩...">
+        </div>
+
+        <div class="form-row">
+          <label class="form-label" for="novel-status">阅读状态</label>
+          <select id="novel-status" class="form-input">
+            <option value="想读">想读</option>
+            <option value="在读">在读</option>
+            <option value="追更">追更</option>
+            <option value="读完">读完</option>
+            <option value="暂停">暂停</option>
+            <option value="弃文">弃文</option>
+            <option value="重温">重温</option>
+          </select>
+        </div>
+
+        <div class="form-row">
+          <label class="form-label" for="novel-first-met">初遇时间</label>
+          <input type="date" id="novel-first-met" class="form-input">
+        </div>
+
+        <div class="form-row">
+          <label class="form-label" for="novel-progress">最新阅读进度</label>
+          <input type="text" id="novel-progress" class="form-input" placeholder="第 128 章 / 正文完 / 番外 3">
+        </div>
+
+        <div class="form-row">
+          <label class="form-label" for="novel-read-count">阅读次数</label>
+          <input type="number" id="novel-read-count" class="form-input" min="0" step="1" value="1">
+        </div>
+
+        <div class="form-row">
+          <span class="form-label">真爱标记</span>
+          <label class="webnovel-switch">
+            <input type="checkbox" id="novel-favorite">
+            <span class="webnovel-switch__track"></span>
+            <span class="webnovel-switch__text">真爱</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <span class="form-label">类型标签</span>
+        <div class="webnovel-tag-options" id="novel-tag-options" aria-label="类型标签">
+          <button class="webnovel-tag-option" type="button" data-tag="言情">言情</button>
+          <button class="webnovel-tag-option" type="button" data-tag="纯爱">纯爱</button>
+          <button class="webnovel-tag-option" type="button" data-tag="无CP">无CP</button>
+          <button class="webnovel-tag-option" type="button" data-tag="玄幻">玄幻</button>
+          <button class="webnovel-tag-option" type="button" data-tag="仙侠">仙侠</button>
+          <button class="webnovel-tag-option" type="button" data-tag="悬疑">悬疑</button>
+          <button class="webnovel-tag-option" type="button" data-tag="科幻">科幻</button>
+          <button class="webnovel-tag-option" type="button" data-tag="无限流">无限流</button>
+          <button class="webnovel-tag-option" type="button" data-tag="群像">群像</button>
+          <button class="webnovel-tag-option" type="button" data-tag="爽文">爽文</button>
+        </div>
+        <input type="text" id="novel-custom-tags" class="form-input" placeholder="自定义标签，用逗号或空格分隔">
+      </div>
+
+      <div class="form-row">
+        <span class="form-label">评分</span>
+        <div class="webnovel-star-rating" id="novel-star-rating" aria-label="评分">
+          <button class="webnovel-star" type="button" data-value="1" aria-label="1 星">★</button>
+          <button class="webnovel-star" type="button" data-value="2" aria-label="2 星">★</button>
+          <button class="webnovel-star" type="button" data-value="3" aria-label="3 星">★</button>
+          <button class="webnovel-star" type="button" data-value="4" aria-label="4 星">★</button>
+          <button class="webnovel-star" type="button" data-value="5" aria-label="5 星">★</button>
+        </div>
+        <input type="hidden" id="novel-rating" value="0">
+      </div>
+
+      <div class="form-row">
+        <label class="form-label" for="novel-review">评价</label>
+        <textarea id="novel-review" class="form-textarea" placeholder="写下入坑原因、名场面、雷点、余韵或摘录..."></textarea>
+      </div>
+
+      <div class="form-actions">
+        <button type="button" id="cancel-form" class="cancel-btn">合上手稿</button>
+        <button type="submit" class="submit-btn">送回深渊</button>
+      </div>
+    </form>
+  </section>
+
   <footer class="footer">
-    <p class="footer__text">～ 文字的海洋，深不见底 ～</p>
+    <p class="footer__text">✧ 文字的海潮，深不见底 ✧</p>
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="../js/supabaseClient.js"></script>
-  <script src="../js/common.js"></script>
+  <script src="../js/webnovels.js"></script>
 </body>
 </html>

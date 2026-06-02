@@ -11,7 +11,6 @@
   <link rel="stylesheet" href="../css/books.css">
 </head>
 <body class="page page-books">
-  <!-- Header -->
   <header class="page-header container">
     <a href="../index.html" class="back-btn">
       <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
@@ -22,70 +21,87 @@
     <h1 class="page-title">📚 纸间行旅</h1>
   </header>
 
-  <!-- Content -->
   <main class="page-content container">
-    <p class="mb-3 stone-text book-intro">每一本书都是一段灵魂的漂泊，在字里行间寻找共鸣的回声。</p>
+    <p class="mb-3 stone-text book-intro">每一本读过的书，都是一段被安放在木架上的远行。</p>
 
-    <!-- Input Section -->
     <section class="input-section book-input-section">
       <button id="add-btn" class="add-btn book-add-btn">
         <svg viewBox="0 0 20 20" fill="currentColor">
           <path d="M10 3v14M3 10h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
         </svg>
-        添加书籍记录
+        添一本入架
       </button>
 
       <form id="input-form" class="input-form book-form">
-        <div class="form-row">
-          <label class="form-label" for="book-title">书名</label>
-          <input type="text" id="book-title" class="form-input book-input" placeholder="请输入书名" required>
+        <div class="book-form__header">
+          <span class="book-form__eyebrow">藏书票</span>
+          <h2 class="book-form__title">记录一本读过的书</h2>
         </div>
-        <div class="form-row">
-          <label class="form-label" for="book-author">作者</label>
-          <input type="text" id="book-author" class="form-input book-input" placeholder="请输入作者姓名">
-        </div>
-        <div class="form-row">
-          <label class="form-label">评分</label>
-          <div class="star-rating" id="star-rating">
-            <span class="star" data-value="1">★</span>
-            <span class="star" data-value="2">★</span>
-            <span class="star" data-value="3">★</span>
-            <span class="star" data-value="4">★</span>
-            <span class="star" data-value="5">★</span>
+
+        <div class="book-form-grid">
+          <div class="form-row">
+            <label class="form-label" for="book-title">书名</label>
+            <input type="text" id="book-title" class="form-input book-input" placeholder="请输入书名" required>
           </div>
-          <input type="hidden" id="book-rating" value="0">
+          <div class="form-row">
+            <label class="form-label" for="book-author">作者</label>
+            <input type="text" id="book-author" class="form-input book-input" placeholder="请输入作者姓名">
+          </div>
+          <div class="form-row">
+            <label class="form-label" for="book-type">书籍类型</label>
+            <select id="book-type" class="form-input book-input book-select">
+              <option value="">请选择类型</option>
+              <option value="fiction">文学小说</option>
+              <option value="fantasy">奇幻魔法</option>
+              <option value="science">科幻探索</option>
+              <option value="history">历史传记</option>
+              <option value="philosophy">哲学思考</option>
+              <option value="mystery">悬疑推理</option>
+              <option value="self-help">自我成长</option>
+              <option value="poetry">诗歌散文</option>
+              <option value="other">其他</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <label class="form-label" for="book-date">阅读日期</label>
+            <input type="date" id="book-date" class="form-input book-input">
+          </div>
+          <div class="form-row">
+            <label class="form-label">评分</label>
+            <div class="star-rating" id="star-rating" aria-label="评分">
+              <button class="star" type="button" data-value="1" aria-label="1 星">★</button>
+              <button class="star" type="button" data-value="2" aria-label="2 星">★</button>
+              <button class="star" type="button" data-value="3" aria-label="3 星">★</button>
+              <button class="star" type="button" data-value="4" aria-label="4 星">★</button>
+              <button class="star" type="button" data-value="5" aria-label="5 星">★</button>
+            </div>
+            <input type="hidden" id="book-rating" value="0">
+          </div>
         </div>
-        <div class="form-row">
-          <label class="form-label" for="book-date">阅读日期</label>
-          <input type="date" id="book-date" class="form-input book-input">
-        </div>
+
         <div class="form-row">
           <label class="form-label" for="book-review">书评</label>
-          <textarea id="book-review" class="form-textarea book-textarea" placeholder="写下你的读后感和摘录..." required></textarea>
+          <textarea id="book-review" class="form-textarea book-textarea" placeholder="写下读后感、摘录、重读时想提醒自己的话..." required></textarea>
         </div>
         <div class="form-actions">
           <button type="button" id="cancel-form" class="cancel-btn book-cancel-btn">取消</button>
-          <button type="submit" class="submit-btn book-submit-btn">收入书架</button>
+          <button type="submit" class="submit-btn book-submit-btn">放入书架</button>
         </div>
       </form>
     </section>
 
-    <!-- Entries Container -->
     <section id="entries-container">
-      <div class="empty-state">
-        <div class="empty-state__icon">📖</div>
-        <p class="empty-state__text">暂无记录，点击上方按钮添加第一笔珍藏</p>
+      <div class="bookshelf-empty">
+        <div class="bookshelf-empty__icon">📖</div>
+        <p class="bookshelf-empty__text">书架暂时空着，添加第一本书吧。</p>
       </div>
     </section>
   </main>
 
-  <!-- Footer -->
   <footer class="footer">
-    <p class="footer__text">～ 每一页都是通往远方的船票 ～</p>
+    <p class="footer__text">✧ 每一页都曾把你带到远方 ✧</p>
   </footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="../js/supabaseClient.js"></script>
   <script src="../js/books.js"></script>
 </body>
 </html>
