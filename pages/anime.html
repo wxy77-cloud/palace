@@ -8,8 +8,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Noto+Serif+SC:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/anime.css">
 </head>
-<body class="page">
+<body class="page page-anime">
   <!-- Header -->
   <header class="page-header container">
     <a href="../index.html" class="back-btn">
@@ -23,35 +24,182 @@
 
   <!-- Content -->
   <main class="page-content container">
-    <p class="mb-3 stone-text">动漫世界的花园里，每一帧都是绽放的梦想与感动。</p>
+    <p class="mb-3 stone-text anime-intro">动漫世界的花园里，每一帧都是绽放的梦想与感动。</p>
 
     <!-- Input Section -->
-    <section class="input-section">
-      <button id="add-btn" class="add-btn">
+    <section class="input-section anime-input-section">
+      <button id="add-btn" class="add-btn anime-add-btn">
         <svg viewBox="0 0 20 20" fill="currentColor">
           <path d="M10 3v14M3 10h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
         </svg>
-        添加番剧记录
+        播下一部番剧
       </button>
 
-      <form id="input-form" class="input-form">
-        <div class="form-row">
-          <label class="form-label" for="entry-title">番剧名</label>
-          <input type="text" id="entry-title" class="form-input" placeholder="请输入番剧名" required>
+      <form id="input-form" class="input-form anime-form">
+        <div class="anime-form__header">
+          <span class="anime-form__eyebrow">花园铭牌</span>
+          <h2 class="anime-form__title">记录一部番剧</h2>
         </div>
+
+        <div class="anime-form-grid">
+          <div class="form-row">
+            <label class="form-label" for="anime-title">番剧名</label>
+            <input type="text" id="anime-title" class="form-input anime-input" placeholder="请输入番剧名" required>
+          </div>
+
+          <div class="form-row">
+            <label class="form-label" for="anime-original-title">原名 / 别名</label>
+            <input type="text" id="anime-original-title" class="form-input anime-input" placeholder="日文名、英文名或常用简称">
+          </div>
+
+          <div class="form-row">
+            <label class="form-label" for="anime-status">观看状态</label>
+            <select id="anime-status" class="form-input anime-input anime-select">
+              <option value="想看">想看</option>
+              <option value="在看">在看</option>
+              <option value="追更中">追更中</option>
+              <option value="已看完">已看完</option>
+              <option value="重刷">重刷</option>
+              <option value="暂停">暂停</option>
+              <option value="弃番">弃番</option>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <label class="form-label" for="anime-type">类型</label>
+            <select id="anime-type" class="form-input anime-input anime-select">
+              <option value="">请选择类型</option>
+              <option value="healing">治愈日常</option>
+              <option value="romance">恋爱青春</option>
+              <option value="adventure">冒险奇幻</option>
+              <option value="action">热血战斗</option>
+              <option value="mystery">悬疑推理</option>
+              <option value="sci-fi">科幻机甲</option>
+              <option value="sports">运动竞技</option>
+              <option value="drama">剧情催泪</option>
+              <option value="comedy">搞笑轻松</option>
+              <option value="other">其他</option>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <label class="form-label" for="anime-year">开播年份</label>
+            <input type="number" id="anime-year" class="form-input anime-input" min="1960" max="2100" placeholder="2026">
+          </div>
+
+          <div class="form-row">
+            <label class="form-label" for="anime-watch-date">观看日期</label>
+            <input type="date" id="anime-watch-date" class="form-input anime-input">
+          </div>
+
+          <div class="form-row">
+            <label class="form-label" for="anime-progress">集数进度</label>
+            <input type="text" id="anime-progress" class="form-input anime-input" placeholder="12/12、更新至第 8 集">
+          </div>
+
+          <div class="form-row">
+            <label class="form-label" for="anime-platform">观看平台</label>
+            <input type="text" id="anime-platform" class="form-input anime-input" placeholder="B站、Netflix、Crunchyroll...">
+          </div>
+
+          <div class="form-row">
+            <label class="form-label" for="anime-favorite-character">喜欢角色</label>
+            <input type="text" id="anime-favorite-character" class="form-input anime-input" placeholder="最想放进花园的人">
+          </div>
+        </div>
+
         <div class="form-row">
-          <label class="form-label" for="entry-content">观后感 / 最喜欢的场景</label>
-          <textarea id="entry-content" class="form-textarea" placeholder="写下你的观后感和最喜欢的场景..." required></textarea>
+          <span class="form-label">评分</span>
+          <div class="anime-flower-rating" id="anime-rating" aria-label="评分">
+            <button class="anime-petal" type="button" data-value="1" aria-label="1 分">✿</button>
+            <button class="anime-petal" type="button" data-value="2" aria-label="2 分">✿</button>
+            <button class="anime-petal" type="button" data-value="3" aria-label="3 分">✿</button>
+            <button class="anime-petal" type="button" data-value="4" aria-label="4 分">✿</button>
+            <button class="anime-petal" type="button" data-value="5" aria-label="5 分">✿</button>
+          </div>
+          <input type="hidden" id="anime-rating-value" value="0">
+        </div>
+
+        <div class="form-row">
+          <label class="form-label" for="anime-tags">标签</label>
+          <input type="text" id="anime-tags" class="form-input anime-input" placeholder="用逗号或空格分隔，例如 治愈 校园 催泪">
+        </div>
+
+        <div class="form-row">
+          <label class="form-label" for="anime-favorite-scene">最喜欢的一集 / 场景</label>
+          <textarea id="anime-favorite-scene" class="form-textarea anime-textarea anime-textarea--small" placeholder="那一帧、那句台词、那段音乐..."></textarea>
+        </div>
+
+        <div class="form-row">
+          <label class="form-label" for="anime-review">观后感</label>
+          <textarea id="anime-review" class="form-textarea anime-textarea" placeholder="写下观后感、余韵、雷点或想重看的理由..."></textarea>
         </div>
         <div class="form-actions">
-          <button type="button" id="cancel-form" class="cancel-btn">取消</button>
-          <button type="submit" class="submit-btn">提交</button>
+          <button type="button" id="cancel-form" class="cancel-btn anime-cancel-btn">取消</button>
+          <button type="submit" class="submit-btn anime-submit-btn">种进花园</button>
         </div>
       </form>
     </section>
 
+    <section class="anime-toolbar" aria-label="番剧筛选">
+      <div class="anime-toolbar__group">
+        <label class="anime-toolbar__label" for="anime-search">检索</label>
+        <input type="search" id="anime-search" class="anime-toolbar__input" placeholder="番剧名、角色或标签">
+      </div>
+      <div class="anime-toolbar__group">
+        <label class="anime-toolbar__label" for="anime-filter-status">状态</label>
+        <select id="anime-filter-status" class="anime-toolbar__select">
+          <option value="">全部状态</option>
+          <option value="想看">想看</option>
+          <option value="在看">在看</option>
+          <option value="追更中">追更中</option>
+          <option value="已看完">已看完</option>
+          <option value="重刷">重刷</option>
+          <option value="暂停">暂停</option>
+          <option value="弃番">弃番</option>
+        </select>
+      </div>
+      <div class="anime-toolbar__group">
+        <label class="anime-toolbar__label" for="anime-filter-type">类型</label>
+        <select id="anime-filter-type" class="anime-toolbar__select">
+          <option value="">全部类型</option>
+          <option value="healing">治愈日常</option>
+          <option value="romance">恋爱青春</option>
+          <option value="adventure">冒险奇幻</option>
+          <option value="action">热血战斗</option>
+          <option value="mystery">悬疑推理</option>
+          <option value="sci-fi">科幻机甲</option>
+          <option value="sports">运动竞技</option>
+          <option value="drama">剧情催泪</option>
+          <option value="comedy">搞笑轻松</option>
+          <option value="other">其他</option>
+        </select>
+      </div>
+      <div class="anime-toolbar__group">
+        <label class="anime-toolbar__label" for="anime-filter-rating">评分</label>
+        <select id="anime-filter-rating" class="anime-toolbar__select">
+          <option value="">全部评分</option>
+          <option value="5">5 分</option>
+          <option value="4">4 分及以上</option>
+          <option value="3">3 分及以上</option>
+          <option value="2">2 分及以上</option>
+          <option value="1">1 分及以上</option>
+        </select>
+      </div>
+      <div class="anime-toolbar__group">
+        <label class="anime-toolbar__label" for="anime-sort">排序</label>
+        <select id="anime-sort" class="anime-toolbar__select">
+          <option value="created-desc">最近种下</option>
+          <option value="watch-desc">观看日期</option>
+          <option value="rating-desc">评分最高</option>
+          <option value="year-desc">年份倒序</option>
+          <option value="title-asc">番剧名 A-Z</option>
+        </select>
+      </div>
+    </section>
+
     <!-- Entries Container -->
-    <section id="entries-container">
+    <section id="entries-container" class="anime-garden">
       <div class="empty-state">
         <div class="empty-state__icon">🎬</div>
         <p class="empty-state__text">暂无记录，点击上方按钮添加第一笔珍藏</p>
@@ -66,6 +214,6 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="../js/supabaseClient.js"></script>
-  <script src="../js/common.js"></script>
+  <script src="../js/anime.js"></script>
 </body>
 </html>

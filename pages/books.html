@@ -63,8 +63,31 @@
             </select>
           </div>
           <div class="form-row">
-            <label class="form-label" for="book-date">阅读日期</label>
+            <label class="form-label" for="book-status">阅读状态</label>
+            <select id="book-status" class="form-input book-input book-select">
+              <option value="想读">想读</option>
+              <option value="在读">在读</option>
+              <option value="读完">读完</option>
+              <option value="重读">重读</option>
+              <option value="暂停">暂停</option>
+              <option value="弃读">弃读</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <label class="form-label" for="book-start-date">开始日期</label>
+            <input type="date" id="book-start-date" class="form-input book-input">
+          </div>
+          <div class="form-row">
+            <label class="form-label" for="book-date">完成日期</label>
             <input type="date" id="book-date" class="form-input book-input">
+          </div>
+          <div class="form-row">
+            <label class="form-label" for="book-publisher">出版社</label>
+            <input type="text" id="book-publisher" class="form-input book-input" placeholder="出版社 / 版本">
+          </div>
+          <div class="form-row">
+            <label class="form-label" for="book-source">来源</label>
+            <input type="text" id="book-source" class="form-input book-input" placeholder="购入、借阅、电子书...">
           </div>
           <div class="form-row">
             <label class="form-label">评分</label>
@@ -80,14 +103,74 @@
         </div>
 
         <div class="form-row">
+          <label class="form-label" for="book-tags">标签</label>
+          <input type="text" id="book-tags" class="form-input book-input" placeholder="用逗号或空格分隔，例如 魔法 学院 温柔">
+        </div>
+
+        <div class="form-row">
+          <label class="book-switch">
+            <input type="checkbox" id="book-reread">
+            <span class="book-switch__track"></span>
+            <span class="book-switch__text">想重读</span>
+          </label>
+        </div>
+
+        <div class="form-row">
+          <label class="form-label" for="book-quote">摘录</label>
+          <textarea id="book-quote" class="form-textarea book-textarea book-textarea--small" placeholder="摘下一句仍在发光的话..."></textarea>
+        </div>
+
+        <div class="form-row">
           <label class="form-label" for="book-review">书评</label>
-          <textarea id="book-review" class="form-textarea book-textarea" placeholder="写下读后感、摘录、重读时想提醒自己的话..." required></textarea>
+          <textarea id="book-review" class="form-textarea book-textarea" placeholder="写下读后感、重读时想提醒自己的话..."></textarea>
         </div>
         <div class="form-actions">
           <button type="button" id="cancel-form" class="cancel-btn book-cancel-btn">取消</button>
           <button type="submit" class="submit-btn book-submit-btn">放入书架</button>
         </div>
       </form>
+    </section>
+
+    <section class="book-toolbar" aria-label="藏书筛选">
+      <div class="book-toolbar__group">
+        <label class="book-toolbar__label" for="book-search">检索</label>
+        <input type="search" id="book-search" class="book-toolbar__input" placeholder="书名或作者">
+      </div>
+      <div class="book-toolbar__group">
+        <label class="book-toolbar__label" for="book-filter-type">类型</label>
+        <select id="book-filter-type" class="book-toolbar__select">
+          <option value="">全部类型</option>
+          <option value="fiction">文学小说</option>
+          <option value="fantasy">奇幻魔法</option>
+          <option value="science">科幻探索</option>
+          <option value="history">历史传记</option>
+          <option value="philosophy">哲学思考</option>
+          <option value="mystery">悬疑推理</option>
+          <option value="self-help">自我成长</option>
+          <option value="poetry">诗歌散文</option>
+          <option value="other">其他</option>
+        </select>
+      </div>
+      <div class="book-toolbar__group">
+        <label class="book-toolbar__label" for="book-filter-rating">评分</label>
+        <select id="book-filter-rating" class="book-toolbar__select">
+          <option value="">全部评分</option>
+          <option value="5">5 星</option>
+          <option value="4">4 星及以上</option>
+          <option value="3">3 星及以上</option>
+          <option value="2">2 星及以上</option>
+          <option value="1">1 星及以上</option>
+        </select>
+      </div>
+      <div class="book-toolbar__group">
+        <label class="book-toolbar__label" for="book-sort">排序</label>
+        <select id="book-sort" class="book-toolbar__select">
+          <option value="created-desc">最近入架</option>
+          <option value="read-desc">完成日期</option>
+          <option value="rating-desc">评分最高</option>
+          <option value="title-asc">书名 A-Z</option>
+        </select>
+      </div>
     </section>
 
     <section id="entries-container">
@@ -102,6 +185,8 @@
     <p class="footer__text">✧ 每一页都曾把你带到远方 ✧</p>
   </footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../js/supabaseClient.js"></script>
   <script src="../js/books.js"></script>
 </body>
 </html>
