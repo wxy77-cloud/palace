@@ -34,6 +34,32 @@
     return file.replace('.html', '') || 'index';
   }
 
+  function disableRecordAutocomplete() {
+    if (getPageName() === 'login') return;
+
+    const apply = (root) => {
+      root.querySelectorAll('form, input, textarea, select').forEach((el) => {
+        el.setAttribute('autocomplete', 'off');
+      });
+    };
+
+    apply(document);
+
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        mutation.addedNodes.forEach((node) => {
+          if (!(node instanceof Element)) return;
+          if (node.matches('form, input, textarea, select')) {
+            node.setAttribute('autocomplete', 'off');
+          }
+          apply(node);
+        });
+      });
+    });
+
+    observer.observe(document.body, { childList: true, subtree: true });
+  }
+
   function getPrimaryText(entry) {
     return entry.content || entry.review || entry.notes || entry.description || '';
   }
@@ -241,8 +267,12 @@
   };
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', renderAuthBar);
+    document.addEventListener('DOMContentLoaded', () => {
+      disableRecordAutocomplete();
+      renderAuthBar();
+    });
   } else {
+    disableRecordAutocomplete();
     renderAuthBar();
   }
 })();

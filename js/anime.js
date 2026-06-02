@@ -224,8 +224,9 @@
     });
     document.getElementById('anime-modal-edit').addEventListener('click', () => {
       if (!activeModalEntry) return;
+      const entryToEdit = activeModalEntry;
       closeModal();
-      openForm(activeModalEntry);
+      openForm(entryToEdit);
     });
     document.getElementById('anime-modal-delete').addEventListener('click', deleteActiveEntry);
   }

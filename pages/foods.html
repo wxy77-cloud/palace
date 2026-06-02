@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>饕餮食笺 - 心灵宫殿</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Noto+Serif+SC:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/foods.css">
+</head>
+<body class="page page-foods">
+  <header class="page-header container">
+    <a href="../index.html" class="back-btn">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+        <path d="M12 4L6 10L12 16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
+      </svg>
+      返回宫殿
+    </a>
+    <h1 class="page-title">饕餮食笺</h1>
+  </header>
+
+  <main class="page-content container">
+    <p class="foods-intro">把尝过的美食写成一枚食笺，记下店铺、风味、价格、回味与是否还想再吃。</p>
+
+    <section class="foods-input-section">
+      <button id="add-btn" class="foods-add-btn" type="button">
+        <svg viewBox="0 0 20 20" fill="currentColor">
+          <path d="M10 3v14M3 10h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        添一道食笺
+      </button>
+
+      <form id="input-form" class="foods-form" autocomplete="off">
+        <div class="foods-form__header">
+          <span class="foods-form__eyebrow">Gourmet Note</span>
+          <h2 class="foods-form__title">记录一道尝过的美食</h2>
+        </div>
+
+        <div class="foods-form-grid">
+          <div class="form-row">
+            <label class="form-label" for="food-name">美食名称</label>
+            <input type="text" id="food-name" class="form-input" placeholder="菜名、小吃、甜品或套餐名" required>
+          </div>
+
+          <div class="form-row">
+            <label class="form-label" for="food-place">店铺 / 地点</label>
+            <input type="text" id="food-place" class="form-input" placeholder="餐厅、摊位、城市、外卖店...">
+          </div>
+
+          <div class="form-row">
+            <label class="form-label" for="food-type">餐食类型</label>
+            <select id="food-type" class="form-input foods-select">
+              <option value="meal">正餐</option>
+              <option value="snack">小吃</option>
+              <option value="dessert">甜品</option>
+              <option value="breakfast">早餐</option>
+              <option value="hotpot">火锅 / 烧烤</option>
+              <option value="takeout">外卖</option>
+              <option value="homemade">家常 / 自制</option>
+              <option value="other">其他</option>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <label class="form-label" for="food-cuisine">菜系 / 风格</label>
+            <input type="text" id="food-cuisine" class="form-input" placeholder="川菜、粤菜、日料、韩餐、融合菜...">
+          </div>
+
+          <div class="form-row">
+            <label class="form-label" for="food-price">价格区间</label>
+            <select id="food-price" class="form-input foods-select">
+              <option value="">未记录</option>
+              <option value="¥">¥ 轻食小满足</option>
+              <option value="¥¥">¥¥ 日常可冲</option>
+              <option value="¥¥¥">¥¥¥ 偶尔犒赏</option>
+              <option value="¥¥¥¥">¥¥¥¥ 隆重开席</option>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <label class="form-label" for="food-date">品尝日期</label>
+            <input type="date" id="food-date" class="form-input">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <span class="form-label">好吃指数</span>
+          <div class="foods-rating" aria-label="好吃指数">
+            <button class="food-star" type="button" data-value="1" aria-label="1 星">✦</button>
+            <button class="food-star" type="button" data-value="2" aria-label="2 星">✦</button>
+            <button class="food-star" type="button" data-value="3" aria-label="3 星">✦</button>
+            <button class="food-star" type="button" data-value="4" aria-label="4 星">✦</button>
+            <button class="food-star" type="button" data-value="5" aria-label="5 星">✦</button>
+          </div>
+          <input type="hidden" id="food-rating" value="0">
+        </div>
+
+        <div class="foods-flags">
+          <label class="foods-check">
+            <input type="checkbox" id="food-revisit">
+            <span>愿意再吃</span>
+          </label>
+          <label class="foods-check">
+            <input type="checkbox" id="food-signature">
+            <span>招牌级推荐</span>
+          </label>
+        </div>
+
+        <div class="form-row">
+          <label class="form-label" for="food-tags">口味标签</label>
+          <input type="text" id="food-tags" class="form-input" placeholder="鲜、辣、甜、咸香、酥脆、浓郁、清爽、踩雷...">
+        </div>
+
+        <div class="form-row">
+          <label class="form-label" for="food-notes">品尝感想</label>
+          <textarea id="food-notes" class="form-textarea" placeholder="记录口感、分量、排队情况、适合人群、下次点单建议..."></textarea>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" id="cancel-form" class="cancel-btn foods-cancel-btn">取消</button>
+          <button type="submit" class="submit-btn foods-submit-btn">收入食笺</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="foods-toolbar" aria-label="美食筛选">
+      <div class="foods-toolbar__group foods-toolbar__group--search">
+        <label class="foods-toolbar__label" for="food-search">检索</label>
+        <input type="search" id="food-search" class="foods-toolbar__input" placeholder="菜名、店铺、菜系或标签" autocomplete="off">
+      </div>
+      <div class="foods-toolbar__group">
+        <label class="foods-toolbar__label" for="food-filter-type">类型</label>
+        <select id="food-filter-type" class="foods-toolbar__select">
+          <option value="">全部类型</option>
+          <option value="meal">正餐</option>
+          <option value="snack">小吃</option>
+          <option value="dessert">甜品</option>
+          <option value="breakfast">早餐</option>
+          <option value="hotpot">火锅 / 烧烤</option>
+          <option value="takeout">外卖</option>
+          <option value="homemade">家常 / 自制</option>
+          <option value="other">其他</option>
+        </select>
+      </div>
+      <div class="foods-toolbar__group">
+        <label class="foods-toolbar__label" for="food-filter-rating">评分</label>
+        <select id="food-filter-rating" class="foods-toolbar__select">
+          <option value="">全部评分</option>
+          <option value="5">5 星</option>
+          <option value="4">4 星及以上</option>
+          <option value="3">3 星及以上</option>
+          <option value="2">2 星及以上</option>
+          <option value="1">1 星及以上</option>
+        </select>
+      </div>
+      <div class="foods-toolbar__group">
+        <label class="foods-toolbar__label" for="food-sort">排序</label>
+        <select id="food-sort" class="foods-toolbar__select">
+          <option value="created-desc">最近收入</option>
+          <option value="date-desc">品尝日期</option>
+          <option value="rating-desc">评分最高</option>
+          <option value="name-asc">名称 A-Z</option>
+        </select>
+      </div>
+    </section>
+
+    <section id="entries-container" class="foods-gallery">
+      <div class="foods-empty">
+        <div class="foods-empty__icon">◇</div>
+        <p class="foods-empty__text">食笺还空着，添上第一道尝过的美食吧。</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p class="footer__text">～ 人间烟火气，最抚凡人心 ～</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../js/supabaseClient.js"></script>
+  <script src="../js/foods.js"></script>
+</body>
+</html>

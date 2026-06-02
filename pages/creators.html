@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>星河名帖 - 心灵宫殿</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Noto+Serif+SC:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/creators.css">
+</head>
+<body class="page page-creators">
+  <header class="page-header container">
+    <a href="../index.html" class="back-btn">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+        <path d="M12 4L6 10L12 16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
+      </svg>
+      返回宫殿
+    </a>
+    <h1 class="page-title">✦ 星河名帖</h1>
+  </header>
+
+  <main class="page-content container">
+    <p class="creators-intro">把喜欢的博主、UP 主、太太与网络创作者收入名帖，记下他们带来的灵感、陪伴与高光作品。</p>
+
+    <section class="creators-input-section">
+      <button id="add-btn" class="creators-add-btn" type="button">
+        <svg viewBox="0 0 20 20" fill="currentColor">
+          <path d="M10 3v14M3 10h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        录入名帖
+      </button>
+
+      <form id="input-form" class="creators-form" autocomplete="off">
+        <div class="creators-form__header">
+          <span class="creators-form__eyebrow">Creator Dossier</span>
+          <h2 class="creators-form__title">记录一位喜欢的创作者</h2>
+        </div>
+
+        <div class="creators-form-grid">
+          <div class="form-row">
+            <label class="form-label" for="creator-name">称呼 / 昵称</label>
+            <input type="text" id="creator-name" class="form-input" placeholder="博主、UP 主、太太或画师名" required>
+          </div>
+
+          <div class="form-row">
+            <label class="form-label" for="creator-platform">主要平台</label>
+            <input type="text" id="creator-platform" class="form-input" placeholder="B站、微博、小红书、LOFTER、公众号...">
+          </div>
+
+          <div class="form-row">
+            <label class="form-label" for="creator-type">创作领域</label>
+            <select id="creator-type" class="form-input creators-select">
+              <option value="video">视频 / UP 主</option>
+              <option value="writing">文字 / 博主</option>
+              <option value="art">绘画 / 设计</option>
+              <option value="fanwork">同人 / 太太</option>
+              <option value="knowledge">知识 / 科普</option>
+              <option value="life">生活方式</option>
+              <option value="music">音乐 / 声音</option>
+              <option value="other">其他</option>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <label class="form-label" for="creator-status">关注状态</label>
+            <select id="creator-status" class="form-input creators-select">
+              <option value="常看">常看</option>
+              <option value="新关注">新关注</option>
+              <option value="偶尔回访">偶尔回访</option>
+              <option value="已收藏待看">已收藏待看</option>
+              <option value="特别喜欢">特别喜欢</option>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <label class="form-label" for="creator-homepage">主页链接</label>
+            <input type="url" id="creator-homepage" class="form-input" placeholder="https://...">
+          </div>
+
+          <div class="form-row">
+            <label class="form-label" for="creator-date">发现日期</label>
+            <input type="date" id="creator-date" class="form-input">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <span class="form-label">推荐指数</span>
+          <div class="creators-rating" aria-label="推荐指数">
+            <button class="creator-star" type="button" data-value="1" aria-label="1 星">✦</button>
+            <button class="creator-star" type="button" data-value="2" aria-label="2 星">✦</button>
+            <button class="creator-star" type="button" data-value="3" aria-label="3 星">✦</button>
+            <button class="creator-star" type="button" data-value="4" aria-label="4 星">✦</button>
+            <button class="creator-star" type="button" data-value="5" aria-label="5 星">✦</button>
+          </div>
+          <input type="hidden" id="creator-rating" value="0">
+        </div>
+
+        <div class="form-row">
+          <label class="form-label" for="creator-works">代表作品 / 频道亮点</label>
+          <input type="text" id="creator-works" class="form-input" placeholder="视频、文章、作品系列或常看栏目">
+        </div>
+
+        <div class="form-row">
+          <label class="form-label" for="creator-tags">标签</label>
+          <input type="text" id="creator-tags" class="form-input" placeholder="治愈、考据、审美好、做饭、剪辑、同人、学习...">
+        </div>
+
+        <div class="form-row">
+          <label class="form-label" for="creator-notes">喜欢原因</label>
+          <textarea id="creator-notes" class="form-textarea" placeholder="写下你喜欢 TA 的地方、适合什么时候看、推荐给未来自己的理由..."></textarea>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" id="cancel-form" class="cancel-btn creators-cancel-btn">取消</button>
+          <button type="submit" class="submit-btn creators-submit-btn">收入名帖</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="creators-toolbar" aria-label="创作者筛选">
+      <div class="creators-toolbar__group creators-toolbar__group--search">
+        <label class="creators-toolbar__label" for="creator-search">检索</label>
+        <input type="search" id="creator-search" class="creators-toolbar__input" placeholder="称呼、平台、作品或标签" autocomplete="off">
+      </div>
+      <div class="creators-toolbar__group">
+        <label class="creators-toolbar__label" for="creator-filter-type">领域</label>
+        <select id="creator-filter-type" class="creators-toolbar__select">
+          <option value="">全部领域</option>
+          <option value="video">视频 / UP 主</option>
+          <option value="writing">文字 / 博主</option>
+          <option value="art">绘画 / 设计</option>
+          <option value="fanwork">同人 / 太太</option>
+          <option value="knowledge">知识 / 科普</option>
+          <option value="life">生活方式</option>
+          <option value="music">音乐 / 声音</option>
+          <option value="other">其他</option>
+        </select>
+      </div>
+      <div class="creators-toolbar__group">
+        <label class="creators-toolbar__label" for="creator-filter-rating">推荐</label>
+        <select id="creator-filter-rating" class="creators-toolbar__select">
+          <option value="">全部指数</option>
+          <option value="5">5 星</option>
+          <option value="4">4 星及以上</option>
+          <option value="3">3 星及以上</option>
+          <option value="2">2 星及以上</option>
+          <option value="1">1 星及以上</option>
+        </select>
+      </div>
+      <div class="creators-toolbar__group">
+        <label class="creators-toolbar__label" for="creator-sort">排序</label>
+        <select id="creator-sort" class="creators-toolbar__select">
+          <option value="created-desc">最近收入</option>
+          <option value="date-desc">发现日期</option>
+          <option value="rating-desc">推荐最高</option>
+          <option value="name-asc">称呼 A-Z</option>
+        </select>
+      </div>
+    </section>
+
+    <section id="entries-container" class="creators-gallery">
+      <div class="creators-empty">
+        <div class="creators-empty__icon">✦</div>
+        <p class="creators-empty__text">名帖还空着，先收入一位喜欢的创作者吧。</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p class="footer__text">～ 他们在屏幕另一端，也曾照亮一小段日常 ～</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../js/supabaseClient.js"></script>
+  <script src="../js/creators.js"></script>
+</body>
+</html>

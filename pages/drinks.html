@@ -26,6 +26,79 @@
   <main class="page-content container">
     <p class="mb-3 stone-text" style="text-align:center; font-style:italic; margin-bottom:30px !important;">品味世间的醇香与苦涩，每一杯饮品背后的故事与心情。</p>
 
+    <section id="drink-stats" class="drink-stats" aria-label="饮品统计">
+      <div class="drink-stat">
+        <span class="drink-stat__value">0</span>
+        <span class="drink-stat__label">杯珍藏</span>
+      </div>
+      <div class="drink-stat">
+        <span class="drink-stat__value">0</span>
+        <span class="drink-stat__label">五星饮品</span>
+      </div>
+      <div class="drink-stat">
+        <span class="drink-stat__value">0</span>
+        <span class="drink-stat__label">回购清单</span>
+      </div>
+      <div class="drink-stat">
+        <span class="drink-stat__value">-</span>
+        <span class="drink-stat__label">最常喝</span>
+      </div>
+    </section>
+
+    <section class="drink-toolbar" aria-label="饮品筛选">
+      <div class="drink-toolbar__group drink-toolbar__group--search">
+        <label class="drink-toolbar__label" for="drink-search">检索</label>
+        <input type="search" id="drink-search" class="drink-toolbar__input" placeholder="饮品、店铺或风味" autocomplete="off">
+      </div>
+      <div class="drink-toolbar__group">
+        <label class="drink-toolbar__label" for="drink-filter-type">类型</label>
+        <select id="drink-filter-type" class="drink-toolbar__select">
+          <option value="">全部类型</option>
+          <option value="yogurt">酸奶</option>
+          <option value="coffee">咖啡</option>
+          <option value="milktea">奶茶</option>
+          <option value="fruittea">果茶</option>
+          <option value="tea">茶饮</option>
+          <option value="alcohol">酒</option>
+          <option value="sparkling">气泡水</option>
+          <option value="juice">果汁</option>
+          <option value="cocoa">可可</option>
+          <option value="special">特调</option>
+          <option value="other">其他</option>
+        </select>
+      </div>
+      <div class="drink-toolbar__group">
+        <label class="drink-toolbar__label" for="drink-filter-repurchase">回购</label>
+        <select id="drink-filter-repurchase" class="drink-toolbar__select">
+          <option value="">全部</option>
+          <option value="yes">会回购</option>
+          <option value="maybe">看心情</option>
+          <option value="no">不回购</option>
+        </select>
+      </div>
+      <div class="drink-toolbar__group">
+        <label class="drink-toolbar__label" for="drink-filter-rating">评分</label>
+        <select id="drink-filter-rating" class="drink-toolbar__select">
+          <option value="">全部评分</option>
+          <option value="5">5 星</option>
+          <option value="4">4 星及以上</option>
+          <option value="3">3 星及以上</option>
+          <option value="2">2 星及以上</option>
+          <option value="1">1 星及以上</option>
+        </select>
+      </div>
+      <div class="drink-toolbar__group">
+        <label class="drink-toolbar__label" for="drink-sort">排序</label>
+        <select id="drink-sort" class="drink-toolbar__select">
+          <option value="date-desc">最近品尝</option>
+          <option value="rating-desc">评分最高</option>
+          <option value="price-desc">价格最高</option>
+          <option value="price-asc">价格最低</option>
+          <option value="name-asc">名称 A-Z</option>
+        </select>
+      </div>
+    </section>
+
     <!-- Entries Container -->
     <section id="entries-container">
       <div class="drinks-empty">
@@ -56,26 +129,84 @@
       <button id="close-add-modal" class="add-modal__close">&times;</button>
       <h2 class="add-modal__title">添加饮品</h2>
 
-      <form id="drink-form" class="drink-form">
+      <form id="drink-form" class="drink-form" autocomplete="off">
         <div class="form-row">
           <label class="form-label" for="drink-name">饮品名称</label>
           <input type="text" id="drink-name" class="form-input" placeholder="请输入饮品名称" required>
         </div>
 
-        <div class="form-row">
-          <label class="form-label" for="drink-shop">来源</label>
-          <input type="text" id="drink-shop" class="form-input" placeholder="请输入邂逅之所">
-        </div>
+        <div class="drink-form-grid">
+          <div class="form-row">
+            <label class="form-label" for="drink-shop">来源</label>
+            <input type="text" id="drink-shop" class="form-input" placeholder="请输入邂逅之所">
+          </div>
 
-        <div class="form-row">
-          <label class="form-label" for="drink-type">饮品类型</label>
-          <select id="drink-type" class="form-select">
-            <option value="yogurt">酸奶</option>
-            <option value="coffee">咖啡</option>
-            <option value="milktea">奶茶</option>
-            <option value="fruittea">果茶</option>
-            <option value="other">其他</option>
-          </select>
+          <div class="form-row">
+            <label class="form-label" for="drink-date">品尝日期</label>
+            <input type="date" id="drink-date" class="form-input">
+          </div>
+
+          <div class="form-row">
+            <label class="form-label" for="drink-type">饮品类型</label>
+            <select id="drink-type" class="form-select">
+              <option value="yogurt">酸奶</option>
+              <option value="coffee">咖啡</option>
+              <option value="milktea">奶茶</option>
+              <option value="fruittea">果茶</option>
+              <option value="tea">茶饮</option>
+              <option value="alcohol">酒</option>
+              <option value="sparkling">气泡水</option>
+              <option value="juice">果汁</option>
+              <option value="cocoa">可可</option>
+              <option value="special">特调</option>
+              <option value="other">其他</option>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <label class="form-label" for="drink-price">价格</label>
+            <input type="number" id="drink-price" class="form-input" min="0" step="0.1" placeholder="例如：18">
+          </div>
+
+          <div class="form-row">
+            <label class="form-label" for="drink-sweetness">甜度</label>
+            <select id="drink-sweetness" class="form-select">
+              <option value="">未记录</option>
+              <option value="无糖">无糖</option>
+              <option value="微糖">微糖</option>
+              <option value="半糖">半糖</option>
+              <option value="少糖">少糖</option>
+              <option value="正常糖">正常糖</option>
+              <option value="偏甜">偏甜</option>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <label class="form-label" for="drink-ice">冰度</label>
+            <select id="drink-ice" class="form-select">
+              <option value="">未记录</option>
+              <option value="热饮">热饮</option>
+              <option value="常温">常温</option>
+              <option value="去冰">去冰</option>
+              <option value="少冰">少冰</option>
+              <option value="正常冰">正常冰</option>
+              <option value="多冰">多冰</option>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <label class="form-label" for="drink-size">容量</label>
+            <input type="text" id="drink-size" class="form-input" placeholder="中杯、500ml、单杯...">
+          </div>
+
+          <div class="form-row">
+            <label class="form-label" for="drink-repurchase">回购标记</label>
+            <select id="drink-repurchase" class="form-select">
+              <option value="maybe">看心情</option>
+              <option value="yes">会回购</option>
+              <option value="no">不回购</option>
+            </select>
+          </div>
         </div>
 
         <div class="form-row">
@@ -88,6 +219,28 @@
             <span class="star" data-value="5">★</span>
           </div>
           <input type="hidden" id="drink-rating" value="0">
+        </div>
+
+        <div class="form-row">
+          <span class="form-label">风味标签</span>
+          <div class="flavor-tag-options" id="flavor-tag-options" aria-label="风味标签">
+            <button class="flavor-tag-option" type="button" data-tag="清爽">清爽</button>
+            <button class="flavor-tag-option" type="button" data-tag="浓郁">浓郁</button>
+            <button class="flavor-tag-option" type="button" data-tag="奶香">奶香</button>
+            <button class="flavor-tag-option" type="button" data-tag="茶感重">茶感重</button>
+            <button class="flavor-tag-option" type="button" data-tag="果香">果香</button>
+            <button class="flavor-tag-option" type="button" data-tag="酸甜">酸甜</button>
+            <button class="flavor-tag-option" type="button" data-tag="苦">苦</button>
+            <button class="flavor-tag-option" type="button" data-tag="酒感">酒感</button>
+            <button class="flavor-tag-option" type="button" data-tag="惊喜">惊喜</button>
+            <button class="flavor-tag-option" type="button" data-tag="踩雷">踩雷</button>
+          </div>
+          <input type="text" id="drink-custom-tags" class="form-input" placeholder="自定义标签，用逗号或空格分隔">
+        </div>
+
+        <div class="form-row">
+          <label class="form-label" for="drink-toppings">配料 / 小料</label>
+          <input type="text" id="drink-toppings" class="form-input" placeholder="珍珠、燕麦、奶盖、柠檬片...">
         </div>
 
         <div class="form-row">

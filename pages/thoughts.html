@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>灵犀箴匣 - 心灵宫殿</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Noto+Serif+SC:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/thoughts.css">
+</head>
+<body class="page page-thoughts">
+  <header class="page-header container">
+    <a href="../index.html" class="back-btn">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+        <path d="M12 4L6 10L12 16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
+      </svg>
+      返回宫殿
+    </a>
+    <h1 class="page-title">灵犀箴匣</h1>
+  </header>
+
+  <main class="page-content container">
+    <p class="thoughts-intro">把值得反复回看的箴言、思考和感悟收入匣中，让那些短暂闪现的心光有处安放。</p>
+
+    <section class="thoughts-input-section">
+      <button id="add-btn" class="thoughts-add-btn" type="button">
+        <svg viewBox="0 0 20 20" fill="currentColor">
+          <path d="M10 3v14M3 10h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        收入箴匣
+      </button>
+
+      <form id="input-form" class="thoughts-form" autocomplete="off">
+        <div class="thoughts-form__header">
+          <span class="thoughts-form__eyebrow">Inner Maxim</span>
+          <h2 class="thoughts-form__title">记录一则箴言或感悟</h2>
+        </div>
+
+        <div class="thoughts-form-grid">
+          <div class="form-row">
+            <label class="form-label" for="thought-title">标题 / 关键词</label>
+            <input type="text" id="thought-title" class="form-input" placeholder="给这段思考起一个名字" required>
+          </div>
+
+          <div class="form-row">
+            <label class="form-label" for="thought-category">类型</label>
+            <select id="thought-category" class="form-input thoughts-select">
+              <option value="maxim">箴言</option>
+              <option value="reflection">感悟</option>
+              <option value="idea">灵感</option>
+              <option value="question">疑问</option>
+              <option value="reminder">提醒</option>
+              <option value="quote">摘录</option>
+              <option value="other">其他</option>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <label class="form-label" for="thought-source">来源</label>
+            <input type="text" id="thought-source" class="form-input" placeholder="书、电影、朋友、自己、某个瞬间...">
+          </div>
+
+          <div class="form-row">
+            <label class="form-label" for="thought-date">记录日期</label>
+            <input type="date" id="thought-date" class="form-input">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <label class="form-label" for="thought-text">箴言 / 思考原文</label>
+          <textarea id="thought-text" class="form-textarea thoughts-textarea-main" placeholder="写下那句话、那个念头，或值得保存的一段思考..." required></textarea>
+        </div>
+
+        <div class="form-row">
+          <label class="form-label" for="thought-reflection">个人解读</label>
+          <textarea id="thought-reflection" class="form-textarea" placeholder="它为什么打动你？现在的你如何理解它？未来希望它提醒你什么？"></textarea>
+        </div>
+
+        <div class="form-row">
+          <span class="form-label">重要程度</span>
+          <div class="thoughts-rating" aria-label="重要程度">
+            <button class="thought-star" type="button" data-value="1" aria-label="1 星">✦</button>
+            <button class="thought-star" type="button" data-value="2" aria-label="2 星">✦</button>
+            <button class="thought-star" type="button" data-value="3" aria-label="3 星">✦</button>
+            <button class="thought-star" type="button" data-value="4" aria-label="4 星">✦</button>
+            <button class="thought-star" type="button" data-value="5" aria-label="5 星">✦</button>
+          </div>
+          <input type="hidden" id="thought-rating" value="0">
+        </div>
+
+        <div class="thoughts-flags">
+          <label class="thoughts-check">
+            <input type="checkbox" id="thought-pinned">
+            <span>置顶回看</span>
+          </label>
+        </div>
+
+        <div class="form-row">
+          <label class="form-label" for="thought-tags">标签</label>
+          <input type="text" id="thought-tags" class="form-input" placeholder="成长、关系、勇气、秩序、创作、人生、提醒...">
+        </div>
+
+        <div class="form-actions">
+          <button type="button" id="cancel-form" class="cancel-btn thoughts-cancel-btn">取消</button>
+          <button type="submit" class="submit-btn thoughts-submit-btn">收入箴匣</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="thoughts-toolbar" aria-label="箴言筛选">
+      <div class="thoughts-toolbar__group thoughts-toolbar__group--search">
+        <label class="thoughts-toolbar__label" for="thought-search">检索</label>
+        <input type="search" id="thought-search" class="thoughts-toolbar__input" placeholder="标题、正文、来源或标签" autocomplete="off">
+      </div>
+      <div class="thoughts-toolbar__group">
+        <label class="thoughts-toolbar__label" for="thought-filter-category">类型</label>
+        <select id="thought-filter-category" class="thoughts-toolbar__select">
+          <option value="">全部类型</option>
+          <option value="maxim">箴言</option>
+          <option value="reflection">感悟</option>
+          <option value="idea">灵感</option>
+          <option value="question">疑问</option>
+          <option value="reminder">提醒</option>
+          <option value="quote">摘录</option>
+          <option value="other">其他</option>
+        </select>
+      </div>
+      <div class="thoughts-toolbar__group">
+        <label class="thoughts-toolbar__label" for="thought-filter-rating">重要</label>
+        <select id="thought-filter-rating" class="thoughts-toolbar__select">
+          <option value="">全部程度</option>
+          <option value="5">5 星</option>
+          <option value="4">4 星及以上</option>
+          <option value="3">3 星及以上</option>
+          <option value="2">2 星及以上</option>
+          <option value="1">1 星及以上</option>
+        </select>
+      </div>
+      <div class="thoughts-toolbar__group">
+        <label class="thoughts-toolbar__label" for="thought-sort">排序</label>
+        <select id="thought-sort" class="thoughts-toolbar__select">
+          <option value="created-desc">最近收入</option>
+          <option value="date-desc">记录日期</option>
+          <option value="rating-desc">重要最高</option>
+          <option value="title-asc">标题 A-Z</option>
+        </select>
+      </div>
+    </section>
+
+    <section id="entries-container" class="thoughts-gallery">
+      <div class="thoughts-empty">
+        <div class="thoughts-empty__icon">✦</div>
+        <p class="thoughts-empty__text">箴匣还空着，先收入一则值得记下的思考吧。</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p class="footer__text">～ 心有灵犀时，也要替未来的自己留一盏灯 ～</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../js/supabaseClient.js"></script>
+  <script src="../js/thoughts.js"></script>
+</body>
+</html>

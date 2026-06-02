@@ -7,6 +7,12 @@
     coffee: '咖啡',
     milktea: '奶茶',
     fruittea: '果茶',
+    tea: '茶饮',
+    alcohol: '酒',
+    sparkling: '气泡水',
+    juice: '果汁',
+    cocoa: '可可',
+    special: '特调',
     other: '其他'
   };
 
@@ -15,10 +21,17 @@
     coffee: '<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16 24h28v4H16v-4z" fill="#8B7B6B"/><path d="M14 28h32v24c0 4-4 8-8 8H22c-4 0-8-4-8-8V28z" fill="#E8D4B8" stroke="#C4A070" stroke-width="2"/><path d="M46 32h6c4 0 6 2 6 6v4c0 4-2 6-6 6h-6" stroke="#C4A070" stroke-width="2"/></svg>',
     milktea: '<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 12h24v6H20v-6z" fill="#C4A070"/><path d="M18 18h28l-2 38H20l-2-38z" fill="#FFE4C4" stroke="#D4B896" stroke-width="2"/></svg>',
     fruittea: '<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 14h24v4H20v-4z" fill="#8B7B6B"/><path d="M18 18h28l-4 34H22l-4-34z" fill="#FFE0CC" stroke="#FFD0B0" stroke-width="2"/><circle cx="26" cy="32" r="4" fill="#FF9E80"/></svg>',
+    tea: '<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18 22h30v8c0 10-6 18-15 18S18 40 18 30v-8z" fill="#DDECC8" stroke="#93A86B" stroke-width="2"/><path d="M48 28h7c2 0 4 2 4 5s-2 5-5 5h-6" stroke="#93A86B" stroke-width="2"/></svg>',
+    alcohol: '<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M24 10h16l-3 22v18l8 6H19l8-6V32L24 10z" fill="#F0D6C0" stroke="#A67B5B" stroke-width="2"/><path d="M27 30h10" stroke="#B65F46" stroke-width="4"/></svg>',
+    sparkling: '<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M22 14h20l-3 42H25L22 14z" fill="#D8F3FF" stroke="#8ECBE0" stroke-width="2"/><circle cx="30" cy="28" r="2" fill="#8ECBE0"/><circle cx="36" cy="38" r="2" fill="#8ECBE0"/></svg>',
+    juice: '<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 18h28l-5 38H25l-5-38z" fill="#FFD1A6" stroke="#E58B5A" stroke-width="2"/><path d="M26 12h18" stroke="#8B7B6B" stroke-width="3"/></svg>',
+    cocoa: '<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16 26h32v22c0 6-5 10-11 10H27c-6 0-11-4-11-10V26z" fill="#C9A27E" stroke="#7A4F35" stroke-width="2"/><path d="M48 32h6c4 0 6 2 6 6s-2 6-6 6h-6" stroke="#7A4F35" stroke-width="2"/></svg>',
+    special: '<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M24 12h16l-4 18v20l8 8H20l8-8V30L24 12z" fill="#E8DCF0" stroke="#9B6E9B" stroke-width="2"/><path d="M28 34h8M26 40h12" stroke="#D4AF37" stroke-width="2"/></svg>',
     other: '<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M22 16h20v4H22v-4z" fill="#8B7B6B"/><path d="M20 20h24v32c0 4-4 8-8 8H28c-4 0-8-4-8-8V20z" fill="#E8DCF0" stroke="#DCD0E8" stroke-width="2"/></svg>'
   };
 
   let entries = [];
+  let filteredEntries = [];
 
   function formatDateTime(date) {
     const year = date.getFullYear();
@@ -34,13 +47,123 @@
     return div.innerHTML;
   }
 
+  function normalizeTags(rawTags) {
+    const tags = Array.isArray(rawTags) ? rawTags : [rawTags];
+    return Array.from(new Set(tags
+      .flatMap((tag) => String(tag || '').split(/[,，、\s]+/))
+      .map((tag) => tag.trim())
+      .filter(Boolean)));
+  }
+
+  function getSelectedFlavorTags() {
+    const selected = Array.from(document.querySelectorAll('.flavor-tag-option.active'))
+      .map((button) => button.dataset.tag);
+    const custom = document.getElementById('drink-custom-tags').value;
+    return normalizeTags([...selected, custom]);
+  }
+
+  function setSelectedFlavorTags(tags) {
+    const normalized = normalizeTags(tags || []);
+    const presetTags = Array.from(document.querySelectorAll('.flavor-tag-option'))
+      .map((button) => button.dataset.tag);
+
+    document.querySelectorAll('.flavor-tag-option').forEach((button) => {
+      button.classList.toggle('active', normalized.includes(button.dataset.tag));
+    });
+
+    document.getElementById('drink-custom-tags').value = normalized
+      .filter((tag) => !presetTags.includes(tag))
+      .join('，');
+  }
+
+  function getFilters() {
+    return {
+      search: document.getElementById('drink-search').value.trim().toLowerCase(),
+      type: document.getElementById('drink-filter-type').value,
+      repurchase: document.getElementById('drink-filter-repurchase').value,
+      rating: parseInt(document.getElementById('drink-filter-rating').value, 10) || 0,
+      sort: document.getElementById('drink-sort').value
+    };
+  }
+
+  function applyFilters() {
+    const filters = getFilters();
+    filteredEntries = entries.filter((entry) => {
+      const haystack = [
+        entry.name,
+        entry.title,
+        entry.shop,
+        entry.notes,
+        normalizeTags(entry.flavorTags || entry.tags || []).join(' '),
+        entry.toppings
+      ].join(' ').toLowerCase();
+      const rating = parseInt(entry.rating, 10) || 0;
+      if (filters.search && !haystack.includes(filters.search)) return false;
+      if (filters.type && (entry.type || 'other') !== filters.type) return false;
+      if (filters.repurchase && (entry.repurchase || 'maybe') !== filters.repurchase) return false;
+      if (filters.rating && rating < filters.rating) return false;
+      return true;
+    });
+
+    filteredEntries.sort((a, b) => {
+      if (filters.sort === 'rating-desc') return (parseInt(b.rating, 10) || 0) - (parseInt(a.rating, 10) || 0);
+      if (filters.sort === 'price-desc') return (parseFloat(b.price) || 0) - (parseFloat(a.price) || 0);
+      if (filters.sort === 'price-asc') return (parseFloat(a.price) || 0) - (parseFloat(b.price) || 0);
+      if (filters.sort === 'name-asc') return String(a.name || a.title || '').localeCompare(String(b.name || b.title || ''), 'zh-CN');
+      return String(b.tastedDate || b.date || '').localeCompare(String(a.tastedDate || a.date || ''));
+    });
+  }
+
+  function getRepurchaseLabel(value) {
+    const labels = {
+      yes: '会回购',
+      maybe: '看心情',
+      no: '不回购'
+    };
+    return labels[value] || '看心情';
+  }
+
+  function renderStats() {
+    const stats = document.getElementById('drink-stats');
+    if (!stats) return;
+    const total = entries.length;
+    const fiveStars = entries.filter((entry) => (parseInt(entry.rating, 10) || 0) === 5).length;
+    const repurchases = entries.filter((entry) => entry.repurchase === 'yes').length;
+    const typeCounts = entries.reduce((acc, entry) => {
+      const type = entry.type || 'other';
+      acc[type] = (acc[type] || 0) + 1;
+      return acc;
+    }, {});
+    const topType = Object.entries(typeCounts).sort((a, b) => b[1] - a[1])[0];
+
+    stats.innerHTML = `
+      <div class="drink-stat">
+        <span class="drink-stat__value">${total}</span>
+        <span class="drink-stat__label">杯珍藏</span>
+      </div>
+      <div class="drink-stat">
+        <span class="drink-stat__value">${fiveStars}</span>
+        <span class="drink-stat__label">五星饮品</span>
+      </div>
+      <div class="drink-stat">
+        <span class="drink-stat__value">${repurchases}</span>
+        <span class="drink-stat__label">回购清单</span>
+      </div>
+      <div class="drink-stat">
+        <span class="drink-stat__value">${topType ? escapeHtml(DRINK_TYPES[topType[0]] || '其他') : '-'}</span>
+        <span class="drink-stat__label">最常喝</span>
+      </div>
+    `;
+  }
+
   function getRandomRotation(index) {
     const rotations = [-5, -3, 2, 4, -2, 3, -4, 1, -1, 5];
     return rotations[index % rotations.length];
   }
 
   function generateStars(rating) {
-    return '★'.repeat(rating) + '☆'.repeat(5 - rating);
+    const value = Math.max(0, Math.min(5, parseInt(rating, 10) || 0));
+    return '★'.repeat(value) + '☆'.repeat(5 - value);
   }
 
   async function renderTags() {
@@ -55,6 +178,9 @@
       return;
     }
 
+    renderStats();
+    applyFilters();
+
     if (entries.length === 0) {
       container.innerHTML = `
         <div class="drinks-empty">
@@ -65,7 +191,17 @@
       return;
     }
 
-    container.innerHTML = `<div class="drink-tags-container">${entries.map((entry, index) => {
+    if (filteredEntries.length === 0) {
+      container.innerHTML = `
+        <div class="drinks-empty">
+          <div class="drinks-empty__icon">⌕</div>
+          <p class="drinks-empty__text">吧台上没有找到符合条件的饮品。</p>
+        </div>
+      `;
+      return;
+    }
+
+    container.innerHTML = `<div class="drink-bar-shelf"><div class="drink-tags-container">${filteredEntries.map((entry, index) => {
       const rotation = getRandomRotation(index);
       const typeClass = `drink-tag--${entry.type || 'other'}`;
       const icon = DRINK_ICONS[entry.type] || DRINK_ICONS.other;
@@ -74,13 +210,13 @@
       return `
         <div class="drink-tag ${typeClass}" data-id="${escapeHtml(entry.id)}" style="transform: rotate(${rotation}deg)">
           <div class="drink-tag__icon">${icon}</div>
-          <div class="drink-tag__name">${escapeHtml(entry.name)}</div>
+          <div class="drink-tag__name">${escapeHtml(entry.name || entry.title)}</div>
           <div class="drink-tag__shop">${escapeHtml(entry.shop || '未知店铺')}</div>
           <div class="drink-tag__rating">${generateStars(entry.rating || 0)}</div>
           <span class="drink-tag__type-badge">${typeLabel}</span>
         </div>
       `;
-    }).join('')}</div>`;
+    }).join('')}</div></div>`;
 
     bindTagEvents();
   }
@@ -100,23 +236,44 @@
     const typeLabel = DRINK_TYPES[entry.type] || '其他';
 
     modal.innerHTML = `
-      <button class="drink-modal__close" id="close-detail" type="button">&times;</button>
-      <div class="drink-modal__header">
-        <div class="drink-modal__icon">${icon}</div>
-        <h2 class="drink-modal__title">${escapeHtml(entry.name)}</h2>
-        <p class="drink-modal__shop">${escapeHtml(entry.shop || '未知店铺')}</p>
-        <div class="drink-modal__rating">${generateStars(entry.rating || 0)}</div>
-        <span class="drink-modal__type">${typeLabel}</span>
-      </div>
-      <div class="drink-modal__body">
-        <p class="drink-modal__label">品尝感受</p>
-        <p class="drink-modal__notes">${escapeHtml(entry.notes) || '暂无品尝记录'}</p>
-      </div>
-      <div class="drink-modal__footer">
-        <span class="drink-modal__date">${entry.date || ''}</span>
-        <div class="drink-modal__actions">
-          <button class="drink-modal__edit" data-id="${entry.id}" type="button">编辑</button>
-          <button class="drink-modal__delete" data-id="${entry.id}" type="button">删除</button>
+      <div class="drink-modal__content drink-modal__content--${entry.type || 'other'}">
+        <button class="drink-modal__close" id="close-detail" type="button">&times;</button>
+        <div class="drink-modal__header">
+          <div class="drink-modal__icon">${icon}</div>
+          <span class="drink-modal__eyebrow">品鉴单</span>
+          <h2 class="drink-modal__title">${escapeHtml(entry.name || entry.title)}</h2>
+          <p class="drink-modal__shop">${escapeHtml(entry.shop || '未知来源')}</p>
+          <div class="drink-modal__rating">${generateStars(entry.rating || 0)}</div>
+          <span class="drink-modal__type">${typeLabel}</span>
+        </div>
+        <div class="drink-modal__body">
+          <div class="drink-modal__specs">
+            ${entry.price ? `<span>¥ ${escapeHtml(entry.price)}</span>` : ''}
+            ${entry.sweetness ? `<span>${escapeHtml(entry.sweetness)}</span>` : ''}
+            ${entry.ice ? `<span>${escapeHtml(entry.ice)}</span>` : ''}
+            ${entry.size ? `<span>${escapeHtml(entry.size)}</span>` : ''}
+            <span>${escapeHtml(getRepurchaseLabel(entry.repurchase || 'maybe'))}</span>
+          </div>
+          ${normalizeTags(entry.flavorTags || entry.tags || []).length ? `
+            <div class="drink-modal__flavors">
+              ${normalizeTags(entry.flavorTags || entry.tags || []).map((tag) => `<span>${escapeHtml(tag)}</span>`).join('')}
+            </div>
+          ` : ''}
+          ${entry.toppings ? `
+            <div class="drink-modal__toppings">
+              <p class="drink-modal__label">配料 / 小料</p>
+              <p>${escapeHtml(entry.toppings)}</p>
+            </div>
+          ` : ''}
+          <p class="drink-modal__label">品尝感受</p>
+          <p class="drink-modal__notes">${escapeHtml(entry.notes) || '暂无品尝记录'}</p>
+        </div>
+        <div class="drink-modal__footer">
+          <span class="drink-modal__date">${escapeHtml(entry.tastedDate || entry.date || '')}</span>
+          <div class="drink-modal__actions">
+            <button class="drink-modal__edit" data-id="${entry.id}" type="button">编辑</button>
+            <button class="drink-modal__delete" data-id="${entry.id}" type="button">删除</button>
+          </div>
         </div>
       </div>
     `;
@@ -144,7 +301,10 @@
     form.reset();
     delete form.dataset.editId;
     document.querySelectorAll('.drink-form .star').forEach((star) => star.classList.remove('active'));
+    setSelectedFlavorTags([]);
     document.getElementById('drink-rating').value = 0;
+    document.getElementById('drink-repurchase').value = 'maybe';
+    document.getElementById('drink-date').value = formatDateTime(new Date());
     modal.classList.add('active');
   }
 
@@ -159,8 +319,16 @@
     document.getElementById('drink-name').value = entry.name || '';
     document.getElementById('drink-shop').value = entry.shop || '';
     document.getElementById('drink-type').value = entry.type || 'other';
+    document.getElementById('drink-date').value = entry.tastedDate || entry.date || '';
+    document.getElementById('drink-price').value = entry.price || '';
+    document.getElementById('drink-sweetness').value = entry.sweetness || '';
+    document.getElementById('drink-ice').value = entry.ice || '';
+    document.getElementById('drink-size').value = entry.size || '';
+    document.getElementById('drink-repurchase').value = entry.repurchase || 'maybe';
+    document.getElementById('drink-toppings').value = entry.toppings || '';
     document.getElementById('drink-notes').value = entry.notes || '';
     document.getElementById('drink-rating').value = entry.rating || 0;
+    setSelectedFlavorTags(entry.flavorTags || entry.tags || []);
     document.querySelectorAll('.drink-form .star').forEach((star, index) => {
       star.classList.toggle('active', index < (entry.rating || 0));
     });
@@ -193,9 +361,24 @@
     });
   }
 
+  function initFlavorTags() {
+    document.querySelectorAll('.flavor-tag-option').forEach((button) => {
+      button.addEventListener('click', () => button.classList.toggle('active'));
+    });
+  }
+
+  function initFilters() {
+    ['drink-search', 'drink-filter-type', 'drink-filter-repurchase', 'drink-filter-rating', 'drink-sort'].forEach((id) => {
+      const control = document.getElementById(id);
+      control.addEventListener(id === 'drink-search' ? 'input' : 'change', renderTags);
+    });
+  }
+
   function init() {
     renderTags();
     initStarRating();
+    initFlavorTags();
+    initFilters();
 
     const floatingBtn = document.getElementById('floating-add-btn');
     const addModal = document.getElementById('add-modal');
@@ -216,6 +399,14 @@
       const name = document.getElementById('drink-name').value.trim();
       const shop = document.getElementById('drink-shop').value.trim();
       const type = document.getElementById('drink-type').value;
+      const tastedDate = document.getElementById('drink-date').value || formatDateTime(new Date());
+      const price = document.getElementById('drink-price').value.trim();
+      const sweetness = document.getElementById('drink-sweetness').value;
+      const ice = document.getElementById('drink-ice').value;
+      const size = document.getElementById('drink-size').value.trim();
+      const repurchase = document.getElementById('drink-repurchase').value;
+      const flavorTags = getSelectedFlavorTags();
+      const toppings = document.getElementById('drink-toppings').value.trim();
       const rating = parseInt(document.getElementById('drink-rating').value, 10) || 0;
       const notes = document.getElementById('drink-notes').value.trim();
 
@@ -233,10 +424,19 @@
         title: name,
         shop,
         type,
+        tastedDate,
+        price,
+        sweetness,
+        ice,
+        size,
+        repurchase,
+        flavorTags,
+        tags: flavorTags,
+        toppings,
         rating,
         notes,
         content: notes,
-        date: original ? original.date : formatDateTime(now),
+        date: tastedDate || (original ? original.date : formatDateTime(now)),
         createdAt: original ? original.createdAt : now.toISOString()
       };
 

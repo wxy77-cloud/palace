@@ -286,6 +286,36 @@ a:hover {
   fill: var(--golden-accent);
 }
 
+.icon-fanworks {
+  color: #9EDAD6;
+  fill: #9EDAD6;
+}
+
+.icon-creators {
+  color: #F2C86B;
+  fill: #F2C86B;
+}
+
+.icon-foods {
+  color: #E9A45E;
+  fill: #E9A45E;
+}
+
+.icon-thoughts {
+  color: #B9D7FF;
+  fill: #B9D7FF;
+}
+
+.icon-wishes {
+  color: #F4A6D7;
+  fill: #F4A6D7;
+}
+
+.icon-favorites {
+  color: #FFB8A8;
+  fill: #FFB8A8;
+}
+
 /* ---------- Footer ---------- */
 .footer {
   text-align: center;

@@ -291,19 +291,6 @@
     0 0 24px rgba(255, 199, 217, 0.22);
 }
 
-.anime-card__button::before {
-  content: '';
-  position: absolute;
-  left: 50%;
-  bottom: -18px;
-  width: 110px;
-  height: 54px;
-  transform: translateX(-50%);
-  border-radius: 50% 50% 0 0;
-  background: rgba(35, 84, 68, 0.34);
-  filter: blur(2px);
-}
-
 .anime-card--healing .anime-card__button { background: linear-gradient(145deg, rgba(89, 157, 130, 0.78), rgba(70, 112, 146, 0.72)); }
 .anime-card--romance .anime-card__button { background: linear-gradient(145deg, rgba(207, 111, 161, 0.78), rgba(128, 92, 164, 0.72)); }
 .anime-card--adventure .anime-card__button { background: linear-gradient(145deg, rgba(126, 102, 184, 0.78), rgba(74, 117, 160, 0.72)); }

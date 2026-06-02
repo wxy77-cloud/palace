@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>妄想星匣 - 心灵宫殿</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Noto+Serif+SC:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/wishes.css">
+</head>
+<body class="page page-wishes">
+  <header class="page-header container">
+    <a href="../index.html" class="back-btn">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+        <path d="M12 4L6 10L12 16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
+      </svg>
+      返回宫殿
+    </a>
+    <h1 class="page-title">妄想星匣</h1>
+  </header>
+
+  <main class="page-content container">
+    <p class="wishes-intro">把愿望、野心、心愿清单和漂亮妄想收入星匣，给每一颗想望留一个发光的位置。</p>
+
+    <section class="wishes-input-section">
+      <button id="add-btn" class="wishes-add-btn" type="button">
+        <svg viewBox="0 0 20 20" fill="currentColor">
+          <path d="M10 3v14M3 10h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        收入星匣
+      </button>
+
+      <form id="input-form" class="wishes-form" autocomplete="off">
+        <div class="wishes-form__header">
+          <span class="wishes-form__eyebrow">Wish Vault</span>
+          <h2 class="wishes-form__title">记录一个愿望或妄想</h2>
+        </div>
+
+        <div class="wishes-form-grid">
+          <div class="form-row">
+            <label class="form-label" for="wish-title">愿望名称</label>
+            <input type="text" id="wish-title" class="form-input" placeholder="想去的地方、想拥有的东西、想成为的样子..." required>
+          </div>
+
+          <div class="form-row">
+            <label class="form-label" for="wish-type">类型</label>
+            <select id="wish-type" class="form-input wishes-select">
+              <option value="life">生活愿望</option>
+              <option value="travel">旅行妄想</option>
+              <option value="career">事业 / 学习</option>
+              <option value="creation">创作计划</option>
+              <option value="purchase">想买清单</option>
+              <option value="relationship">关系与陪伴</option>
+              <option value="fantasy">纯粹妄想</option>
+              <option value="other">其他</option>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <label class="form-label" for="wish-status">状态</label>
+            <select id="wish-status" class="form-input wishes-select">
+              <option value="萌芽">萌芽</option>
+              <option value="认真想要">认真想要</option>
+              <option value="计划中">计划中</option>
+              <option value="进行中">进行中</option>
+              <option value="已实现">已实现</option>
+              <option value="暂存妄想">暂存妄想</option>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <label class="form-label" for="wish-date">目标日期</label>
+            <input type="date" id="wish-date" class="form-input">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <span class="form-label">渴望程度</span>
+          <div class="wishes-rating" aria-label="渴望程度">
+            <button class="wish-star" type="button" data-value="1" aria-label="1 星">✦</button>
+            <button class="wish-star" type="button" data-value="2" aria-label="2 星">✦</button>
+            <button class="wish-star" type="button" data-value="3" aria-label="3 星">✦</button>
+            <button class="wish-star" type="button" data-value="4" aria-label="4 星">✦</button>
+            <button class="wish-star" type="button" data-value="5" aria-label="5 星">✦</button>
+          </div>
+          <input type="hidden" id="wish-rating" value="0">
+        </div>
+
+        <div class="wishes-flags">
+          <label class="wishes-check">
+            <input type="checkbox" id="wish-pinned">
+            <span>置顶想望</span>
+          </label>
+          <label class="wishes-check">
+            <input type="checkbox" id="wish-private">
+            <span>秘密妄想</span>
+          </label>
+        </div>
+
+        <div class="form-row">
+          <label class="form-label" for="wish-detail">愿望详情</label>
+          <textarea id="wish-detail" class="form-textarea wishes-textarea-main" placeholder="具体想实现什么？为什么想要？如果实现了会是什么画面？" required></textarea>
+        </div>
+
+        <div class="form-row">
+          <label class="form-label" for="wish-next-step">下一小步</label>
+          <input type="text" id="wish-next-step" class="form-input" placeholder="可以先做的一件很小的事">
+        </div>
+
+        <div class="form-row">
+          <label class="form-label" for="wish-tags">标签</label>
+          <input type="text" id="wish-tags" class="form-input" placeholder="旅行、买买买、勇气、创作、未来、秘密、快乐...">
+        </div>
+
+        <div class="form-actions">
+          <button type="button" id="cancel-form" class="cancel-btn wishes-cancel-btn">取消</button>
+          <button type="submit" class="submit-btn wishes-submit-btn">收入星匣</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="wishes-toolbar" aria-label="愿望筛选">
+      <div class="wishes-toolbar__group wishes-toolbar__group--search">
+        <label class="wishes-toolbar__label" for="wish-search">检索</label>
+        <input type="search" id="wish-search" class="wishes-toolbar__input" placeholder="名称、详情、下一步或标签" autocomplete="off">
+      </div>
+      <div class="wishes-toolbar__group">
+        <label class="wishes-toolbar__label" for="wish-filter-type">类型</label>
+        <select id="wish-filter-type" class="wishes-toolbar__select">
+          <option value="">全部类型</option>
+          <option value="life">生活愿望</option>
+          <option value="travel">旅行妄想</option>
+          <option value="career">事业 / 学习</option>
+          <option value="creation">创作计划</option>
+          <option value="purchase">想买清单</option>
+          <option value="relationship">关系与陪伴</option>
+          <option value="fantasy">纯粹妄想</option>
+          <option value="other">其他</option>
+        </select>
+      </div>
+      <div class="wishes-toolbar__group">
+        <label class="wishes-toolbar__label" for="wish-filter-status">状态</label>
+        <select id="wish-filter-status" class="wishes-toolbar__select">
+          <option value="">全部状态</option>
+          <option value="萌芽">萌芽</option>
+          <option value="认真想要">认真想要</option>
+          <option value="计划中">计划中</option>
+          <option value="进行中">进行中</option>
+          <option value="已实现">已实现</option>
+          <option value="暂存妄想">暂存妄想</option>
+        </select>
+      </div>
+      <div class="wishes-toolbar__group">
+        <label class="wishes-toolbar__label" for="wish-sort">排序</label>
+        <select id="wish-sort" class="wishes-toolbar__select">
+          <option value="created-desc">最近收入</option>
+          <option value="date-asc">目标最近</option>
+          <option value="rating-desc">渴望最高</option>
+          <option value="title-asc">名称 A-Z</option>
+        </select>
+      </div>
+    </section>
+
+    <section id="entries-container" class="wishes-gallery">
+      <div class="wishes-empty">
+        <div class="wishes-empty__icon">✦</div>
+        <p class="wishes-empty__text">星匣还空着，先收入一个愿望或妄想吧。</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p class="footer__text">～ 愿望可以很实际，妄想也可以很珍贵 ～</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../js/supabaseClient.js"></script>
+  <script src="../js/wishes.js"></script>
+</body>
+</html>

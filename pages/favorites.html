@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>偏爱珍匣 - 心灵宫殿</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Noto+Serif+SC:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/favorites.css">
+</head>
+<body class="page page-favorites">
+  <header class="page-header container">
+    <a href="../index.html" class="back-btn">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+        <path d="M12 4L6 10L12 16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
+      </svg>
+      返回宫殿
+    </a>
+    <h1 class="page-title">偏爱珍匣</h1>
+  </header>
+
+  <main class="page-content container">
+    <p class="favorites-intro">把喜欢的角色、兴趣爱好、审美偏好和那些反复心动的小事物收入珍匣。</p>
+
+    <section class="favorites-input-section">
+      <button id="add-btn" class="favorites-add-btn" type="button">
+        <svg viewBox="0 0 20 20" fill="currentColor">
+          <path d="M10 3v14M3 10h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        收入珍匣
+      </button>
+
+      <form id="input-form" class="favorites-form" autocomplete="off">
+        <div class="favorites-form__header">
+          <span class="favorites-form__eyebrow">Beloved Collection</span>
+          <h2 class="favorites-form__title">记录一件偏爱的事物</h2>
+        </div>
+
+        <div class="favorites-form-grid">
+          <div class="form-row">
+            <label class="form-label" for="favorite-title">名称</label>
+            <input type="text" id="favorite-title" class="form-input" placeholder="角色、爱好、物品、风格或任何喜欢的事物" required>
+          </div>
+
+          <div class="form-row">
+            <label class="form-label" for="favorite-type">类型</label>
+            <select id="favorite-type" class="form-input favorites-select">
+              <option value="character">角色</option>
+              <option value="hobby">兴趣爱好</option>
+              <option value="aesthetic">审美 / 风格</option>
+              <option value="object">物品</option>
+              <option value="place">地点</option>
+              <option value="theme">主题 / 概念</option>
+              <option value="comfort">安慰物</option>
+              <option value="other">其他</option>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <label class="form-label" for="favorite-source">来源 / 归属</label>
+            <input type="text" id="favorite-source" class="form-input" placeholder="作品、圈子、品牌、地点、生活场景...">
+          </div>
+
+          <div class="form-row">
+            <label class="form-label" for="favorite-date">入坑 / 发现日期</label>
+            <input type="date" id="favorite-date" class="form-input">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <span class="form-label">喜欢程度</span>
+          <div class="favorites-rating" aria-label="喜欢程度">
+            <button class="favorite-star" type="button" data-value="1" aria-label="1 星">✦</button>
+            <button class="favorite-star" type="button" data-value="2" aria-label="2 星">✦</button>
+            <button class="favorite-star" type="button" data-value="3" aria-label="3 星">✦</button>
+            <button class="favorite-star" type="button" data-value="4" aria-label="4 星">✦</button>
+            <button class="favorite-star" type="button" data-value="5" aria-label="5 星">✦</button>
+          </div>
+          <input type="hidden" id="favorite-rating" value="0">
+        </div>
+
+        <div class="favorites-flags">
+          <label class="favorites-check">
+            <input type="checkbox" id="favorite-pinned">
+            <span>置顶偏爱</span>
+          </label>
+          <label class="favorites-check">
+            <input type="checkbox" id="favorite-evergreen">
+            <span>长期喜欢</span>
+          </label>
+        </div>
+
+        <div class="form-row">
+          <label class="form-label" for="favorite-reason">喜欢原因</label>
+          <textarea id="favorite-reason" class="form-textarea favorites-textarea-main" placeholder="为什么喜欢？它带给你什么感觉？有哪些记忆、设定或细节特别戳你？" required></textarea>
+        </div>
+
+        <div class="form-row">
+          <label class="form-label" for="favorite-link">相关链接</label>
+          <input type="url" id="favorite-link" class="form-input" placeholder="https://...">
+        </div>
+
+        <div class="form-row">
+          <label class="form-label" for="favorite-tags">标签</label>
+          <input type="text" id="favorite-tags" class="form-input" placeholder="治愈、热血、漂亮、命运感、松弛、童年、长期坑...">
+        </div>
+
+        <div class="form-actions">
+          <button type="button" id="cancel-form" class="cancel-btn favorites-cancel-btn">取消</button>
+          <button type="submit" class="submit-btn favorites-submit-btn">收入珍匣</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="favorites-toolbar" aria-label="偏爱筛选">
+      <div class="favorites-toolbar__group favorites-toolbar__group--search">
+        <label class="favorites-toolbar__label" for="favorite-search">检索</label>
+        <input type="search" id="favorite-search" class="favorites-toolbar__input" placeholder="名称、来源、原因或标签" autocomplete="off">
+      </div>
+      <div class="favorites-toolbar__group">
+        <label class="favorites-toolbar__label" for="favorite-filter-type">类型</label>
+        <select id="favorite-filter-type" class="favorites-toolbar__select">
+          <option value="">全部类型</option>
+          <option value="character">角色</option>
+          <option value="hobby">兴趣爱好</option>
+          <option value="aesthetic">审美 / 风格</option>
+          <option value="object">物品</option>
+          <option value="place">地点</option>
+          <option value="theme">主题 / 概念</option>
+          <option value="comfort">安慰物</option>
+          <option value="other">其他</option>
+        </select>
+      </div>
+      <div class="favorites-toolbar__group">
+        <label class="favorites-toolbar__label" for="favorite-filter-rating">喜欢</label>
+        <select id="favorite-filter-rating" class="favorites-toolbar__select">
+          <option value="">全部程度</option>
+          <option value="5">5 星</option>
+          <option value="4">4 星及以上</option>
+          <option value="3">3 星及以上</option>
+          <option value="2">2 星及以上</option>
+          <option value="1">1 星及以上</option>
+        </select>
+      </div>
+      <div class="favorites-toolbar__group">
+        <label class="favorites-toolbar__label" for="favorite-sort">排序</label>
+        <select id="favorite-sort" class="favorites-toolbar__select">
+          <option value="created-desc">最近收入</option>
+          <option value="date-desc">发现日期</option>
+          <option value="rating-desc">喜欢最高</option>
+          <option value="title-asc">名称 A-Z</option>
+        </select>
+      </div>
+    </section>
+
+    <section id="entries-container" class="favorites-gallery">
+      <div class="favorites-empty">
+        <div class="favorites-empty__icon">✦</div>
+        <p class="favorites-empty__text">珍匣还空着，先收入一件喜欢的事物吧。</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p class="footer__text">～ 偏爱不必解释，但值得被好好收藏 ～</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../js/supabaseClient.js"></script>
+  <script src="../js/favorites.js"></script>
+</body>
+</html>

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>平行宇宙陈列馆 - 心灵宫殿</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Noto+Serif+SC:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/fanworks.css">
+</head>
+<body class="page page-fanworks">
+  <header class="page-header container">
+    <a href="../index.html" class="back-btn">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+        <path d="M12 4L6 10L12 16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
+      </svg>
+      返回宫殿
+    </a>
+    <h1 class="page-title">🪞 平行宇宙陈列馆</h1>
+  </header>
+
+  <main class="page-content container">
+    <p class="fanworks-intro">把喜欢的同人作品收入展柜，记下那些让原作世界继续发光的平行宇宙。</p>
+
+    <section class="fanworks-input-section">
+      <button id="add-btn" class="fanworks-add-btn" type="button">
+        <svg viewBox="0 0 20 20" fill="currentColor">
+          <path d="M10 3v14M3 10h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        收入展柜
+      </button>
+
+      <form id="input-form" class="fanworks-form" autocomplete="off">
+        <div class="fanworks-form__header">
+          <span class="fanworks-form__eyebrow">Parallel Exhibit</span>
+          <h2 class="fanworks-form__title">记录一件同人作品</h2>
+        </div>
+
+        <div class="fanworks-form-grid">
+          <div class="form-row">
+            <label class="form-label" for="fanwork-title">作品名称</label>
+            <input type="text" id="fanwork-title" class="form-input" placeholder="请输入作品名" required>
+          </div>
+
+          <div class="form-row">
+            <label class="form-label" for="fanwork-fandom">原作 / 圈子</label>
+            <input type="text" id="fanwork-fandom" class="form-input" placeholder="作品、CP、角色或世界观">
+          </div>
+
+          <div class="form-row">
+            <label class="form-label" for="fanwork-creator">创作者</label>
+            <input type="text" id="fanwork-creator" class="form-input" placeholder="作者、画师、剪辑者...">
+          </div>
+
+          <div class="form-row">
+            <label class="form-label" for="fanwork-type">作品类型</label>
+            <select id="fanwork-type" class="form-input fanworks-select">
+              <option value="fic">同人文</option>
+              <option value="art">同人图</option>
+              <option value="comic">漫画</option>
+              <option value="video">剪辑 / 视频</option>
+              <option value="audio">音频 / 广播剧</option>
+              <option value="cos">Cosplay</option>
+              <option value="meta">考据 / 分析</option>
+              <option value="other">其他</option>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <label class="form-label" for="fanwork-platform">平台</label>
+            <input type="text" id="fanwork-platform" class="form-input" placeholder="AO3、LOFTER、B站、微博...">
+          </div>
+
+          <div class="form-row">
+            <label class="form-label" for="fanwork-link">链接</label>
+            <input type="url" id="fanwork-link" class="form-input" placeholder="https://...">
+          </div>
+
+          <div class="form-row">
+            <label class="form-label" for="fanwork-date">邂逅日期</label>
+            <input type="date" id="fanwork-date" class="form-input">
+          </div>
+
+          <div class="form-row">
+            <label class="form-label" for="fanwork-status">状态</label>
+            <select id="fanwork-status" class="form-input fanworks-select">
+              <option value="已看完">已看完</option>
+              <option value="在追">在追</option>
+              <option value="待补">待补</option>
+              <option value="反复回看">反复回看</option>
+              <option value="暂存">暂存</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <span class="form-label">心动指数</span>
+          <div class="fanworks-rating" aria-label="心动指数">
+            <button class="fanwork-star" type="button" data-value="1" aria-label="1 星">✦</button>
+            <button class="fanwork-star" type="button" data-value="2" aria-label="2 星">✦</button>
+            <button class="fanwork-star" type="button" data-value="3" aria-label="3 星">✦</button>
+            <button class="fanwork-star" type="button" data-value="4" aria-label="4 星">✦</button>
+            <button class="fanwork-star" type="button" data-value="5" aria-label="5 星">✦</button>
+          </div>
+          <input type="hidden" id="fanwork-rating" value="0">
+        </div>
+
+        <div class="form-row">
+          <label class="form-label" for="fanwork-tags">标签</label>
+          <input type="text" id="fanwork-tags" class="form-input" placeholder="CP、AU、治愈、刀、甜、考据...">
+        </div>
+
+        <div class="form-row">
+          <label class="form-label" for="fanwork-review">收藏理由</label>
+          <textarea id="fanwork-review" class="form-textarea" placeholder="写下它打动你的地方、名场面、喜欢的设定或重看提醒..."></textarea>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" id="cancel-form" class="cancel-btn fanworks-cancel-btn">取消</button>
+          <button type="submit" class="submit-btn fanworks-submit-btn">放入陈列馆</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="fanworks-toolbar" aria-label="同人作品筛选">
+      <div class="fanworks-toolbar__group fanworks-toolbar__group--search">
+        <label class="fanworks-toolbar__label" for="fanwork-search">检索</label>
+        <input type="search" id="fanwork-search" class="fanworks-toolbar__input" placeholder="作品、原作、创作者或标签" autocomplete="off">
+      </div>
+      <div class="fanworks-toolbar__group">
+        <label class="fanworks-toolbar__label" for="fanwork-filter-type">类型</label>
+        <select id="fanwork-filter-type" class="fanworks-toolbar__select">
+          <option value="">全部类型</option>
+          <option value="fic">同人文</option>
+          <option value="art">同人图</option>
+          <option value="comic">漫画</option>
+          <option value="video">剪辑 / 视频</option>
+          <option value="audio">音频 / 广播剧</option>
+          <option value="cos">Cosplay</option>
+          <option value="meta">考据 / 分析</option>
+          <option value="other">其他</option>
+        </select>
+      </div>
+      <div class="fanworks-toolbar__group">
+        <label class="fanworks-toolbar__label" for="fanwork-filter-rating">心动</label>
+        <select id="fanwork-filter-rating" class="fanworks-toolbar__select">
+          <option value="">全部指数</option>
+          <option value="5">5 星</option>
+          <option value="4">4 星及以上</option>
+          <option value="3">3 星及以上</option>
+          <option value="2">2 星及以上</option>
+          <option value="1">1 星及以上</option>
+        </select>
+      </div>
+      <div class="fanworks-toolbar__group">
+        <label class="fanworks-toolbar__label" for="fanwork-sort">排序</label>
+        <select id="fanwork-sort" class="fanworks-toolbar__select">
+          <option value="created-desc">最近收藏</option>
+          <option value="date-desc">邂逅日期</option>
+          <option value="rating-desc">心动最高</option>
+          <option value="title-asc">作品名 A-Z</option>
+        </select>
+      </div>
+    </section>
+
+    <section id="entries-container" class="fanworks-gallery">
+      <div class="fanworks-empty">
+        <div class="fanworks-empty__icon">🪞</div>
+        <p class="fanworks-empty__text">陈列馆还空着，收入第一件喜欢的同人作品吧。</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p class="footer__text">～ 每个平行宇宙，都有一束偏爱的光 ～</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../js/supabaseClient.js"></script>
+  <script src="../js/fanworks.js"></script>
+</body>
+</html>

@@ -27,6 +27,49 @@
 
   <!-- Content -->
   <main class="page-content container">
+    <section class="achievement-control-panel" aria-label="成就筛选">
+      <div class="achievement-control-panel__group achievement-control-panel__group--search">
+        <label class="achievement-control-panel__label" for="achievement-search">检索</label>
+        <input type="search" id="achievement-search" class="achievement-control-panel__input" placeholder="成就名或描述" autocomplete="off">
+      </div>
+      <div class="achievement-control-panel__group">
+        <label class="achievement-control-panel__label" for="achievement-filter-type">类型</label>
+        <select id="achievement-filter-type" class="achievement-control-panel__select">
+          <option value="">全部类型</option>
+          <option value="life">生活</option>
+          <option value="study">学习</option>
+          <option value="creative">创作</option>
+          <option value="social">社交</option>
+          <option value="health">健康</option>
+          <option value="game">游戏</option>
+          <option value="travel">旅行</option>
+          <option value="courage">勇气</option>
+          <option value="habit">习惯</option>
+          <option value="special">特殊事件</option>
+        </select>
+      </div>
+      <div class="achievement-control-panel__group">
+        <label class="achievement-control-panel__label" for="achievement-filter-rarity">稀有度</label>
+        <select id="achievement-filter-rarity" class="achievement-control-panel__select">
+          <option value="">全部稀有度</option>
+          <option value="common">普通</option>
+          <option value="rare">稀有</option>
+          <option value="epic">史诗</option>
+          <option value="legendary">传说</option>
+          <option value="hidden">隐藏</option>
+        </select>
+      </div>
+      <div class="achievement-control-panel__group">
+        <label class="achievement-control-panel__label" for="achievement-sort">排序</label>
+        <select id="achievement-sort" class="achievement-control-panel__select">
+          <option value="date-desc">最近达成</option>
+          <option value="points-desc">点数最高</option>
+          <option value="rarity-desc">稀有度最高</option>
+          <option value="title-asc">名称 A-Z</option>
+        </select>
+      </div>
+    </section>
+
     <!-- Empty State -->
     <div id="achievements-empty" class="achievements-empty" style="display:none;">
       <div class="achievements-empty__icon">⭐</div>
@@ -53,10 +96,49 @@
       <button id="close-add-modal" class="add-modal__close">&times;</button>
       <h2 class="add-modal__title">记录成就</h2>
 
-      <form id="achievement-form" class="achievement-form">
+      <form id="achievement-form" class="achievement-form" autocomplete="off">
         <div class="form-row">
           <label class="form-label" for="achievement-title">成就名称</label>
           <input type="text" id="achievement-title" class="form-input" placeholder="请输入成就名称" required>
+        </div>
+
+        <div class="achievement-form__grid">
+          <div class="form-row">
+            <label class="form-label" for="achievement-type">成就类型</label>
+            <select id="achievement-type" class="form-input achievement-form__select">
+              <option value="life">生活</option>
+              <option value="study">学习</option>
+              <option value="creative">创作</option>
+              <option value="social">社交</option>
+              <option value="health">健康</option>
+              <option value="game">游戏</option>
+              <option value="travel">旅行</option>
+              <option value="courage">勇气</option>
+              <option value="habit">习惯</option>
+              <option value="special">特殊事件</option>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <label class="form-label" for="achievement-rarity">稀有度</label>
+            <select id="achievement-rarity" class="form-input achievement-form__select">
+              <option value="common">普通</option>
+              <option value="rare">稀有</option>
+              <option value="epic">史诗</option>
+              <option value="legendary">传说</option>
+              <option value="hidden">隐藏</option>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <label class="form-label" for="achievement-points">成就点数</label>
+            <input type="number" id="achievement-points" class="form-input" min="0" step="5" value="10">
+          </div>
+
+          <div class="form-row">
+            <label class="form-label" for="achievement-date">达成日期</label>
+            <input type="date" id="achievement-date" class="form-input">
+          </div>
         </div>
 
         <div class="form-row">

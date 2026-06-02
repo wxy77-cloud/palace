@@ -281,8 +281,9 @@
     });
     document.getElementById('modal-edit-btn').addEventListener('click', () => {
       if (activeModalEntry) {
+        const entryToEdit = activeModalEntry;
         closeModal();
-        openForm(activeModalEntry);
+        openForm(entryToEdit);
       }
     });
     document.getElementById('modal-delete-btn').addEventListener('click', deleteCurrentEntry);
