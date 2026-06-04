@@ -203,6 +203,103 @@
   margin: 0;
 }
 
+.drink-today-card {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 18px;
+  align-items: center;
+  margin: 0 0 28px;
+  padding: 18px 20px;
+  border: 1px solid rgba(129, 57, 42, 0.22);
+  border-radius: 8px;
+  background:
+    radial-gradient(circle at 12% 8%, rgba(255, 255, 255, 0.55), transparent 30%),
+    linear-gradient(135deg, rgba(255, 248, 238, 0.7), rgba(184, 104, 82, 0.12));
+  box-shadow: inset 0 0 24px rgba(120, 78, 46, 0.06);
+}
+
+.drink-today-card__label {
+  display: block;
+  margin-bottom: 6px;
+  color: #8A5C43;
+  font-family: "Cormorant Garamond", var(--font-body), serif;
+  font-size: 0.98rem;
+  font-style: italic;
+  letter-spacing: 1px;
+}
+
+.drink-today-card__name {
+  display: block;
+  max-width: 100%;
+  padding: 0;
+  color: #8A3F36;
+  background: transparent;
+  border: 0;
+  font-family: "Ma Shan Zheng", var(--font-chinese), serif;
+  font-size: clamp(1.9rem, 5vw, 3rem);
+  line-height: 1.05;
+  text-align: left;
+  overflow-wrap: anywhere;
+  cursor: pointer;
+  transition: color 0.2s ease, transform 0.2s ease, text-shadow 0.2s ease;
+}
+
+.drink-today-card__name:hover,
+.drink-today-card__name:focus-visible {
+  color: #B45D45;
+  text-shadow: 0 8px 18px rgba(157, 79, 63, 0.18);
+  transform: translateY(-1px);
+  outline: none;
+}
+
+.drink-today-card__meta,
+.drink-today-card__empty {
+  margin: 8px 0 0;
+  color: #6B4A35;
+  font-size: 0.9rem;
+}
+
+.drink-today-card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 10px;
+}
+
+.drink-today-card__tags span {
+  display: inline-flex;
+  min-height: 24px;
+  align-items: center;
+  padding: 3px 8px;
+  border-radius: 999px;
+  color: #7C4D43;
+  background: rgba(178, 102, 84, 0.12);
+  border: 1px solid rgba(120, 78, 46, 0.12);
+  font-size: 0.78rem;
+}
+
+.drink-today-card__stamp {
+  display: inline-flex;
+  width: 86px;
+  height: 86px;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid rgba(129, 57, 42, 0.54);
+  border-radius: 50%;
+  color: rgba(129, 57, 42, 0.68);
+  font-family: var(--font-display), serif;
+  font-size: 0.58rem;
+  letter-spacing: 1px;
+  transform: rotate(-9deg);
+}
+
+.drink-today-card--empty {
+  display: block;
+  text-align: center;
+}
+
 .drink-menu-list {
   position: relative;
   z-index: 1;
@@ -808,6 +905,19 @@
   .drink-menu-item__meta,
   .drink-menu-item__tags {
     grid-column: 2 / -1;
+  }
+
+  .drink-today-card {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .drink-today-card__name {
+    text-align: center;
+  }
+
+  .drink-today-card__stamp {
+    display: none;
   }
 
   .floating-add-btn {

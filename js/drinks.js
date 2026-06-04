@@ -165,6 +165,45 @@
     return entry.name || entry.title || '未命名饮品';
   }
 
+  function getTodayRecommendation() {
+    const repurchaseEntries = entries.filter((entry) => entry.repurchase === 'yes');
+    if (!repurchaseEntries.length) return null;
+    const today = formatDateTime(new Date());
+    const seed = today.split('').reduce((sum, char) => sum + char.charCodeAt(0), 0);
+    return repurchaseEntries[seed % repurchaseEntries.length];
+  }
+
+  function renderTodayRecommendation() {
+    const recommended = getTodayRecommendation();
+    if (!recommended) {
+      return `
+        <section class="drink-today-card drink-today-card--empty" aria-label="今日推荐">
+          <span class="drink-today-card__label">今日推荐</span>
+          <p class="drink-today-card__empty">还没有标记“会回购”的饮品，先把心头好收入回购清单吧。</p>
+        </section>
+      `;
+    }
+
+    const type = recommended.type || 'other';
+    const tags = normalizeTags(recommended.flavorTags || recommended.tags || []).slice(0, 3);
+
+    return `
+      <section class="drink-today-card drink-today-card--${type}" aria-label="今日推荐">
+        <div class="drink-today-card__copy">
+          <span class="drink-today-card__label">今日推荐</span>
+          <button class="drink-today-card__name" type="button" data-id="${escapeHtml(recommended.id)}">
+            ${escapeHtml(getDrinkName(recommended))}
+          </button>
+          <p class="drink-today-card__meta">
+            ${escapeHtml(DRINK_TYPES[type] || '其他')} · ${escapeHtml(recommended.shop || '未知来源')} · ${generateStars(recommended.rating || 0)}
+          </p>
+          ${tags.length ? `<div class="drink-today-card__tags">${tags.map((tag) => `<span>${escapeHtml(tag)}</span>`).join('')}</div>` : ''}
+        </div>
+        <span class="drink-today-card__stamp">REPURCHASE</span>
+      </section>
+    `;
+  }
+
   async function renderList() {
     const container = document.getElementById('entries-container');
     const user = await window.PalaceDB.ensureSignedIn('entries-container');
@@ -195,10 +234,12 @@
       container.innerHTML = `
         <div class="drink-menu-paper drink-menu-paper--empty">
           <div class="drink-menu-paper__seal">NO MATCH</div>
+          ${renderTodayRecommendation()}
           <h2 class="drink-menu-paper__title">饮品清单</h2>
           <p class="drinks-empty__text">这张清单上暂时没有符合条件的饮品。</p>
         </div>
       `;
+      bindListEvents();
       return;
     }
 
@@ -210,6 +251,7 @@
           <h2 class="drink-menu-paper__title">饮品清单</h2>
           <p class="drink-menu-paper__subtitle">点击饮品名，打开私人品鉴单。</p>
         </div>
+        ${renderTodayRecommendation()}
         <ol class="drink-menu-list">
           ${filteredEntries.map((entry, index) => {
             const type = entry.type || 'other';
@@ -245,6 +287,9 @@
 
   function bindListEvents() {
     document.querySelectorAll('.drink-menu-item__name').forEach((button) => {
+      button.addEventListener('click', () => openDetailModal(button.dataset.id));
+    });
+    document.querySelectorAll('.drink-today-card__name').forEach((button) => {
       button.addEventListener('click', () => openDetailModal(button.dataset.id));
     });
   }
