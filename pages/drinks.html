@@ -6,15 +6,14 @@
   <title>贪杯笔记 - 心灵宫殿</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Noto+Serif+SC:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Noto+Serif+SC:wght@400;600&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/styles.css">
   <link rel="stylesheet" href="../css/drinks.css">
 </head>
 <body class="page page-drinks">
-  <!-- Header -->
   <header class="page-header container">
     <a href="../index.html" class="back-btn">
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
         <path d="M12 4L6 10L12 16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
       </svg>
       返回宫殿
@@ -22,9 +21,8 @@
     <h1 class="page-title">🍷 贪杯笔记</h1>
   </header>
 
-  <!-- Content -->
   <main class="page-content container">
-    <p class="mb-3 stone-text" style="text-align:center; font-style:italic; margin-bottom:30px !important;">品味世间的醇香与苦涩，每一杯饮品背后的故事与心情。</p>
+    <p class="mb-3 stone-text drink-intro">品味人间的醇香与苦涩，记录每一杯饮品背后的故事与心情。</p>
 
     <section id="drink-stats" class="drink-stats" aria-label="饮品统计">
       <div class="drink-stat">
@@ -48,7 +46,7 @@
     <section class="drink-toolbar" aria-label="饮品筛选">
       <div class="drink-toolbar__group drink-toolbar__group--search">
         <label class="drink-toolbar__label" for="drink-search">检索</label>
-        <input type="search" id="drink-search" class="drink-toolbar__input" placeholder="饮品、店铺或风味" autocomplete="off">
+        <input type="search" id="drink-search" class="drink-toolbar__input" placeholder="饮品、来源或风味" autocomplete="off">
       </div>
       <div class="drink-toolbar__group">
         <label class="drink-toolbar__label" for="drink-filter-type">类型</label>
@@ -99,18 +97,16 @@
       </div>
     </section>
 
-    <!-- Entries Container -->
     <section id="entries-container">
       <div class="drinks-empty">
         <div class="drinks-empty__icon">🍷</div>
-        <p class="drinks-empty__text">暂无记录，点击右下角酒杯添加第一杯珍藏</p>
+        <p class="drinks-empty__text">暂无记录，点击右下角酒杯添加第一杯珍藏。</p>
       </div>
     </section>
   </main>
 
-  <!-- Floating Add Button -->
-  <button id="floating-add-btn" class="floating-add-btn" title="添加饮品">
-    <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <button id="floating-add-btn" class="floating-add-btn" title="添加饮品" aria-label="添加饮品">
+    <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       <path d="M32 8L20 20v4h24v-4L32 8z" fill="currentColor" opacity="0.6"/>
       <path d="M18 24h28v4H18v-4z" fill="currentColor"/>
       <path d="M16 28h32l-4 28H20l-4-28z" fill="currentColor" opacity="0.8"/>
@@ -119,14 +115,11 @@
     </svg>
   </button>
 
-  <!-- Detail Modal -->
-  <div id="detail-modal" class="drink-modal">
-  </div>
+  <div id="detail-modal" class="drink-modal" aria-live="polite"></div>
 
-  <!-- Add/Edit Modal -->
   <div id="add-modal" class="add-modal">
     <div class="add-modal__content">
-      <button id="close-add-modal" class="add-modal__close">&times;</button>
+      <button id="close-add-modal" class="add-modal__close" type="button" aria-label="关闭">&times;</button>
       <h2 class="add-modal__title">添加饮品</h2>
 
       <form id="drink-form" class="drink-form" autocomplete="off">
@@ -138,7 +131,7 @@
         <div class="drink-form-grid">
           <div class="form-row">
             <label class="form-label" for="drink-shop">来源</label>
-            <input type="text" id="drink-shop" class="form-input" placeholder="请输入邂逅之所">
+            <input type="text" id="drink-shop" class="form-input" placeholder="店铺、酒吧、朋友家...">
           </div>
 
           <div class="form-row">
@@ -256,9 +249,8 @@
     </div>
   </div>
 
-  <!-- Footer -->
   <footer class="footer">
-    <p class="footer__text">～ 杯中映人生，细品皆故事 ～</p>
+    <p class="footer__text">一杯中映人生，细品皆故事</p>
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>

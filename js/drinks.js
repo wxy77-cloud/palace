@@ -156,17 +156,16 @@
     `;
   }
 
-  function getRandomRotation(index) {
-    const rotations = [-5, -3, 2, 4, -2, 3, -4, 1, -1, 5];
-    return rotations[index % rotations.length];
-  }
-
   function generateStars(rating) {
     const value = Math.max(0, Math.min(5, parseInt(rating, 10) || 0));
     return '★'.repeat(value) + '☆'.repeat(5 - value);
   }
 
-  async function renderTags() {
+  function getDrinkName(entry) {
+    return entry.name || entry.title || '未命名饮品';
+  }
+
+  async function renderList() {
     const container = document.getElementById('entries-container');
     const user = await window.PalaceDB.ensureSignedIn('entries-container');
     if (!container || !user) return;
@@ -183,8 +182,9 @@
 
     if (entries.length === 0) {
       container.innerHTML = `
-        <div class="drinks-empty">
-          <div class="drinks-empty__icon">☕</div>
+        <div class="drink-menu-paper drink-menu-paper--empty">
+          <div class="drink-menu-paper__seal">DRINKS</div>
+          <h2 class="drink-menu-paper__title">饮品清单</h2>
           <p class="drinks-empty__text">暂无记录，点击右下角杯子添加第一杯珍藏。</p>
         </div>
       `;
@@ -193,37 +193,59 @@
 
     if (filteredEntries.length === 0) {
       container.innerHTML = `
-        <div class="drinks-empty">
-          <div class="drinks-empty__icon">⌕</div>
-          <p class="drinks-empty__text">吧台上没有找到符合条件的饮品。</p>
+        <div class="drink-menu-paper drink-menu-paper--empty">
+          <div class="drink-menu-paper__seal">NO MATCH</div>
+          <h2 class="drink-menu-paper__title">饮品清单</h2>
+          <p class="drinks-empty__text">这张清单上暂时没有符合条件的饮品。</p>
         </div>
       `;
       return;
     }
 
-    container.innerHTML = `<div class="drink-bar-shelf"><div class="drink-tags-container">${filteredEntries.map((entry, index) => {
-      const rotation = getRandomRotation(index);
-      const typeClass = `drink-tag--${entry.type || 'other'}`;
-      const icon = DRINK_ICONS[entry.type] || DRINK_ICONS.other;
-      const typeLabel = DRINK_TYPES[entry.type] || '其他';
-
-      return `
-        <div class="drink-tag ${typeClass}" data-id="${escapeHtml(entry.id)}" style="transform: rotate(${rotation}deg)">
-          <div class="drink-tag__icon">${icon}</div>
-          <div class="drink-tag__name">${escapeHtml(entry.name || entry.title)}</div>
-          <div class="drink-tag__shop">${escapeHtml(entry.shop || '未知店铺')}</div>
-          <div class="drink-tag__rating">${generateStars(entry.rating || 0)}</div>
-          <span class="drink-tag__type-badge">${typeLabel}</span>
+    container.innerHTML = `
+      <div class="drink-menu-paper">
+        <div class="drink-menu-paper__seal">DRINKS</div>
+        <div class="drink-menu-paper__header">
+          <span class="drink-menu-paper__overline">Private Tasting Menu</span>
+          <h2 class="drink-menu-paper__title">饮品清单</h2>
+          <p class="drink-menu-paper__subtitle">点击饮品名，打开私人品鉴单。</p>
         </div>
-      `;
-    }).join('')}</div></div>`;
+        <ol class="drink-menu-list">
+          ${filteredEntries.map((entry, index) => {
+            const type = entry.type || 'other';
+            const typeLabel = DRINK_TYPES[type] || '其他';
+            const name = getDrinkName(entry);
+            const tags = normalizeTags(entry.flavorTags || entry.tags || []).slice(0, 3);
+            const date = entry.tastedDate || entry.date || '未记录日期';
 
-    bindTagEvents();
+            return `
+              <li class="drink-menu-item drink-menu-item--${type}">
+                <span class="drink-menu-item__number">${String(index + 1).padStart(2, '0')}</span>
+                <button class="drink-menu-item__name" type="button" data-id="${escapeHtml(entry.id)}">
+                  ${escapeHtml(name)}
+                </button>
+                <span class="drink-menu-item__line" aria-hidden="true"></span>
+                <span class="drink-menu-item__rating">${generateStars(entry.rating || 0)}</span>
+                <div class="drink-menu-item__meta">
+                  <span>${escapeHtml(typeLabel)}</span>
+                  <span>${escapeHtml(entry.shop || '未知来源')}</span>
+                  <span>${escapeHtml(date)}</span>
+                  <span>${escapeHtml(getRepurchaseLabel(entry.repurchase || 'maybe'))}</span>
+                </div>
+                ${tags.length ? `<div class="drink-menu-item__tags">${tags.map((tag) => `<span>${escapeHtml(tag)}</span>`).join('')}</div>` : ''}
+              </li>
+            `;
+          }).join('')}
+        </ol>
+      </div>
+    `;
+
+    bindListEvents();
   }
 
-  function bindTagEvents() {
-    document.querySelectorAll('.drink-tag').forEach((tag) => {
-      tag.addEventListener('click', () => openDetailModal(tag.dataset.id));
+  function bindListEvents() {
+    document.querySelectorAll('.drink-menu-item__name').forEach((button) => {
+      button.addEventListener('click', () => openDetailModal(button.dataset.id));
     });
   }
 
@@ -232,19 +254,21 @@
     if (!entry) return;
 
     const modal = document.getElementById('detail-modal');
-    const icon = DRINK_ICONS[entry.type] || DRINK_ICONS.other;
-    const typeLabel = DRINK_TYPES[entry.type] || '其他';
+    const type = entry.type || 'other';
+    const icon = DRINK_ICONS[type] || DRINK_ICONS.other;
+    const typeLabel = DRINK_TYPES[type] || '其他';
+    const tags = normalizeTags(entry.flavorTags || entry.tags || []);
 
     modal.innerHTML = `
-      <div class="drink-modal__content drink-modal__content--${entry.type || 'other'}">
-        <button class="drink-modal__close" id="close-detail" type="button">&times;</button>
+      <div class="drink-modal__content drink-modal__content--${type}">
+        <button class="drink-modal__close" id="close-detail" type="button" aria-label="关闭">&times;</button>
         <div class="drink-modal__header">
           <div class="drink-modal__icon">${icon}</div>
-          <span class="drink-modal__eyebrow">品鉴单</span>
-          <h2 class="drink-modal__title">${escapeHtml(entry.name || entry.title)}</h2>
+          <span class="drink-modal__eyebrow">Tasting Sheet</span>
+          <h2 class="drink-modal__title">${escapeHtml(getDrinkName(entry))}</h2>
           <p class="drink-modal__shop">${escapeHtml(entry.shop || '未知来源')}</p>
           <div class="drink-modal__rating">${generateStars(entry.rating || 0)}</div>
-          <span class="drink-modal__type">${typeLabel}</span>
+          <span class="drink-modal__type">${escapeHtml(typeLabel)}</span>
         </div>
         <div class="drink-modal__body">
           <div class="drink-modal__specs">
@@ -254,19 +278,19 @@
             ${entry.size ? `<span>${escapeHtml(entry.size)}</span>` : ''}
             <span>${escapeHtml(getRepurchaseLabel(entry.repurchase || 'maybe'))}</span>
           </div>
-          ${normalizeTags(entry.flavorTags || entry.tags || []).length ? `
+          ${tags.length ? `
             <div class="drink-modal__flavors">
-              ${normalizeTags(entry.flavorTags || entry.tags || []).map((tag) => `<span>${escapeHtml(tag)}</span>`).join('')}
+              ${tags.map((tag) => `<span>${escapeHtml(tag)}</span>`).join('')}
             </div>
           ` : ''}
           ${entry.toppings ? `
-            <div class="drink-modal__toppings">
+            <section class="drink-modal__toppings">
               <p class="drink-modal__label">配料 / 小料</p>
               <p>${escapeHtml(entry.toppings)}</p>
-            </div>
+            </section>
           ` : ''}
-          <p class="drink-modal__label">品尝感受</p>
-          <p class="drink-modal__notes">${escapeHtml(entry.notes) || '暂无品尝记录'}</p>
+          <p class="drink-modal__label">品鉴感受</p>
+          <p class="drink-modal__notes">${escapeHtml(entry.notes) || '暂无品鉴记录'}</p>
         </div>
         <div class="drink-modal__footer">
           <span class="drink-modal__date">${escapeHtml(entry.tastedDate || entry.date || '')}</span>
@@ -285,7 +309,7 @@
       openEditModal(entryId);
     });
     modal.querySelector('.drink-modal__delete').addEventListener('click', async () => {
-      if (!confirm('确定要删除这杯饮品记录吗？')) return;
+      if (!confirm('确定要删除这条饮品记录吗？')) return;
       await deleteEntry(entryId);
       closeDetailModal();
     });
@@ -305,6 +329,7 @@
     document.getElementById('drink-rating').value = 0;
     document.getElementById('drink-repurchase').value = 'maybe';
     document.getElementById('drink-date').value = formatDateTime(new Date());
+    document.querySelector('.add-modal__title').textContent = '添加饮品';
     modal.classList.add('active');
   }
 
@@ -316,7 +341,7 @@
     const entry = entries.find((item) => item.id === entryId);
     if (!entry) return;
 
-    document.getElementById('drink-name').value = entry.name || '';
+    document.getElementById('drink-name').value = getDrinkName(entry);
     document.getElementById('drink-shop').value = entry.shop || '';
     document.getElementById('drink-type').value = entry.type || 'other';
     document.getElementById('drink-date').value = entry.tastedDate || entry.date || '';
@@ -333,6 +358,7 @@
       star.classList.toggle('active', index < (entry.rating || 0));
     });
 
+    document.querySelector('.add-modal__title').textContent = '编辑饮品';
     document.getElementById('drink-form').dataset.editId = entryId;
     document.getElementById('add-modal').classList.add('active');
   }
@@ -340,7 +366,7 @@
   async function deleteEntry(entryId) {
     try {
       await window.PalaceDB.deleteEntry(entryId);
-      await renderTags();
+      await renderList();
     } catch (error) {
       alert(error.message || '删除失败。');
     }
@@ -370,18 +396,19 @@
   function initFilters() {
     ['drink-search', 'drink-filter-type', 'drink-filter-repurchase', 'drink-filter-rating', 'drink-sort'].forEach((id) => {
       const control = document.getElementById(id);
-      control.addEventListener(id === 'drink-search' ? 'input' : 'change', renderTags);
+      control.addEventListener(id === 'drink-search' ? 'input' : 'change', renderList);
     });
   }
 
   function init() {
-    renderTags();
+    renderList();
     initStarRating();
     initFlavorTags();
     initFilters();
 
     const floatingBtn = document.getElementById('floating-add-btn');
     const addModal = document.getElementById('add-modal');
+    const detailModal = document.getElementById('detail-modal');
     const closeAddBtn = document.getElementById('close-add-modal');
     const cancelAddBtn = document.getElementById('cancel-drink');
     const drinkForm = document.getElementById('drink-form');
@@ -391,6 +418,9 @@
     cancelAddBtn.addEventListener('click', closeAddModal);
     addModal.addEventListener('click', (event) => {
       if (event.target === addModal) closeAddModal();
+    });
+    detailModal.addEventListener('click', (event) => {
+      if (event.target === detailModal) closeDetailModal();
     });
 
     drinkForm.addEventListener('submit', async (event) => {
@@ -448,7 +478,7 @@
           await window.PalaceDB.createEntry(page, { ...payload, editCount: 0 });
         }
         closeAddModal();
-        await renderTags();
+        await renderList();
       } catch (error) {
         alert(error.message || '保存失败。');
       }

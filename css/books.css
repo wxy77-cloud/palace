@@ -482,30 +482,6 @@
   z-index: 20;
 }
 
-/* 书脊顶部装饰 */
-.book-spine__cap {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 8px;
-  background: linear-gradient(to bottom,
-    rgba(0, 0, 0, 0.4),
-    transparent
-  );
-  border-radius: 3px 3px 0 0;
-}
-
-/* 书脊底部 */
-.book-spine__bottom {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: rgba(0, 0, 0, 0.3);
-}
-
 /* 书脊书名 */
 .book-spine__title {
   font-family: 'Noto Serif SC', 'Cormorant Garamond', serif;
@@ -2290,28 +2266,6 @@
     radial-gradient(circle at 16% 72%, rgba(212, 175, 55, 0.09), transparent 18%),
     radial-gradient(circle at 82% 64%, rgba(157, 207, 255, 0.08), transparent 20%),
     linear-gradient(180deg, rgba(184, 149, 106, 0.12) 0%, rgba(184, 149, 106, 0.06) 100%);
-}
-
-.book-spine::before {
-  content: '';
-  position: absolute;
-  inset: 12px 50% 18px auto;
-  width: 1px;
-  background: linear-gradient(180deg, transparent, rgba(255, 236, 178, 0.45), transparent);
-  opacity: 0.7;
-}
-
-.book-spine::after {
-  content: '';
-  position: absolute;
-  top: 18px;
-  left: 50%;
-  width: 9px;
-  height: 9px;
-  transform: translateX(-50%);
-  border: 1px solid currentColor;
-  border-radius: 50%;
-  opacity: 0.28;
 }
 
 .book-spine--rating-5 {

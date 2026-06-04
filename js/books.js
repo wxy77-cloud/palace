@@ -236,9 +236,7 @@
                   data-id="${escapeHtml(entry.id)}"
                   type="button"
                   title="${escapeHtml(title)}">
-            <span class="book-spine__cap" aria-hidden="true"></span>
             <span class="book-spine__title">${escapeHtml(title)}</span>
-            <span class="book-spine__bottom" aria-hidden="true"></span>
           </button>
         `;
       });

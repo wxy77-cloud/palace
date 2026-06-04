@@ -9,7 +9,12 @@
 }
 
 .game-select {
+  color: var(--mist-purple);
   cursor: pointer;
+}
+
+.game-select option {
+  color: #5f3d91;
 }
 
 .game-star-rating {
