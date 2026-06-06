@@ -72,8 +72,14 @@
           </div>
 
           <div class="form-row">
-            <label class="form-label" for="wish-date">目标日期</label>
-            <input type="date" id="wish-date" class="form-input">
+            <label class="form-label" for="wish-date-mode">目标日期</label>
+            <div class="wishes-date-controls">
+              <select id="wish-date-mode" class="form-input wishes-select">
+                <option value="forever">长相守</option>
+                <option value="date">具体日期</option>
+              </select>
+              <input type="date" id="wish-date" class="form-input" disabled>
+            </div>
           </div>
         </div>
 

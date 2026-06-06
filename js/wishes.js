@@ -27,6 +27,7 @@
 
   function formatDateValue(value) {
     if (!value) return '';
+    if (value === '长相守') return '';
     const date = new Date(value);
     if (Number.isNaN(date.getTime())) return String(value).slice(0, 10);
     const year = date.getFullYear();
@@ -49,6 +50,20 @@
 
   function getTypeName(type) {
     return typeNames[type] || '其他';
+  }
+
+  function isForeverTarget(entry) {
+    return entry && (entry.targetDateMode === 'forever' || entry.targetDate === '长相守');
+  }
+
+  function getTargetLabel(entry) {
+    if (isForeverTarget(entry)) return '长相守';
+    return entry.targetDate || '';
+  }
+
+  function getTargetSortValue(entry) {
+    if (isForeverTarget(entry) || !entry.targetDate) return '9999-12-31';
+    return String(entry.targetDate);
   }
 
   function renderStars(rating) {
@@ -84,7 +99,7 @@
     filteredEntries.sort((a, b) => {
       if (Boolean(a.pinned) !== Boolean(b.pinned)) return b.pinned ? 1 : -1;
       if (filters.sort === 'rating-desc') return (parseInt(b.rating, 10) || 0) - (parseInt(a.rating, 10) || 0);
-      if (filters.sort === 'date-asc') return String(a.targetDate || '9999-12-31').localeCompare(String(b.targetDate || '9999-12-31'));
+      if (filters.sort === 'date-asc') return getTargetSortValue(a).localeCompare(getTargetSortValue(b));
       if (filters.sort === 'title-asc') return getTitle(a).localeCompare(getTitle(b), 'zh-CN');
       return String(b.createdAt || '').localeCompare(String(a.createdAt || ''));
     });
@@ -158,6 +173,7 @@
         ${filteredEntries.map((entry, index) => {
           const tags = normalizeTags(entry.tags || []);
           const type = entry.type || 'other';
+          const targetLabel = getTargetLabel(entry);
           return `
             <article class="wish-card wish-card--${type}" data-id="${escapeHtml(entry.id)}" style="--delay: ${index * 36}ms;">
               <button class="wish-card__button" type="button">
@@ -166,7 +182,7 @@
                 ${entry.pinned ? '<span class="wish-card__pin">置顶</span>' : ''}
                 <h2 class="wish-card__title">${escapeHtml(getTitle(entry))}</h2>
                 <p class="wish-card__detail">${escapeHtml(entry.detail || entry.content || '愿望详情待补充')}</p>
-                <p class="wish-card__status">${escapeHtml(entry.status || '状态未记录')}${entry.targetDate ? ` · ${escapeHtml(entry.targetDate)}` : ''}</p>
+                <p class="wish-card__status">${escapeHtml(entry.status || '状态未记录')}${targetLabel ? ` · ${escapeHtml(targetLabel)}` : ''}</p>
                 <span class="wish-card__rating">${renderStars(entry.rating || 0)}</span>
                 ${tags.length ? `<div class="wish-card__tags">${tags.slice(0, 3).map((tag) => `<span>${escapeHtml(tag)}</span>`).join('')}</div>` : ''}
               </button>
@@ -205,10 +221,11 @@
     activeEntryId = entry.id;
     activeEntry = entry;
     const tags = normalizeTags(entry.tags || []);
+    const targetLabel = getTargetLabel(entry);
     const meta = [
       getTypeName(entry.type),
       entry.status,
-      entry.targetDate ? `目标 ${entry.targetDate}` : '',
+      targetLabel ? `目标 ${targetLabel}` : '',
       entry.pinned ? '置顶想望' : '',
       entry.privateWish ? '秘密妄想' : ''
     ].filter(Boolean);
@@ -252,6 +269,16 @@
     });
   }
 
+  function setTargetDateMode(mode) {
+    const isDateMode = mode === 'date';
+    const dateMode = document.getElementById('wish-date-mode');
+    const dateInput = document.getElementById('wish-date');
+    dateMode.value = isDateMode ? 'date' : 'forever';
+    dateInput.disabled = !isDateMode;
+    dateInput.required = isDateMode;
+    if (!isDateMode) dateInput.value = '';
+  }
+
   function resetForm() {
     const form = document.getElementById('input-form');
     form.reset();
@@ -259,6 +286,7 @@
     document.querySelector('.wishes-form__title').textContent = '记录一个愿望或妄想';
     document.querySelector('.wishes-submit-btn').textContent = '收入星匣';
     document.getElementById('wish-status').value = '萌芽';
+    setTargetDateMode('forever');
     setRating(0);
   }
 
@@ -281,6 +309,7 @@
       document.getElementById('wish-title').value = getTitle(entry);
       document.getElementById('wish-type').value = entry.type || 'other';
       document.getElementById('wish-status').value = entry.status || '萌芽';
+      setTargetDateMode(isForeverTarget(entry) || !entry.targetDate ? 'forever' : 'date');
       document.getElementById('wish-date').value = formatDateValue(entry.targetDate);
       document.getElementById('wish-pinned').checked = Boolean(entry.pinned);
       document.getElementById('wish-private').checked = Boolean(entry.privateWish);
@@ -298,7 +327,8 @@
   function buildPayload(original) {
     const title = document.getElementById('wish-title').value.trim();
     const detail = document.getElementById('wish-detail').value.trim();
-    const targetDate = formatDateValue(document.getElementById('wish-date').value);
+    const targetDateMode = document.getElementById('wish-date-mode').value === 'date' ? 'date' : 'forever';
+    const targetDate = targetDateMode === 'forever' ? '长相守' : formatDateValue(document.getElementById('wish-date').value);
     const now = new Date();
 
     return {
@@ -307,6 +337,7 @@
       wishTitle: title,
       type: document.getElementById('wish-type').value,
       status: document.getElementById('wish-status').value,
+      targetDateMode,
       targetDate,
       rating: parseInt(document.getElementById('wish-rating').value, 10) || 0,
       pinned: document.getElementById('wish-pinned').checked,
@@ -315,7 +346,7 @@
       nextStep: document.getElementById('wish-next-step').value.trim(),
       tags: normalizeTags(document.getElementById('wish-tags').value),
       content: detail,
-      date: targetDate || (original ? original.date : formatDateValue(now)),
+      date: targetDateMode === 'date' && targetDate ? targetDate : (original ? original.date : formatDateValue(now)),
       createdAt: original ? original.createdAt : now.toISOString()
     };
   }
@@ -328,6 +359,10 @@
     ['wish-search', 'wish-filter-type', 'wish-filter-status', 'wish-sort'].forEach((id) => {
       const control = document.getElementById(id);
       control.addEventListener(id === 'wish-search' ? 'input' : 'change', renderEntries);
+    });
+
+    document.getElementById('wish-date-mode').addEventListener('change', (event) => {
+      setTargetDateMode(event.target.value);
     });
   }
 

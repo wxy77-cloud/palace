@@ -18,6 +18,25 @@
     other: '其他'
   };
 
+  const favoritePatterns = [
+    { key: 'moon-orbit', name: 'Moon', sigil: '☾', line: '' },
+    { key: 'forest-antler', name: 'Antlers', sigil: '♈', line: '' },
+    { key: 'solar-phoenix', name: 'Phoenix', sigil: '☼', line: '' },
+    { key: 'rose-butterfly', name: 'Rose', sigil: '✧', line: '' },
+    { key: 'frost-snow', name: 'Snowflake', sigil: '✶', line: '' },
+    { key: 'raven-astrolabe', name: 'Raven', sigil: '◈', line: '' },
+    { key: 'ocean-jelly', name: 'Jellyfish', sigil: '≈', line: '' },
+    { key: 'lily-wings', name: 'Lily', sigil: '♢', line: '' }
+  ];
+
+  const legacyPatternMap = {
+    'moon-garden': 'moon-orbit',
+    'star-arch': 'moon-orbit',
+    'rose-mirror': 'rose-butterfly',
+    'crystal-vine': 'forest-antler',
+    'mist-lake': 'ocean-jelly'
+  };
+
   function escapeHtml(text) {
     if (!text) return '';
     const div = document.createElement('div');
@@ -49,6 +68,25 @@
 
   function getTypeName(type) {
     return typeNames[type] || '其他';
+  }
+
+  function getStableIndex(value) {
+    const text = String(value || '');
+    let hash = 0;
+    for (let index = 0; index < text.length; index += 1) {
+      hash = (hash * 31 + text.charCodeAt(index)) >>> 0;
+    }
+    return hash % favoritePatterns.length;
+  }
+
+  function getRandomFavoritePattern() {
+    return favoritePatterns[Math.floor(Math.random() * favoritePatterns.length)].key;
+  }
+
+  function getFavoritePattern(entry) {
+    const key = entry && (entry.favoritePattern || entry.tarotPattern);
+    const normalizedKey = legacyPatternMap[key] || key;
+    return favoritePatterns.find((pattern) => pattern.key === normalizedKey) || favoritePatterns[getStableIndex(entry && (entry.id || entry.createdAt || getTitle(entry)))];
   }
 
   function renderStars(rating) {
@@ -158,18 +196,36 @@
         ${filteredEntries.map((entry, index) => {
           const tags = normalizeTags(entry.tags || []);
           const type = entry.type || 'other';
+          const pattern = getFavoritePattern(entry);
           return `
-            <article class="favorite-card favorite-card--${type}" data-id="${escapeHtml(entry.id)}" style="--delay: ${index * 36}ms;">
-              <button class="favorite-card__button" type="button">
-                <span class="favorite-card__gem" aria-hidden="true"></span>
-                <span class="favorite-card__type">${escapeHtml(getTypeName(type))}</span>
-                ${entry.pinned ? '<span class="favorite-card__pin">置顶</span>' : ''}
-                <h2 class="favorite-card__title">${escapeHtml(getTitle(entry))}</h2>
-                <p class="favorite-card__source">${escapeHtml(entry.source || '来源未记录')}</p>
-                <p class="favorite-card__reason">${escapeHtml(entry.reason || entry.content || '喜欢原因待补充')}</p>
-                <span class="favorite-card__rating">${renderStars(entry.rating || 0)}</span>
-                ${tags.length ? `<div class="favorite-card__tags">${tags.slice(0, 3).map((tag) => `<span>${escapeHtml(tag)}</span>`).join('')}</div>` : ''}
-              </button>
+            <article class="favorite-card favorite-card--${type} favorite-card--pattern-${pattern.key}" data-id="${escapeHtml(entry.id)}" style="--delay: ${index * 36}ms;">
+              <div class="favorite-card__button" role="button" tabindex="0" aria-pressed="false" aria-label="${escapeHtml(getTitle(entry))}">
+                <div class="favorite-card__inner">
+                  <div class="favorite-card__face favorite-card__face--front" aria-hidden="true">
+                    <span class="favorite-art__mist"></span>
+                    <span class="favorite-art__frame favorite-art__frame--outer"></span>
+                    <span class="favorite-art__frame favorite-art__frame--inner"></span>
+                    <span class="favorite-art__stars"></span>
+                    <span class="favorite-art__halo"></span>
+                    <span class="favorite-art__orbit"></span>
+                    <span class="favorite-art__subject"></span>
+                    <span class="favorite-art__vine favorite-art__vine--left"></span>
+                    <span class="favorite-art__vine favorite-art__vine--right"></span>
+                    <span class="favorite-card__pattern-title">${escapeHtml(pattern.name)}</span>
+                    ${pattern.line ? `<span class="favorite-card__pattern-line">${escapeHtml(pattern.line)}</span>` : ''}
+                  </div>
+                  <div class="favorite-card__face favorite-card__face--back">
+                    <span class="favorite-card__type">${escapeHtml(getTypeName(type))}</span>
+                    ${entry.pinned ? '<span class="favorite-card__pin">置顶</span>' : ''}
+                    <h2 class="favorite-card__title">${escapeHtml(getTitle(entry))}</h2>
+                    <p class="favorite-card__source">${escapeHtml(entry.source || '来源未记录')}</p>
+                    <p class="favorite-card__reason">${escapeHtml(entry.reason || entry.content || '喜欢原因待补充')}</p>
+                    <span class="favorite-card__rating">${renderStars(entry.rating || 0)}</span>
+                    ${tags.length ? `<div class="favorite-card__tags">${tags.slice(0, 3).map((tag) => `<span>${escapeHtml(tag)}</span>`).join('')}</div>` : ''}
+                    <button class="favorite-card__mist" type="button">拨开命运迷雾</button>
+                  </div>
+                </div>
+              </div>
             </article>
           `;
         }).join('')}
@@ -183,7 +239,23 @@
   function bindCardEvents() {
     document.querySelectorAll('.favorite-card').forEach((card) => {
       const entry = entries.find((item) => item.id === card.dataset.id);
-      card.querySelector('.favorite-card__button').addEventListener('click', () => {
+      const button = card.querySelector('.favorite-card__button');
+      const detailBtn = card.querySelector('.favorite-card__mist');
+
+      button.addEventListener('click', () => {
+        card.classList.toggle('is-flipped');
+        button.setAttribute('aria-pressed', String(card.classList.contains('is-flipped')));
+      });
+
+      button.addEventListener('keydown', (event) => {
+        if (event.key !== 'Enter' && event.key !== ' ') return;
+        event.preventDefault();
+        card.classList.toggle('is-flipped');
+        button.setAttribute('aria-pressed', String(card.classList.contains('is-flipped')));
+      });
+
+      detailBtn.addEventListener('click', (event) => {
+        event.stopPropagation();
         if (entry) openModal(entry);
       });
     });
@@ -317,6 +389,7 @@
       reason,
       link: document.getElementById('favorite-link').value.trim(),
       tags: normalizeTags(document.getElementById('favorite-tags').value),
+      favoritePattern: original ? getFavoritePattern(original).key : getRandomFavoritePattern(),
       content: reason,
       date: discoveredDate || (original ? original.date : formatDateValue(now)),
       createdAt: original ? original.createdAt : now.toISOString()

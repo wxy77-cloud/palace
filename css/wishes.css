@@ -132,6 +132,17 @@
   background-repeat: no-repeat;
 }
 
+.wishes-date-controls {
+  display: grid;
+  grid-template-columns: minmax(120px, 0.8fr) minmax(150px, 1fr);
+  gap: 10px;
+}
+
+.wishes-date-controls .form-input:disabled {
+  color: rgba(47, 38, 60, 0.48);
+  background: rgba(255, 255, 255, 0.42);
+}
+
 .wishes-rating {
   display: flex;
   gap: 8px;
@@ -555,6 +566,10 @@
 @media (max-width: 860px) {
   .wishes-form-grid,
   .wishes-toolbar {
+    grid-template-columns: 1fr;
+  }
+
+  .wishes-date-controls {
     grid-template-columns: 1fr;
   }
 }

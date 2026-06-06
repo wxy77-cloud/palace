@@ -186,6 +186,17 @@
   cursor: pointer;
   transform-style: preserve-3d;
   transition: transform 0.3s ease, filter 0.3s ease;
+  --planet-a: #f8fbff;
+  --planet-b: #8ea7ff;
+  --planet-c: #593bba;
+  --planet-d: #151739;
+  --ring-a: rgba(220, 231, 255, 0.72);
+  --ring-b: rgba(155, 172, 255, 0.54);
+  --ring-c: rgba(98, 72, 180, 0.34);
+  --planet-glow-a: rgba(142, 167, 255, 0.36);
+  --planet-glow-b: rgba(89, 59, 186, 0.26);
+  --ring-glow: rgba(155, 172, 255, 0.42);
+  --spark: rgba(236, 242, 255, 0.78);
 }
 
 .magic-star:hover {
@@ -198,84 +209,187 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 16px;
-  height: 16px;
-  background: radial-gradient(circle,
-    #FFFFFF 0%,
-    #E8D5FF 30%,
-    #C9A8FF 60%,
-    #9B6DFF 100%
-  );
+  z-index: 3;
+  width: 34px;
+  height: 34px;
+  background:
+    radial-gradient(circle at 68% 30%, rgba(255, 255, 255, 0.9) 0 5%, transparent 16%),
+    radial-gradient(circle at 34% 38%, rgba(255, 255, 255, 0.32) 0 2px, transparent 8px),
+    linear-gradient(160deg, transparent 28%, rgba(255, 255, 255, 0.2) 32%, transparent 42%),
+    radial-gradient(circle at 35% 28%, var(--planet-a) 0%, var(--planet-b) 34%, var(--planet-c) 68%, var(--planet-d) 100%);
   border-radius: 50%;
   transform: translate(-50%, -50%);
   box-shadow:
-    0 0 10px 4px rgba(200, 150, 255, 0.8),
-    0 0 20px 8px rgba(155, 109, 255, 0.5),
-    0 0 40px 12px rgba(126, 58, 182, 0.3);
-  animation: pulse 2s ease-in-out infinite;
+    inset -8px -10px 16px rgba(4, 8, 27, 0.52),
+    inset 5px 4px 12px rgba(255, 255, 255, 0.18),
+    0 0 12px 4px var(--planet-glow-a),
+    0 0 34px 10px var(--planet-glow-b);
+  animation: planet-pulse 4.8s ease-in-out infinite;
 }
 
 .magic-star--rare .magic-star__core {
-  background: radial-gradient(circle, #FFFFFF 0%, #D7ECFF 35%, #60A5FA 100%);
   box-shadow:
-    0 0 12px 4px rgba(147, 197, 253, 0.9),
-    0 0 28px 10px rgba(96, 165, 250, 0.5);
+    inset -8px -10px 16px rgba(4, 8, 27, 0.52),
+    inset 5px 4px 12px rgba(255, 255, 255, 0.2),
+    0 0 14px 5px rgba(125, 198, 255, 0.72),
+    0 0 36px 11px rgba(59, 130, 246, 0.42);
 }
 
 .magic-star--epic .magic-star__core {
-  background: radial-gradient(circle, #FFFFFF 0%, #F5D0FE 35%, #C084FC 100%);
   box-shadow:
-    0 0 14px 5px rgba(216, 180, 254, 0.9),
-    0 0 32px 12px rgba(192, 132, 252, 0.56);
+    inset -8px -10px 16px rgba(4, 8, 27, 0.52),
+    inset 5px 4px 12px rgba(255, 255, 255, 0.18),
+    0 0 15px 5px rgba(216, 180, 254, 0.72),
+    0 0 38px 12px rgba(168, 85, 247, 0.45);
 }
 
 .magic-star--legendary .magic-star__core {
-  background: radial-gradient(circle, #FFFFFF 0%, #FDE68A 35%, #F59E0B 100%);
   box-shadow:
-    0 0 16px 6px rgba(253, 230, 138, 0.95),
-    0 0 42px 16px rgba(245, 158, 11, 0.6);
+    inset -8px -10px 16px rgba(42, 18, 7, 0.42),
+    inset 5px 4px 12px rgba(255, 255, 255, 0.22),
+    0 0 16px 6px rgba(252, 211, 77, 0.74),
+    0 0 44px 15px rgba(245, 158, 11, 0.46);
 }
 
 .magic-star--hidden .magic-star__core {
-  background: radial-gradient(circle, #EDE9FE 0%, #7C3AED 42%, #111827 100%);
   box-shadow:
-    0 0 12px 4px rgba(124, 58, 237, 0.7),
-    0 0 34px 12px rgba(17, 24, 39, 0.6);
+    inset -9px -11px 18px rgba(0, 0, 0, 0.62),
+    inset 5px 4px 12px rgba(221, 214, 254, 0.12),
+    0 0 12px 5px rgba(124, 58, 237, 0.52),
+    0 0 36px 14px rgba(14, 12, 35, 0.72);
 }
 
-.magic-star--type-life .magic-star__ring { border-color: rgba(255, 214, 179, 0.42); }
-.magic-star--type-study .magic-star__ring { border-color: rgba(147, 197, 253, 0.42); }
-.magic-star--type-creative .magic-star__ring { border-color: rgba(244, 114, 182, 0.42); }
-.magic-star--type-social .magic-star__ring { border-color: rgba(251, 191, 36, 0.42); }
-.magic-star--type-health .magic-star__ring { border-color: rgba(74, 222, 128, 0.42); }
-.magic-star--type-game .magic-star__ring { border-color: rgba(129, 140, 248, 0.46); }
-.magic-star--type-travel .magic-star__ring { border-color: rgba(45, 212, 191, 0.42); }
-.magic-star--type-courage .magic-star__ring { border-color: rgba(248, 113, 113, 0.46); }
-.magic-star--type-habit .magic-star__ring { border-color: rgba(190, 242, 100, 0.4); }
-.magic-star--type-special .magic-star__ring { border-color: rgba(250, 204, 21, 0.46); }
+.magic-star--rare {
+  --planet-a: #f8fcff;
+  --planet-b: #93c5fd;
+  --planet-c: #2563eb;
+  --planet-d: #0b1f4d;
+  --planet-glow-a: rgba(125, 198, 255, 0.42);
+  --planet-glow-b: rgba(59, 130, 246, 0.3);
+}
+
+.magic-star--epic {
+  --planet-a: #fff7ff;
+  --planet-b: #d8b4fe;
+  --planet-c: #9333ea;
+  --planet-d: #241044;
+  --planet-glow-a: rgba(216, 180, 254, 0.42);
+  --planet-glow-b: rgba(168, 85, 247, 0.3);
+}
+
+.magic-star--legendary {
+  --planet-a: #fff9d8;
+  --planet-b: #facc15;
+  --planet-c: #d97706;
+  --planet-d: #3b1d08;
+  --planet-glow-a: rgba(252, 211, 77, 0.44);
+  --planet-glow-b: rgba(245, 158, 11, 0.3);
+}
+
+.magic-star--hidden {
+  --planet-a: #ddd6fe;
+  --planet-b: #7c3aed;
+  --planet-c: #312e81;
+  --planet-d: #050816;
+  --planet-glow-a: rgba(124, 58, 237, 0.34);
+  --planet-glow-b: rgba(14, 12, 35, 0.48);
+}
+
+.magic-star--type-life {
+  --ring-a: rgba(255, 226, 199, 0.74);
+  --ring-b: rgba(251, 146, 60, 0.5);
+  --ring-c: rgba(124, 45, 18, 0.34);
+  --ring-glow: rgba(251, 146, 60, 0.36);
+}
+
+.magic-star--type-study {
+  --ring-a: rgba(219, 234, 254, 0.78);
+  --ring-b: rgba(96, 165, 250, 0.55);
+  --ring-c: rgba(37, 99, 235, 0.34);
+  --ring-glow: rgba(96, 165, 250, 0.38);
+}
+
+.magic-star--type-creative {
+  --ring-a: rgba(252, 231, 243, 0.78);
+  --ring-b: rgba(244, 114, 182, 0.55);
+  --ring-c: rgba(157, 23, 77, 0.32);
+  --ring-glow: rgba(244, 114, 182, 0.38);
+}
+
+.magic-star--type-social {
+  --ring-a: rgba(254, 243, 199, 0.76);
+  --ring-b: rgba(251, 191, 36, 0.52);
+  --ring-c: rgba(146, 64, 14, 0.34);
+  --ring-glow: rgba(251, 191, 36, 0.36);
+}
+
+.magic-star--type-health {
+  --ring-a: rgba(209, 250, 229, 0.74);
+  --ring-b: rgba(52, 211, 153, 0.5);
+  --ring-c: rgba(6, 95, 70, 0.34);
+  --ring-glow: rgba(52, 211, 153, 0.36);
+}
+
+.magic-star--type-game {
+  --ring-a: rgba(224, 231, 255, 0.78);
+  --ring-b: rgba(129, 140, 248, 0.56);
+  --ring-c: rgba(67, 56, 202, 0.34);
+  --ring-glow: rgba(129, 140, 248, 0.4);
+}
+
+.magic-star--type-travel {
+  --ring-a: rgba(204, 251, 241, 0.76);
+  --ring-b: rgba(45, 212, 191, 0.53);
+  --ring-c: rgba(15, 118, 110, 0.34);
+  --ring-glow: rgba(45, 212, 191, 0.38);
+}
+
+.magic-star--type-courage {
+  --ring-a: rgba(254, 226, 226, 0.76);
+  --ring-b: rgba(248, 113, 113, 0.53);
+  --ring-c: rgba(153, 27, 27, 0.34);
+  --ring-glow: rgba(248, 113, 113, 0.38);
+}
+
+.magic-star--type-habit {
+  --ring-a: rgba(236, 252, 203, 0.72);
+  --ring-b: rgba(163, 230, 53, 0.48);
+  --ring-c: rgba(77, 124, 15, 0.3);
+  --ring-glow: rgba(163, 230, 53, 0.34);
+}
+
+.magic-star--type-special {
+  --ring-a: rgba(237, 233, 254, 0.78);
+  --ring-b: rgba(167, 139, 250, 0.56);
+  --ring-c: rgba(91, 33, 182, 0.34);
+  --ring-glow: rgba(167, 139, 250, 0.4);
+}
 
 .magic-star__glow {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 50px;
-  height: 50px;
+  z-index: 1;
+  width: 78px;
+  height: 78px;
   transform: translate(-50%, -50%);
   background: radial-gradient(circle,
-    rgba(200, 150, 255, 0.4) 0%,
-    rgba(155, 109, 255, 0.2) 40%,
+    var(--planet-glow-a) 0%,
+    var(--planet-glow-b) 42%,
     transparent 70%
   );
-  animation: glow-pulse 3s ease-in-out infinite;
+  animation: glow-pulse 5.4s ease-in-out infinite;
 }
 
 .magic-star__cross {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 60px;
-  height: 60px;
+  z-index: 5;
+  width: 72px;
+  height: 72px;
   transform: translate(-50%, -50%);
+  opacity: 0.82;
 }
 
 .magic-star__cross::before,
@@ -284,9 +398,9 @@
   position: absolute;
   background: linear-gradient(90deg,
     transparent 0%,
-    rgba(255, 255, 255, 0.6) 45%,
-    rgba(255, 255, 255, 0.8) 50%,
-    rgba(255, 255, 255, 0.6) 55%,
+    transparent 42%,
+    var(--spark) 50%,
+    transparent 58%,
     transparent 100%
   );
 }
@@ -307,9 +421,9 @@
   transform: translateX(-50%);
   background: linear-gradient(180deg,
     transparent 0%,
-    rgba(255, 255, 255, 0.6) 45%,
-    rgba(255, 255, 255, 0.8) 50%,
-    rgba(255, 255, 255, 0.6) 55%,
+    transparent 42%,
+    var(--spark) 50%,
+    transparent 58%,
     transparent 100%
   );
 }
@@ -318,49 +432,72 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 80px;
-  height: 80px;
-  border: 1px solid rgba(200, 180, 255, 0.3);
+  width: 78px;
+  height: 30px;
+  border: 2px solid transparent;
   border-radius: 50%;
-  transform: translate(-50%, -50%);
-  animation: ring-rotate 20s linear infinite;
+  transform-origin: center;
+  pointer-events: none;
+  transform: translate(-50%, -50%) rotate(calc(var(--ring-offset, 0deg) - 16deg));
+}
+
+.magic-star__ring--back {
+  z-index: 2;
+  background:
+    linear-gradient(90deg, transparent 7%, var(--ring-c) 18%, var(--ring-a) 42%, var(--ring-b) 62%, transparent 92%) border-box;
+  border-color: var(--ring-b);
+  box-shadow:
+    0 0 10px var(--ring-glow),
+    inset 0 0 6px rgba(255, 255, 255, 0.12);
+}
+
+.magic-star__ring--front {
+  z-index: 4;
+  border-top-color: transparent;
+  border-right-color: var(--ring-a);
+  border-bottom-color: var(--ring-a);
+  border-left-color: var(--ring-b);
+  clip-path: inset(47% -8% -8% -8%);
+  filter: drop-shadow(0 0 5px var(--ring-glow));
+}
+
+.magic-star__ring::before,
+.magic-star__ring::after {
+  content: '';
+  position: absolute;
+  height: 2px;
+  border-radius: 50%;
 }
 
 .magic-star__ring::before {
-  content: '';
-  position: absolute;
-  top: -3px;
-  left: 50%;
-  width: 6px;
-  height: 6px;
-  background: rgba(200, 180, 255, 0.8);
-  border-radius: 50%;
-  transform: translateX(-50%);
+  top: 8px;
+  left: 11%;
+  width: 78%;
+  background: linear-gradient(90deg, transparent, var(--ring-a), var(--ring-b), transparent);
+  opacity: 0.52;
 }
 
-@keyframes pulse {
+.magic-star__ring::after {
+  right: 9%;
+  bottom: 6px;
+  width: 18px;
+  background: var(--ring-a);
+  box-shadow: 0 0 8px var(--ring-a);
+  opacity: 0.64;
+}
+
+@keyframes planet-pulse {
   0%, 100% {
-    box-shadow:
-      0 0 10px 4px rgba(200, 150, 255, 0.8),
-      0 0 20px 8px rgba(155, 109, 255, 0.5),
-      0 0 40px 12px rgba(126, 58, 182, 0.3);
+    filter: brightness(0.98) saturate(1);
   }
   50% {
-    box-shadow:
-      0 0 15px 6px rgba(200, 150, 255, 1),
-      0 0 30px 12px rgba(155, 109, 255, 0.7),
-      0 0 50px 16px rgba(126, 58, 182, 0.5);
+    filter: brightness(1.12) saturate(1.12);
   }
 }
 
 @keyframes glow-pulse {
   0%, 100% { opacity: 0.6; transform: translate(-50%, -50%) scale(1); }
   50% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
-}
-
-@keyframes ring-rotate {
-  from { transform: translate(-50%, -50%) rotate(0deg); }
-  to { transform: translate(-50%, -50%) rotate(360deg); }
 }
 
 /* 悬停显示名称 */
@@ -566,18 +703,18 @@
 }
 
 .achievement-modal__star .magic-star__core {
-  width: 30px;
-  height: 30px;
+  width: 54px;
+  height: 54px;
 }
 
 .achievement-modal__star .magic-star__glow {
-  width: 80px;
-  height: 80px;
+  width: 136px;
+  height: 136px;
 }
 
 .achievement-modal__star .magic-star__cross {
-  width: 100px;
-  height: 100px;
+  width: 128px;
+  height: 128px;
 }
 
 .achievement-modal__star .magic-star__cross::before {
@@ -589,8 +726,8 @@
 }
 
 .achievement-modal__star .magic-star__ring {
-  width: 120px;
-  height: 120px;
+  width: 138px;
+  height: 52px;
 }
 
 .achievement-modal__close {

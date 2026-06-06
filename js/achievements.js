@@ -130,16 +130,18 @@
     star.style.cssText = `
       left: ${posX}%;
       top: ${posY}%;
-      transform: scale(${size}) rotate(${rotation}deg);
+      transform: scale(${size});
+      --ring-offset: ${rotation}deg;
     `;
     star.dataset.layer = layer;
     star.dataset.x = posX;
     star.dataset.y = posY;
     star.innerHTML = `
       <div class="magic-star__glow"></div>
-      <div class="magic-star__ring"></div>
       <div class="magic-star__cross"></div>
+      <div class="magic-star__ring magic-star__ring--back"></div>
       <div class="magic-star__core"></div>
+      <div class="magic-star__ring magic-star__ring--front"></div>
       <div class="magic-star__badge">${escapeHtml(getRarityName(rarity))} · ${points}</div>
       <div class="magic-star__label">${escapeHtml(entry.title)}</div>
     `;
@@ -230,9 +232,10 @@
         <button class="achievement-modal__close" type="button">&times;</button>
         <div class="achievement-modal__star magic-star--${rarity} magic-star--type-${type}">
           <div class="magic-star__glow"></div>
-          <div class="magic-star__ring"></div>
           <div class="magic-star__cross"></div>
+          <div class="magic-star__ring magic-star__ring--back"></div>
           <div class="magic-star__core"></div>
+          <div class="magic-star__ring magic-star__ring--front"></div>
         </div>
         <span class="achievement-modal__unlocked">Achievement Unlocked</span>
         <h2 class="achievement-modal__title">${escapeHtml(entry.title)}</h2>
