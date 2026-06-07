@@ -119,6 +119,24 @@
     `;
   }
 
+  function equalizeThoughtCards() {
+    const cards = Array.from(document.querySelectorAll('.thought-card'));
+    if (!cards.length) return;
+
+    cards.forEach((card) => {
+      const button = card.querySelector('.thought-card__button');
+      card.style.height = 'auto';
+      if (button) button.style.height = 'auto';
+    });
+
+    const maxHeight = Math.max(...cards.map((card) => Math.ceil(card.getBoundingClientRect().height)));
+    cards.forEach((card) => {
+      const button = card.querySelector('.thought-card__button');
+      card.style.height = `${maxHeight}px`;
+      if (button) button.style.height = '100%';
+    });
+  }
+
   async function renderEntries() {
     const container = document.getElementById('entries-container');
     const user = await window.PalaceDB.ensureSignedIn('entries-container');
@@ -177,6 +195,7 @@
     `;
 
     bindCardEvents();
+    requestAnimationFrame(equalizeThoughtCards);
   }
 
   function bindCardEvents() {
@@ -334,6 +353,10 @@
 
     bindInteractions();
     renderEntries();
+
+    window.addEventListener('resize', () => {
+      requestAnimationFrame(equalizeThoughtCards);
+    });
 
     addBtn.addEventListener('click', () => openForm());
     cancelBtn.addEventListener('click', closeForm);

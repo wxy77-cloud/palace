@@ -291,6 +291,76 @@
     0 0 24px rgba(255, 199, 217, 0.22);
 }
 
+.anime-card--healing {
+  --bloom-petal-a: #C8F7D5;
+  --bloom-petal-b: #6BC79D;
+  --bloom-core-a: #F4FFD4;
+  --bloom-core-b: #B6DD6F;
+}
+
+.anime-card--romance {
+  --bloom-petal-a: #FFD6EC;
+  --bloom-petal-b: #D969A2;
+  --bloom-core-a: #FFF0B8;
+  --bloom-core-b: #F3B66F;
+}
+
+.anime-card--adventure {
+  --bloom-petal-a: #DDD6FF;
+  --bloom-petal-b: #8F77D8;
+  --bloom-core-a: #E5F2FF;
+  --bloom-core-b: #7CB7E2;
+}
+
+.anime-card--action {
+  --bloom-petal-a: #FFD0C8;
+  --bloom-petal-b: #D75B63;
+  --bloom-core-a: #FFE8A8;
+  --bloom-core-b: #F0A64F;
+}
+
+.anime-card--mystery {
+  --bloom-petal-a: #B7C7F2;
+  --bloom-petal-b: #5B6598;
+  --bloom-core-a: #D9FFF2;
+  --bloom-core-b: #69B9AA;
+}
+
+.anime-card--sci-fi {
+  --bloom-petal-a: #BCEEFF;
+  --bloom-petal-b: #5AAFD4;
+  --bloom-core-a: #EEF0FF;
+  --bloom-core-b: #929BE4;
+}
+
+.anime-card--sports {
+  --bloom-petal-a: #FFE0A6;
+  --bloom-petal-b: #EE9F55;
+  --bloom-core-a: #DDF8C5;
+  --bloom-core-b: #7FCB82;
+}
+
+.anime-card--drama {
+  --bloom-petal-a: #E9C4EE;
+  --bloom-petal-b: #B065A6;
+  --bloom-core-a: #DDE5FF;
+  --bloom-core-b: #8194D7;
+}
+
+.anime-card--comedy {
+  --bloom-petal-a: #FFF0A8;
+  --bloom-petal-b: #F1BE5D;
+  --bloom-core-a: #FFD5EC;
+  --bloom-core-b: #D96FA8;
+}
+
+.anime-card--other {
+  --bloom-petal-a: #E8D8FF;
+  --bloom-petal-b: #A982D0;
+  --bloom-core-a: #FFE8B8;
+  --bloom-core-b: #E7B861;
+}
+
 .anime-card--healing .anime-card__button { background: linear-gradient(145deg, rgba(89, 157, 130, 0.78), rgba(70, 112, 146, 0.72)); }
 .anime-card--romance .anime-card__button { background: linear-gradient(145deg, rgba(207, 111, 161, 0.78), rgba(128, 92, 164, 0.72)); }
 .anime-card--adventure .anime-card__button { background: linear-gradient(145deg, rgba(126, 102, 184, 0.78), rgba(74, 117, 160, 0.72)); }
@@ -320,7 +390,7 @@
   width: 36px;
   height: 48px;
   border-radius: 50% 50% 46% 46%;
-  background: linear-gradient(180deg, #FFD6E5, #D969A2);
+  background: linear-gradient(180deg, var(--bloom-petal-a, #FFD6E5), var(--bloom-petal-b, #D969A2));
   transform-origin: 50% 86%;
   box-shadow: inset 0 1px 8px rgba(255, 255, 255, 0.36);
 }
@@ -334,9 +404,9 @@
   width: 24px;
   height: 24px;
   border-radius: 50%;
-  background: radial-gradient(circle, #FFF4B8, #F3C66F);
+  background: radial-gradient(circle, var(--bloom-core-a, #FFF4B8), var(--bloom-core-b, #F3C66F));
   transform: translate(-50%, -50%);
-  box-shadow: 0 0 16px rgba(243, 198, 111, 0.52);
+  box-shadow: 0 0 16px color-mix(in srgb, var(--bloom-core-b, #F3C66F) 58%, transparent);
 }
 
 .anime-bloom--seed .anime-bloom__petal {
@@ -350,7 +420,7 @@
 }
 
 .anime-bloom--rebloom .anime-bloom__petal {
-  background: linear-gradient(180deg, #E0D8FF, #D969A2);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--bloom-petal-a, #E0D8FF) 72%, #FFFFFF), var(--bloom-petal-b, #D969A2));
 }
 
 .anime-bloom--quiet {
