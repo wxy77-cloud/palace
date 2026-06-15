@@ -27,6 +27,99 @@
   margin-right: auto;
 }
 
+.webnovel-filter-panel {
+  position: relative;
+  margin: 0 auto 12px;
+  padding: 18px;
+  border: 1px solid rgba(255, 244, 202, 0.34);
+  border-radius: var(--radius-md);
+  background:
+    linear-gradient(145deg, rgba(8, 20, 38, 0.78), rgba(42, 29, 65, 0.64)),
+    radial-gradient(circle at top right, rgba(119, 214, 201, 0.16), transparent 34%);
+  box-shadow:
+    0 16px 38px rgba(0, 0, 0, 0.24),
+    inset 0 0 24px rgba(255, 244, 202, 0.04);
+  backdrop-filter: blur(10px);
+}
+
+.webnovel-filter-panel::before {
+  content: '';
+  position: absolute;
+  inset: 10px;
+  pointer-events: none;
+  border: 1px solid rgba(119, 214, 201, 0.12);
+  border-radius: var(--radius-sm);
+}
+
+.webnovel-search-field {
+  position: relative;
+  margin-bottom: 14px;
+}
+
+.webnovel-filter-panel .form-label,
+.webnovel-filter-control span {
+  color: rgba(232, 224, 240, 0.74);
+  font-family: var(--font-chinese), var(--font-body);
+  font-size: 0.88rem;
+}
+
+.webnovel-filter-panel .form-input {
+  min-height: 42px;
+  background: rgba(2, 10, 22, 0.58);
+  border: 1px solid rgba(119, 214, 201, 0.26);
+  color: var(--ivory);
+}
+
+.webnovel-filter-panel .form-input:focus {
+  border-color: rgba(212, 175, 55, 0.72);
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.12);
+}
+
+.webnovel-filter-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.webnovel-filter-control {
+  position: relative;
+  display: grid;
+  gap: 6px;
+}
+
+.webnovel-filter-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(212, 175, 55, 0.12);
+}
+
+.webnovel-filter-count {
+  color: rgba(232, 224, 240, 0.7);
+  font-size: 0.9rem;
+}
+
+.webnovel-filter-reset {
+  min-height: 34px;
+  padding: 6px 12px;
+  border: 1px solid rgba(212, 175, 55, 0.36);
+  border-radius: var(--radius-sm);
+  background: rgba(212, 175, 55, 0.08);
+  color: var(--golden-accent);
+  cursor: pointer;
+  font-family: var(--font-chinese), var(--font-body);
+  transition: background var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.webnovel-filter-reset:hover {
+  background: rgba(212, 175, 55, 0.18);
+  border-color: var(--golden-accent);
+  color: #fff4b8;
+}
+
 .webnovel-abyss {
   position: relative;
   min-height: 420px;
@@ -547,6 +640,10 @@
 }
 
 @media (max-width: 860px) {
+  .webnovel-filter-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .webnovel-list {
     grid-template-columns: 1fr;
   }
@@ -559,6 +656,23 @@
 }
 
 @media (max-width: 640px) {
+  .webnovel-filter-panel {
+    padding: 16px;
+  }
+
+  .webnovel-filter-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .webnovel-filter-footer {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .webnovel-filter-reset {
+    width: 100%;
+  }
+
   .webnovel-portal {
     right: 18px;
     bottom: 18px;

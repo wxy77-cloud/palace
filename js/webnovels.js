@@ -49,6 +49,84 @@
     });
   }
 
+  function getRating(entry) {
+    return Math.max(0, Math.min(5, parseInt(entry.rating, 10) || 0));
+  }
+
+  function getFilterElements() {
+    return {
+      search: document.getElementById('novel-search'),
+      status: document.getElementById('novel-status-filter'),
+      tag: document.getElementById('novel-tag-filter'),
+      rating: document.getElementById('novel-rating-filter'),
+      favorite: document.getElementById('novel-favorite-filter'),
+      count: document.getElementById('novel-filter-count')
+    };
+  }
+
+  function getEntrySearchText(entry) {
+    return [
+      getEntryTitle(entry),
+      entry.author,
+      entry.platform,
+      entry.status,
+      entry.progress,
+      entry.review,
+      entry.content,
+      normalizeTags(entry.tags || []).join(' ')
+    ].join(' ').toLowerCase();
+  }
+
+  function renderSelectOptions(select, values, placeholder) {
+    if (!select) return;
+    const currentValue = select.value;
+    select.innerHTML = `<option value="">${placeholder}</option>${values
+      .map((value) => `<option value="${escapeHtml(value)}">${escapeHtml(value)}</option>`)
+      .join('')}`;
+    if (values.includes(currentValue)) select.value = currentValue;
+  }
+
+  function renderFilterOptions(items) {
+    const filters = getFilterElements();
+    const statuses = Array.from(new Set(items
+      .map((entry) => String(entry.status || '').trim())
+      .filter(Boolean)))
+      .sort(titleCollator.compare);
+    const tags = Array.from(new Set(items
+      .flatMap((entry) => normalizeTags(entry.tags || []))))
+      .sort(titleCollator.compare);
+
+    renderSelectOptions(filters.status, statuses, '全部状态');
+    renderSelectOptions(filters.tag, tags, '全部标签');
+  }
+
+  function getFilteredEntries(items) {
+    const filters = getFilterElements();
+    const query = String(filters.search ? filters.search.value : '').trim().toLowerCase();
+    const status = filters.status ? filters.status.value : '';
+    const tag = filters.tag ? filters.tag.value : '';
+    const minRating = filters.rating ? parseInt(filters.rating.value, 10) || 0 : 0;
+    const favorite = filters.favorite ? filters.favorite.value : '';
+
+    return items.filter((entry) => {
+      const tags = normalizeTags(entry.tags || []);
+      if (query && !getEntrySearchText(entry).includes(query)) return false;
+      if (status && entry.status !== status) return false;
+      if (tag && !tags.includes(tag)) return false;
+      if (minRating && getRating(entry) < minRating) return false;
+      if (favorite === 'favorite' && !entry.favorite) return false;
+      return true;
+    });
+  }
+
+  function updateFilterCount(visibleCount, totalCount) {
+    const count = document.getElementById('novel-filter-count');
+    if (!count) return;
+    count.textContent = totalCount === 0
+      ? '等待记录浮现'
+      : `显示 ${visibleCount} / ${totalCount} 篇`;
+  }
+
   function getSelectedTags() {
     const selected = Array.from(document.querySelectorAll('.webnovel-tag-option.active'))
       .map((button) => button.dataset.tag);
@@ -133,16 +211,18 @@
     window.setTimeout(() => document.getElementById('novel-title').focus(), 260);
   }
 
-  async function renderEntries() {
+  async function renderEntries(options = {}) {
     const container = document.getElementById('entries-container');
     const user = await window.PalaceDB.ensureSignedIn('entries-container');
     if (!container || !user) return;
 
-    try {
-      entries = await window.PalaceDB.listEntries(page);
-    } catch (error) {
-      container.innerHTML = `<div class="empty-state webnovel-empty"><p class="empty-state__text">${escapeHtml(error.message || '加载失败。')}</p></div>`;
-      return;
+    if (options.reload !== false) {
+      try {
+        entries = await window.PalaceDB.listEntries(page);
+      } catch (error) {
+        container.innerHTML = `<div class="empty-state webnovel-empty"><p class="empty-state__text">${escapeHtml(error.message || '加载失败。')}</p></div>`;
+        return;
+      }
     }
 
     if (entries.length === 0) {
@@ -155,7 +235,21 @@
       return;
     }
 
-    const sortedEntries = sortEntriesByTitle(entries);
+    renderFilterOptions(entries);
+    const sortedEntries = sortEntriesByTitle(getFilteredEntries(entries));
+
+    if (sortedEntries.length === 0) {
+      updateFilterCount(0, entries.length);
+      container.innerHTML = `
+        <div class="empty-state webnovel-empty">
+          <div class="empty-state__icon">⌕</div>
+          <p class="empty-state__text">没有找到符合条件的手稿，试着放宽筛选。</p>
+        </div>
+      `;
+      return;
+    }
+
+    updateFilterCount(sortedEntries.length, entries.length);
 
     container.innerHTML = `
       <div class="webnovel-list">
@@ -229,6 +323,26 @@
     document.querySelectorAll('.webnovel-tag-option').forEach((button) => {
       button.addEventListener('click', () => button.classList.toggle('active'));
     });
+
+    const filters = getFilterElements();
+    [filters.search, filters.status, filters.tag, filters.rating, filters.favorite]
+      .filter(Boolean)
+      .forEach((control) => {
+        const eventName = control.tagName === 'INPUT' ? 'input' : 'change';
+        control.addEventListener(eventName, () => renderEntries({ reload: false }));
+      });
+
+    const resetBtn = document.getElementById('novel-filter-reset');
+    if (resetBtn) {
+      resetBtn.addEventListener('click', () => {
+        if (filters.search) filters.search.value = '';
+        if (filters.status) filters.status.value = '';
+        if (filters.tag) filters.tag.value = '';
+        if (filters.rating) filters.rating.value = '0';
+        if (filters.favorite) filters.favorite.value = '';
+        renderEntries({ reload: false });
+      });
+    }
   }
 
   function init() {

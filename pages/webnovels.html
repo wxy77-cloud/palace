@@ -25,6 +25,52 @@
   <main class="page-content container">
     <p class="mb-3 stone-text webnovel-intro">让那些熬夜追过、反复回看的故事悬于深渊，连同初遇时的心跳一并封存。</p>
 
+    <section class="webnovel-filter-panel" aria-label="筛选网文记录">
+      <div class="webnovel-search-field">
+        <label class="form-label" for="novel-search">检索手稿</label>
+        <input type="search" id="novel-search" class="form-input" placeholder="搜索书名、作者、平台、评价或标签">
+      </div>
+
+      <div class="webnovel-filter-grid">
+        <label class="webnovel-filter-control">
+          <span>阅读状态</span>
+          <select id="novel-status-filter" class="form-input">
+            <option value="">全部状态</option>
+          </select>
+        </label>
+
+        <label class="webnovel-filter-control">
+          <span>类型标签</span>
+          <select id="novel-tag-filter" class="form-input">
+            <option value="">全部标签</option>
+          </select>
+        </label>
+
+        <label class="webnovel-filter-control">
+          <span>最低评分</span>
+          <select id="novel-rating-filter" class="form-input">
+            <option value="0">不限评分</option>
+            <option value="5">5 星</option>
+            <option value="4">4 星以上</option>
+            <option value="3">3 星以上</option>
+          </select>
+        </label>
+
+        <label class="webnovel-filter-control">
+          <span>真爱标记</span>
+          <select id="novel-favorite-filter" class="form-input">
+            <option value="">全部记录</option>
+            <option value="favorite">只看真爱</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="webnovel-filter-footer">
+        <span id="novel-filter-count" class="webnovel-filter-count">等待记录浮现</span>
+        <button id="novel-filter-reset" class="webnovel-filter-reset" type="button">清空筛选</button>
+      </div>
+    </section>
+
     <section class="webnovel-abyss" aria-label="网文之渊记录区">
       <div class="webnovel-abyss__mist" aria-hidden="true"></div>
       <section id="entries-container" class="webnovel-manuscript-stage">
