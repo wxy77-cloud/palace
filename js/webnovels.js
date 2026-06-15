@@ -32,6 +32,23 @@
     return '★'.repeat(value) + '☆'.repeat(5 - value);
   }
 
+  const titleCollator = new Intl.Collator('zh-Hans-CN-u-co-pinyin', {
+    numeric: true,
+    sensitivity: 'base'
+  });
+
+  function getEntryTitle(entry) {
+    return String(entry.bookTitle || entry.title || '').trim();
+  }
+
+  function sortEntriesByTitle(items) {
+    return [...items].sort((a, b) => {
+      const titleCompare = titleCollator.compare(getEntryTitle(a), getEntryTitle(b));
+      if (titleCompare !== 0) return titleCompare;
+      return titleCollator.compare(String(a.createdAt || ''), String(b.createdAt || ''));
+    });
+  }
+
   function getSelectedTags() {
     const selected = Array.from(document.querySelectorAll('.webnovel-tag-option.active'))
       .map((button) => button.dataset.tag);
@@ -138,10 +155,12 @@
       return;
     }
 
+    const sortedEntries = sortEntriesByTitle(entries);
+
     container.innerHTML = `
       <div class="webnovel-list">
-        ${entries.map((entry) => {
-          const title = entry.bookTitle || entry.title || '未命名作品';
+        ${sortedEntries.map((entry) => {
+          const title = getEntryTitle(entry) || '未命名作品';
           const tags = normalizeTags(entry.tags || []);
           const status = entry.status || '未记录状态';
           const review = entry.review || entry.content || '暂无评价';
