@@ -82,7 +82,7 @@
       type: document.getElementById('drink-filter-type').value,
       repurchase: document.getElementById('drink-filter-repurchase').value,
       rating: parseInt(document.getElementById('drink-filter-rating').value, 10) || 0,
-      sort: document.getElementById('drink-sort').value
+      sort: document.getElementById('drink-sort').value || 'name-asc'
     };
   }
 
@@ -109,8 +109,8 @@
       if (filters.sort === 'rating-desc') return (parseInt(b.rating, 10) || 0) - (parseInt(a.rating, 10) || 0);
       if (filters.sort === 'price-desc') return (parseFloat(b.price) || 0) - (parseFloat(a.price) || 0);
       if (filters.sort === 'price-asc') return (parseFloat(a.price) || 0) - (parseFloat(b.price) || 0);
-      if (filters.sort === 'name-asc') return String(a.name || a.title || '').localeCompare(String(b.name || b.title || ''), 'zh-CN');
-      return String(b.tastedDate || b.date || '').localeCompare(String(a.tastedDate || a.date || ''));
+      if (filters.sort === 'date-desc') return String(b.tastedDate || b.date || '').localeCompare(String(a.tastedDate || a.date || ''));
+      return String(a.name || a.title || '').localeCompare(String(b.name || b.title || ''), 'zh-CN');
     });
   }
 
