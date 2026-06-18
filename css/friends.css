@@ -79,7 +79,7 @@
   display: grid;
   grid-template-columns: 1fr;
   gap: 0;
-  min-height: 278px;
+  min-height: 318px;
   padding: 18px 16px;
   border: 1px solid rgba(212, 175, 55, 0.24);
   border-radius: var(--radius-md);
@@ -179,7 +179,7 @@
 
 .friend-card__lotus-lamp {
   position: relative;
-  min-height: 238px;
+  min-height: 278px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -193,7 +193,7 @@
   top: 0;
   left: 50%;
   width: 2px;
-  height: 56px;
+  height: 64px;
   background: linear-gradient(180deg, rgba(255, 222, 168, 0.16), #8e2d34 42%, #d67660);
   box-shadow: 0 0 7px rgba(212, 175, 55, 0.18);
   transform: translateX(-50%);
@@ -213,10 +213,12 @@
 }
 
 .friend-card__orb {
-  position: relative;
-  width: 88px;
-  height: 88px;
-  margin-bottom: -42px;
+  position: absolute;
+  top: 46px;
+  left: 50%;
+  width: 92px;
+  height: 92px;
+  margin-bottom: 0;
   border: 1px solid rgba(255, 248, 219, 0.7);
   border-radius: 50%;
   background:
@@ -227,6 +229,7 @@
   box-shadow:
     inset 0 -14px 22px rgba(45, 27, 78, 0.16),
     0 0 22px rgba(255, 244, 202, 0.26);
+  transform: translateX(-50%);
   z-index: 1;
 }
 
@@ -248,10 +251,10 @@
 
 .friend-card__lotus {
   position: relative;
-  width: min(184px, 100%);
-  height: 100px;
-  margin-top: 48px;
-  filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.28));
+  width: min(210px, 100%);
+  height: 114px;
+  margin-top: 90px;
+  filter: drop-shadow(0 9px 14px rgba(0, 0, 0, 0.24));
   z-index: 2;
 }
 
@@ -259,75 +262,125 @@
   content: '';
   position: absolute;
   left: 50%;
-  bottom: 18px;
-  width: 86px;
-  height: 18px;
+  bottom: 19px;
+  width: 116px;
+  height: 20px;
   border-radius: 50%;
   background: radial-gradient(ellipse, rgba(255, 255, 235, 0.72), var(--friend-light-soft) 56%, transparent 72%);
+  transform: translateX(-50%);
+}
+
+.friend-card__lotus::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 8px;
+  width: 178px;
+  height: 44px;
+  border-bottom: 1px solid rgba(52, 35, 63, 0.34);
+  border-radius: 50%;
+  opacity: 0.7;
   transform: translateX(-50%);
 }
 
 .friend-card__petal {
   position: absolute;
   left: 50%;
-  bottom: 13px;
-  width: 72px;
-  height: 34px;
-  border: 1px solid rgba(255, 248, 226, 0.72);
-  border-radius: 100% 0 100% 0;
+  bottom: 18px;
+  width: 86px;
+  height: 30px;
+  border: 1px solid rgba(55, 36, 66, 0.46);
+  border-radius: 50% 88% 50% 88%;
   background:
-    repeating-linear-gradient(96deg, rgba(255, 255, 255, 0.18) 0 1px, transparent 1px 5px),
-    radial-gradient(circle at 28% 22%, rgba(255, 255, 245, 0.9), transparent 34%),
-    linear-gradient(120deg, rgba(255, 255, 235, 0.92), var(--friend-light) 48%, var(--friend-petal-deep));
-  box-shadow: inset -8px -8px 14px rgba(0, 0, 0, 0.18);
-  transform-origin: 0 100%;
+    repeating-linear-gradient(96deg, rgba(56, 38, 68, 0.12) 0 1px, transparent 1px 4px),
+    radial-gradient(ellipse at 28% 30%, rgba(255, 255, 245, 0.96), transparent 36%),
+    linear-gradient(105deg, rgba(255, 255, 236, 0.94), var(--friend-light) 52%, var(--friend-petal-deep));
+  box-shadow:
+    inset -10px -8px 13px rgba(0, 0, 0, 0.16),
+    inset 9px 6px 12px rgba(255, 255, 255, 0.28);
+  transform-origin: 50% 82%;
+}
+
+.friend-card__petal::after {
+  content: '';
+  position: absolute;
+  inset: 5px 10px;
+  border-top: 1px solid rgba(62, 40, 75, 0.2);
+  border-radius: 50%;
+  transform: rotate(-8deg);
 }
 
 .friend-card__petal--1 {
-  transform: translateX(-50%) rotate(-48deg);
+  width: 104px;
+  height: 28px;
+  bottom: 18px;
+  transform: translateX(-104px) rotate(-14deg);
+  z-index: 1;
 }
 
 .friend-card__petal--2 {
-  transform: translateX(-50%) rotate(-30deg);
+  width: 96px;
+  height: 31px;
+  bottom: 28px;
+  transform: translateX(-88px) rotate(-31deg);
+  z-index: 2;
 }
 
 .friend-card__petal--3 {
-  transform: translateX(-50%) rotate(-13deg);
+  width: 92px;
+  height: 33px;
+  bottom: 36px;
+  transform: translateX(-65px) rotate(-52deg);
+  z-index: 2;
 }
 
 .friend-card__petal--4 {
-  transform: translateX(-50%) rotate(8deg);
+  width: 92px;
+  height: 33px;
+  bottom: 36px;
+  transform: translateX(-28px) rotate(38deg) scaleX(-1);
+  z-index: 2;
 }
 
 .friend-card__petal--5 {
-  transform: translateX(-50%) rotate(28deg);
+  width: 96px;
+  height: 31px;
+  bottom: 28px;
+  transform: translateX(-8px) rotate(19deg) scaleX(-1);
+  z-index: 2;
 }
 
 .friend-card__petal--6 {
-  transform: translateX(-50%) rotate(47deg);
+  width: 104px;
+  height: 28px;
+  bottom: 18px;
+  transform: translateX(0) rotate(14deg) scaleX(-1);
+  z-index: 1;
 }
 
 .friend-card__petal--7 {
-  width: 68px;
-  height: 38px;
-  bottom: 21px;
-  transform: translateX(-50%) rotate(-76deg);
-  opacity: 0.88;
+  width: 80px;
+  height: 43px;
+  bottom: 45px;
+  transform: translateX(-74px) rotate(-63deg);
+  opacity: 0.9;
+  z-index: 1;
 }
 
 .friend-card__petal--8 {
-  width: 68px;
-  height: 38px;
-  bottom: 21px;
-  transform: translateX(-50%) rotate(56deg);
-  opacity: 0.88;
+  width: 80px;
+  height: 43px;
+  bottom: 45px;
+  transform: translateX(-6px) rotate(63deg) scaleX(-1);
+  opacity: 0.9;
+  z-index: 1;
 }
 
 .friend-card__petal--center {
-  width: 56px;
-  height: 64px;
-  bottom: 18px;
-  border-radius: 80% 80% 65% 65%;
+  width: 58px;
+  height: 70px;
+  bottom: 28px;
+  border-radius: 82% 82% 62% 62%;
   background:
     repeating-linear-gradient(96deg, rgba(84, 55, 105, 0.16) 0 1px, transparent 1px 5px),
     radial-gradient(circle at 45% 26%, rgba(255, 255, 245, 0.95), transparent 33%),
@@ -336,11 +389,18 @@
   z-index: 3;
 }
 
+.friend-card__petal--center::after {
+  inset: 10px 18px;
+  border-top: 0;
+  border-left: 1px solid rgba(62, 40, 75, 0.22);
+  transform: none;
+}
+
 .friend-card__tassel {
   position: relative;
-  width: 38px;
-  height: 58px;
-  margin-top: -10px;
+  width: 54px;
+  height: 92px;
+  margin-top: -18px;
   z-index: 1;
 }
 
@@ -348,10 +408,10 @@
   content: '';
   position: absolute;
   left: 50%;
-  top: -16px;
+  top: -24px;
   width: 1px;
-  height: 24px;
-  background: linear-gradient(#d4af37, #b63e37);
+  height: 34px;
+  background: linear-gradient(rgba(212, 175, 55, 0.86), rgba(183, 150, 215, 0.56));
   transform: translateX(-50%);
 }
 
@@ -359,15 +419,15 @@
   content: '';
   position: absolute;
   left: 50%;
-  top: 7px;
-  width: 34px;
-  height: 48px;
-  border-radius: 45% 45% 10% 10%;
+  top: 5px;
+  width: 46px;
+  height: 84px;
+  border-radius: 50%;
   background:
-    linear-gradient(90deg, transparent 0 10%, rgba(255, 218, 103, 0.55) 11% 13%, transparent 14% 24%, rgba(93, 14, 22, 0.85) 25% 27%, transparent 28% 38%, rgba(255, 145, 100, 0.8) 39% 42%, transparent 43% 54%, rgba(112, 23, 31, 0.86) 55% 58%, transparent 59% 70%, rgba(255, 218, 103, 0.45) 71% 73%, transparent 74% 100%),
-    linear-gradient(180deg, #c84b42, #69121b);
-  box-shadow: inset 0 10px 10px rgba(255, 210, 150, 0.22);
-  clip-path: polygon(12% 0, 88% 0, 100% 100%, 74% 82%, 58% 100%, 45% 80%, 27% 100%, 0 96%);
+    linear-gradient(90deg, transparent 0 6%, rgba(213, 193, 235, 0.34) 7% 8%, transparent 9% 15%, rgba(184, 152, 216, 0.44) 16% 17%, transparent 18% 28%, rgba(232, 219, 247, 0.38) 29% 30%, transparent 31% 42%, rgba(177, 139, 209, 0.46) 43% 44%, transparent 45% 56%, rgba(226, 209, 245, 0.36) 57% 58%, transparent 59% 70%, rgba(188, 155, 222, 0.4) 71% 72%, transparent 73% 84%, rgba(236, 224, 249, 0.32) 85% 86%, transparent 87% 100%),
+    linear-gradient(180deg, rgba(207, 183, 236, 0.42), rgba(156, 118, 190, 0.18));
+  box-shadow: inset 0 8px 10px rgba(255, 255, 255, 0.14);
+  clip-path: polygon(18% 0, 82% 0, 96% 100%, 82% 86%, 68% 100%, 55% 84%, 43% 100%, 31% 84%, 16% 100%, 4% 94%);
   transform: translateX(-50%);
 }
 
