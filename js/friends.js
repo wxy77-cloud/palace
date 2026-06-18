@@ -26,13 +26,6 @@
     return `${year}-${month}-${day}`;
   }
 
-  function formatDisplayDate(value) {
-    if (!value) return '未记年岁';
-    const date = new Date(value);
-    if (Number.isNaN(date.getTime())) return value;
-    return formatDate(date);
-  }
-
   function getLampColor(entry) {
     const allowedColors = ['gray', 'gold', 'rose', 'blue', 'green', 'violet', 'ember'];
     return allowedColors.includes(entry.lampColor) ? entry.lampColor : 'gray';
@@ -62,46 +55,6 @@
     }
 
     return null;
-  }
-
-  function getJourneyDate(entry) {
-    return entry.createdAt || entry.date || entry.birthday || '';
-  }
-
-  function getJourneyTime(entry) {
-    const date = new Date(getJourneyDate(entry));
-    return Number.isNaN(date.getTime()) ? Number.MAX_SAFE_INTEGER : date.getTime();
-  }
-
-  function renderTimeline() {
-    const timelineItems = entries
-      .slice()
-      .sort((a, b) => getJourneyTime(a) - getJourneyTime(b))
-      .map((entry, index) => {
-        const name = entry.friendName || entry.title || '未命名来客';
-        const dateText = formatDisplayDate(getJourneyDate(entry));
-        return `
-          <div class="journey-timeline__item">
-            <span class="journey-timeline__lamp" aria-hidden="true"></span>
-            <span class="journey-timeline__date">${escapeHtml(dateText)}</span>
-            <span class="journey-timeline__name">${escapeHtml(name)}</span>
-            <span class="journey-timeline__step">${index + 1}</span>
-          </div>
-        `;
-      })
-      .join('');
-
-    return `
-      <section class="journey-timeline" aria-label="旅途时间线">
-        <div class="journey-timeline__header">
-          <h2>旅途时间线</h2>
-          <p>每一次记录，都是驿路上新点起的一盏灯。</p>
-        </div>
-        <div class="journey-timeline__track">
-          ${timelineItems}
-        </div>
-      </section>
-    `;
   }
 
   function getSelectedTags() {
@@ -176,11 +129,81 @@
   function renderField(label, value) {
     if (!value) return '';
     return `
-      <div class="friend-card__field">
+      <div class="friend-postcard__field">
         <span>${label}</span>
         <p>${escapeHtml(value)}</p>
       </div>
     `;
+  }
+
+  function closePostcard() {
+    const postcard = document.querySelector('.friend-postcard-overlay');
+    if (postcard) postcard.remove();
+  }
+
+  function openPostcard(entry) {
+    if (!entry) return;
+
+    closePostcard();
+
+    const tags = normalizeTags(entry.tags || []);
+    const displayName = entry.friendName || entry.title || '未命名来客';
+    const birthdayState = getBirthdayState(entry.birthday);
+    const overlay = document.createElement('div');
+    overlay.className = 'friend-postcard-overlay';
+    overlay.innerHTML = `
+      <article class="friend-postcard" role="dialog" aria-modal="true" aria-labelledby="friend-postcard-title">
+        <button class="friend-postcard__close" type="button" aria-label="关闭明信片">×</button>
+        <div class="friend-postcard__stamp" aria-hidden="true">浮生驿</div>
+        <div class="friend-postcard__front">
+          <p class="friend-postcard__eyebrow">一张寄存在驿站的明信片</p>
+          <h2 id="friend-postcard-title" class="friend-postcard__title">${escapeHtml(displayName)}</h2>
+          <p class="friend-postcard__subtitle">${escapeHtml(entry.realName || entry.relationship || '未记录更多称呼')}</p>
+          <div class="friend-postcard__meta">
+            ${birthdayState ? `<span class="friend-card__birthday-badge friend-card__birthday-badge--${birthdayState.tone}">🏮 ${escapeHtml(birthdayState.text)}</span>` : ''}
+            ${entry.birthday ? `<span>生日 ${escapeHtml(entry.birthday)}</span>` : ''}
+            ${entry.date ? `<span>入站 ${escapeHtml(entry.date)}</span>` : ''}
+          </div>
+          ${tags.length > 0 ? `<div class="friend-card__tags">${tags.map((tag) => `<span>${escapeHtml(tag)}</span>`).join('')}</div>` : ''}
+        </div>
+        <div class="friend-postcard__message">
+          ${renderField('关系', entry.relationship)}
+          ${renderField('联系方式', entry.contact)}
+          ${renderField('初识', entry.met)}
+          ${renderField('偏好 / 雷区', entry.preferences)}
+          ${renderField('近况 / 备注', entry.notes || entry.content)}
+        </div>
+        <div class="friend-postcard__footer">
+          <span class="friend-card__edit-count">编辑 ${entry.editCount || 0} 次</span>
+          <div class="friend-card__actions">
+            <button class="friend-edit-btn" type="button">编辑</button>
+            <button class="friend-delete-btn" type="button">删除</button>
+          </div>
+        </div>
+      </article>
+    `;
+
+    document.body.appendChild(overlay);
+
+    overlay.addEventListener('click', (event) => {
+      if (event.target === overlay) closePostcard();
+    });
+
+    overlay.querySelector('.friend-postcard__close').addEventListener('click', closePostcard);
+    overlay.querySelector('.friend-edit-btn').addEventListener('click', () => {
+      closePostcard();
+      openForm(entry);
+    });
+    overlay.querySelector('.friend-delete-btn').addEventListener('click', async () => {
+      if (!confirm('确定要删除这位友人的记录吗？')) return;
+      try {
+        await window.PalaceDB.deleteEntry(entry.id);
+        closePostcard();
+        await renderEntries();
+      } catch (error) {
+        alert(error.message || '删除失败。');
+      }
+    });
   }
 
   async function renderEntries() {
@@ -206,49 +229,30 @@
     }
 
     container.innerHTML = `
-      ${renderTimeline()}
       <div class="friend-list">
         ${entries.map((entry) => {
-          const tags = normalizeTags(entry.tags || []);
           const displayName = entry.friendName || entry.title || '未命名来客';
           const lampColor = getLampColor(entry);
           const birthdayState = getBirthdayState(entry.birthday);
           const birthdayClass = birthdayState ? ` ${birthdayState.className}` : '';
           return `
-            <article class="friend-card friend-card--${lampColor}${birthdayClass}" data-id="${escapeHtml(entry.id)}" tabindex="0" role="button" aria-expanded="false">
-              <div class="friend-card__lantern">
-                <span class="friend-card__handle" aria-hidden="true"></span>
-                <span class="friend-card__body" aria-hidden="true">
-                  <span class="friend-card__flame"></span>
+            <article class="friend-card friend-card--${lampColor}${birthdayClass}" data-id="${escapeHtml(entry.id)}" tabindex="0" role="button">
+              <div class="friend-card__lotus-lamp">
+                <span class="friend-card__cord" aria-hidden="true"></span>
+                <span class="friend-card__orb" aria-hidden="true"></span>
+                <span class="friend-card__lotus" aria-hidden="true">
+                  <span class="friend-card__petal friend-card__petal--1"></span>
+                  <span class="friend-card__petal friend-card__petal--2"></span>
+                  <span class="friend-card__petal friend-card__petal--3"></span>
+                  <span class="friend-card__petal friend-card__petal--4"></span>
+                  <span class="friend-card__petal friend-card__petal--5"></span>
+                  <span class="friend-card__petal friend-card__petal--6"></span>
+                  <span class="friend-card__petal friend-card__petal--7"></span>
+                  <span class="friend-card__petal friend-card__petal--8"></span>
+                  <span class="friend-card__petal friend-card__petal--center"></span>
                 </span>
+                <span class="friend-card__tassel" aria-hidden="true"></span>
                 <h2 class="friend-card__name">${escapeHtml(displayName)}</h2>
-              </div>
-              <div class="friend-card__main" aria-hidden="true">
-                <div class="friend-card__header">
-                  <div>
-                    <h3 class="friend-card__detail-title">${escapeHtml(displayName)}</h3>
-                    <p class="friend-card__subtitle">${escapeHtml(entry.realName || entry.relationship || '未记录更多称呼')}</p>
-                  </div>
-                  <div class="friend-card__dates">
-                    ${birthdayState ? `<span class="friend-card__birthday-badge friend-card__birthday-badge--${birthdayState.tone}">🏮 ${escapeHtml(birthdayState.text)}</span>` : ''}
-                    ${entry.birthday ? `<span class="friend-card__date">生日 ${escapeHtml(entry.birthday)}</span>` : ''}
-                  </div>
-                </div>
-                ${tags.length > 0 ? `<div class="friend-card__tags">${tags.map((tag) => `<span>${escapeHtml(tag)}</span>`).join('')}</div>` : ''}
-                <div class="friend-card__fields">
-                  ${renderField('关系', entry.relationship)}
-                  ${renderField('联系方式', entry.contact)}
-                  ${renderField('初识', entry.met)}
-                  ${renderField('偏好 / 雷区', entry.preferences)}
-                  ${renderField('近况 / 备注', entry.notes || entry.content)}
-                </div>
-                <div class="friend-card__footer">
-                  <span class="friend-card__edit-count">编辑 ${entry.editCount || 0} 次</span>
-                  <div class="friend-card__actions">
-                    <button class="friend-edit-btn" type="button">编辑</button>
-                    <button class="friend-delete-btn" type="button">删除</button>
-                  </div>
-                </div>
               </div>
             </article>
           `;
@@ -262,36 +266,12 @@
   function bindEntryEvents() {
     document.querySelectorAll('.friend-card').forEach((card) => {
       const entry = entries.find((item) => item.id === card.dataset.id);
-      const toggleCard = () => {
-        const isExpanded = card.classList.toggle('is-expanded');
-        card.setAttribute('aria-expanded', String(isExpanded));
-        card.querySelector('.friend-card__main').setAttribute('aria-hidden', String(!isExpanded));
-      };
-
-      card.addEventListener('click', (event) => {
-        if (event.target.closest('.friend-card__actions')) return;
-        toggleCard();
-      });
+      card.addEventListener('click', () => openPostcard(entry));
 
       card.addEventListener('keydown', (event) => {
         if (event.key !== 'Enter' && event.key !== ' ') return;
         event.preventDefault();
-        toggleCard();
-      });
-
-      card.querySelector('.friend-edit-btn').addEventListener('click', (event) => {
-        event.stopPropagation();
-        openForm(entry);
-      });
-      card.querySelector('.friend-delete-btn').addEventListener('click', async (event) => {
-        event.stopPropagation();
-        if (!entry || !confirm('确定要删除这位友人的记录吗？')) return;
-        try {
-          await window.PalaceDB.deleteEntry(entry.id);
-          await renderEntries();
-        } catch (error) {
-          alert(error.message || '删除失败。');
-        }
+        openPostcard(entry);
       });
     });
   }
@@ -319,6 +299,10 @@
 
     addBtn.addEventListener('click', () => openForm());
     cancelBtn.addEventListener('click', closeForm);
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') closePostcard();
+    });
 
     form.addEventListener('submit', async (event) => {
       event.preventDefault();

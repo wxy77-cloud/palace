@@ -64,109 +64,6 @@
   transform: translateY(-2px);
 }
 
-.journey-timeline {
-  position: relative;
-  margin: 0 0 28px;
-  padding: 22px 0 4px;
-  overflow: hidden;
-}
-
-.journey-timeline__header {
-  display: flex;
-  align-items: end;
-  justify-content: space-between;
-  gap: 18px;
-  margin-bottom: 16px;
-}
-
-.journey-timeline__header h2 {
-  color: var(--golden-accent);
-  font-size: 1.25rem;
-  letter-spacing: 0;
-}
-
-.journey-timeline__header p {
-  max-width: 360px;
-  color: var(--stone);
-  font-size: 0.92rem;
-  line-height: 1.6;
-  text-align: right;
-}
-
-.journey-timeline__track {
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: minmax(160px, 1fr);
-  gap: 14px;
-  overflow-x: auto;
-  padding: 20px 2px 18px;
-  scrollbar-width: thin;
-}
-
-.journey-timeline__item {
-  position: relative;
-  min-height: 118px;
-  padding: 44px 14px 14px;
-  border: 1px solid rgba(212, 175, 55, 0.24);
-  border-radius: var(--radius-md);
-  background:
-    linear-gradient(180deg, rgba(212, 175, 55, 0.1), transparent 42px),
-    rgba(0, 0, 0, 0.18);
-}
-
-.journey-timeline__item::before {
-  content: '';
-  position: absolute;
-  top: 26px;
-  left: -14px;
-  width: 28px;
-  height: 1px;
-  background: rgba(212, 175, 55, 0.34);
-}
-
-.journey-timeline__item:first-child::before {
-  display: none;
-}
-
-.journey-timeline__lamp {
-  position: absolute;
-  top: 13px;
-  left: 14px;
-  width: 20px;
-  height: 26px;
-  border: 1px solid rgba(255, 222, 128, 0.78);
-  border-radius: 10px 10px 7px 7px;
-  background:
-    radial-gradient(circle at 50% 44%, rgba(255, 244, 185, 0.95), rgba(212, 175, 55, 0.55) 42%, transparent 68%),
-    rgba(30, 17, 50, 0.84);
-  box-shadow: 0 0 18px rgba(212, 175, 55, 0.38);
-}
-
-.journey-timeline__date {
-  display: block;
-  color: var(--stone);
-  font-size: 0.78rem;
-  line-height: 1.4;
-}
-
-.journey-timeline__name {
-  display: block;
-  margin-top: 3px;
-  color: var(--mist-purple);
-  font-family: var(--font-chinese), var(--font-body);
-  font-size: 0.96rem;
-  overflow-wrap: anywhere;
-}
-
-.journey-timeline__step {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  color: rgba(212, 175, 55, 0.58);
-  font-family: var(--font-display), var(--font-body);
-  font-size: 0.9rem;
-}
-
 .friend-list {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -178,10 +75,11 @@
   --friend-light: #a9a9b5;
   --friend-light-soft: rgba(169, 169, 181, 0.18);
   --friend-shell: rgba(118, 118, 130, 0.54);
+  --friend-petal-deep: #767682;
   display: grid;
   grid-template-columns: 1fr;
   gap: 0;
-  min-height: 236px;
+  min-height: 278px;
   padding: 18px 16px;
   border: 1px solid rgba(212, 175, 55, 0.24);
   border-radius: var(--radius-md);
@@ -196,8 +94,7 @@
   transition:
     border-color var(--transition-normal),
     box-shadow var(--transition-normal),
-    transform var(--transition-normal),
-    grid-column var(--transition-normal);
+    transform var(--transition-normal);
 }
 
 .friend-card::after {
@@ -222,54 +119,53 @@
   transform: translateX(30%);
 }
 
-.friend-card.is-expanded {
-  grid-column: 1 / -1;
-  grid-template-columns: minmax(180px, 240px) minmax(0, 1fr);
-  gap: 24px;
-  min-height: 0;
-  cursor: default;
-}
-
 .friend-card--gray {
   --friend-light: #a9a9b5;
   --friend-light-soft: rgba(169, 169, 181, 0.22);
   --friend-shell: rgba(118, 118, 130, 0.56);
+  --friend-petal-deep: #666674;
 }
 
 .friend-card--gold {
   --friend-light: #ffda67;
   --friend-light-soft: rgba(255, 218, 103, 0.22);
   --friend-shell: rgba(155, 122, 36, 0.56);
+  --friend-petal-deep: #ad7c2e;
 }
 
 .friend-card--ember {
   --friend-light: #ff9f5c;
   --friend-light-soft: rgba(255, 159, 92, 0.22);
   --friend-shell: rgba(162, 83, 42, 0.56);
+  --friend-petal-deep: #a6532a;
 }
 
 .friend-card--blue {
   --friend-light: #7fc7ff;
   --friend-light-soft: rgba(129, 203, 255, 0.2);
   --friend-shell: rgba(63, 110, 154, 0.56);
+  --friend-petal-deep: #3f6e9a;
 }
 
 .friend-card--green {
   --friend-light: #86ddae;
   --friend-light-soft: rgba(136, 221, 173, 0.2);
   --friend-shell: rgba(56, 130, 90, 0.56);
+  --friend-petal-deep: #38825a;
 }
 
 .friend-card--rose {
   --friend-light: #ff9fb7;
   --friend-light-soft: rgba(255, 168, 190, 0.22);
   --friend-shell: rgba(150, 73, 101, 0.56);
+  --friend-petal-deep: #964965;
 }
 
 .friend-card--violet {
   --friend-light: #bda2ff;
   --friend-light-soft: rgba(190, 161, 255, 0.2);
   --friend-shell: rgba(103, 74, 162, 0.56);
+  --friend-petal-deep: #674aa2;
 }
 
 .friend-card--birthday-soon,
@@ -281,91 +177,198 @@
   box-shadow: 0 16px 42px rgba(0, 0, 0, 0.28), 0 0 28px rgba(255, 205, 94, 0.3);
 }
 
-.friend-card__lantern {
+.friend-card__lotus-lamp {
   position: relative;
-  min-height: 198px;
+  min-height: 238px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-end;
-  gap: 10px;
+  gap: 8px;
   z-index: 1;
 }
 
-.friend-card__handle {
+.friend-card__cord {
   position: absolute;
   top: 0;
-  width: 94px;
-  height: 58px;
-  border: 2px solid rgba(212, 175, 55, 0.54);
-  border-bottom: 0;
-  border-radius: 56px 56px 0 0;
-}
-
-.friend-card__handle::after {
-  content: '';
-  position: absolute;
   left: 50%;
-  top: -9px;
-  width: 20px;
-  height: 12px;
-  border: 1px solid rgba(212, 175, 55, 0.48);
-  border-radius: 10px 10px 4px 4px;
+  width: 2px;
+  height: 56px;
+  background: linear-gradient(180deg, rgba(255, 222, 168, 0.16), #8e2d34 42%, #d67660);
+  box-shadow: 0 0 7px rgba(212, 175, 55, 0.18);
   transform: translateX(-50%);
 }
 
-.friend-card__body {
+.friend-card__cord::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -6px;
+  width: 10px;
+  height: 10px;
+  border: 1px solid rgba(255, 230, 172, 0.82);
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 28%, #fff7cf, #d4af37 48%, #633a21);
+  transform: translateX(-50%);
+}
+
+.friend-card__orb {
   position: relative;
-  width: min(124px, 82%);
-  height: 132px;
-  border: 2px solid rgba(212, 175, 55, 0.58);
-  border-radius: 52px 52px 18px 18px;
+  width: 88px;
+  height: 88px;
+  margin-bottom: -42px;
+  border: 1px solid rgba(255, 248, 219, 0.7);
+  border-radius: 50%;
   background:
-    linear-gradient(90deg, rgba(255, 255, 255, 0.12), transparent 20%, transparent 80%, rgba(0, 0, 0, 0.18)),
-    radial-gradient(circle at 50% 38%, rgba(255, 255, 232, 0.88), var(--friend-light) 36%, transparent 65%),
-    var(--friend-shell);
+    linear-gradient(38deg, transparent 24%, rgba(255, 255, 255, 0.32) 25%, transparent 27%, transparent 58%, rgba(255, 255, 255, 0.24) 59%, transparent 61%),
+    linear-gradient(128deg, transparent 18%, rgba(74, 52, 98, 0.24) 19%, transparent 21%, transparent 68%, rgba(74, 52, 98, 0.18) 69%, transparent 71%),
+    radial-gradient(circle at 36% 28%, rgba(255, 255, 255, 0.86), transparent 18%),
+    radial-gradient(circle at 50% 54%, rgba(255, 250, 220, 0.72), rgba(255, 255, 255, 0.14) 56%, transparent 72%);
   box-shadow:
-    inset 0 -18px 26px rgba(0, 0, 0, 0.24),
-    0 0 34px var(--friend-light-soft);
+    inset 0 -14px 22px rgba(45, 27, 78, 0.16),
+    0 0 22px rgba(255, 244, 202, 0.26);
+  z-index: 1;
 }
 
-.friend-card__body::before,
-.friend-card__body::after {
+.friend-card__orb::before,
+.friend-card__orb::after {
   content: '';
   position: absolute;
-  top: 13px;
-  bottom: 13px;
-  width: 1px;
-  background: rgba(255, 232, 172, 0.36);
+  inset: 12px;
+  border: 1px solid rgba(74, 52, 98, 0.18);
+  border-radius: 50%;
 }
 
-.friend-card__body::before {
-  left: 25%;
+.friend-card__orb::after {
+  inset: 22px 10px;
+  border-left-color: transparent;
+  border-right-color: transparent;
+  transform: rotate(32deg);
 }
 
-.friend-card__body::after {
-  right: 25%;
+.friend-card__lotus {
+  position: relative;
+  width: min(184px, 100%);
+  height: 100px;
+  margin-top: 48px;
+  filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.28));
+  z-index: 2;
 }
 
-.friend-card__flame {
+.friend-card__lotus::before {
+  content: '';
   position: absolute;
   left: 50%;
-  top: 45px;
-  width: 20px;
-  height: 32px;
-  border-radius: 50% 50% 46% 46%;
-  background: linear-gradient(180deg, #fff7bc, var(--friend-light));
-  box-shadow: 0 0 18px var(--friend-light);
+  bottom: 18px;
+  width: 86px;
+  height: 18px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(255, 255, 235, 0.72), var(--friend-light-soft) 56%, transparent 72%);
   transform: translateX(-50%);
-  transform-origin: 50% 80%;
-  animation: lampFlicker 2.8s ease-in-out infinite;
 }
 
-.friend-card__header {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-  align-items: flex-start;
+.friend-card__petal {
+  position: absolute;
+  left: 50%;
+  bottom: 13px;
+  width: 72px;
+  height: 34px;
+  border: 1px solid rgba(255, 248, 226, 0.72);
+  border-radius: 100% 0 100% 0;
+  background:
+    repeating-linear-gradient(96deg, rgba(255, 255, 255, 0.18) 0 1px, transparent 1px 5px),
+    radial-gradient(circle at 28% 22%, rgba(255, 255, 245, 0.9), transparent 34%),
+    linear-gradient(120deg, rgba(255, 255, 235, 0.92), var(--friend-light) 48%, var(--friend-petal-deep));
+  box-shadow: inset -8px -8px 14px rgba(0, 0, 0, 0.18);
+  transform-origin: 0 100%;
+}
+
+.friend-card__petal--1 {
+  transform: translateX(-50%) rotate(-48deg);
+}
+
+.friend-card__petal--2 {
+  transform: translateX(-50%) rotate(-30deg);
+}
+
+.friend-card__petal--3 {
+  transform: translateX(-50%) rotate(-13deg);
+}
+
+.friend-card__petal--4 {
+  transform: translateX(-50%) rotate(8deg);
+}
+
+.friend-card__petal--5 {
+  transform: translateX(-50%) rotate(28deg);
+}
+
+.friend-card__petal--6 {
+  transform: translateX(-50%) rotate(47deg);
+}
+
+.friend-card__petal--7 {
+  width: 68px;
+  height: 38px;
+  bottom: 21px;
+  transform: translateX(-50%) rotate(-76deg);
+  opacity: 0.88;
+}
+
+.friend-card__petal--8 {
+  width: 68px;
+  height: 38px;
+  bottom: 21px;
+  transform: translateX(-50%) rotate(56deg);
+  opacity: 0.88;
+}
+
+.friend-card__petal--center {
+  width: 56px;
+  height: 64px;
+  bottom: 18px;
+  border-radius: 80% 80% 65% 65%;
+  background:
+    repeating-linear-gradient(96deg, rgba(84, 55, 105, 0.16) 0 1px, transparent 1px 5px),
+    radial-gradient(circle at 45% 26%, rgba(255, 255, 245, 0.95), transparent 33%),
+    linear-gradient(180deg, rgba(255, 255, 238, 0.95), var(--friend-light) 58%, var(--friend-petal-deep));
+  transform: translateX(-50%);
+  z-index: 3;
+}
+
+.friend-card__tassel {
+  position: relative;
+  width: 38px;
+  height: 58px;
+  margin-top: -10px;
+  z-index: 1;
+}
+
+.friend-card__tassel::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: -16px;
+  width: 1px;
+  height: 24px;
+  background: linear-gradient(#d4af37, #b63e37);
+  transform: translateX(-50%);
+}
+
+.friend-card__tassel::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 7px;
+  width: 34px;
+  height: 48px;
+  border-radius: 45% 45% 10% 10%;
+  background:
+    linear-gradient(90deg, transparent 0 10%, rgba(255, 218, 103, 0.55) 11% 13%, transparent 14% 24%, rgba(93, 14, 22, 0.85) 25% 27%, transparent 28% 38%, rgba(255, 145, 100, 0.8) 39% 42%, transparent 43% 54%, rgba(112, 23, 31, 0.86) 55% 58%, transparent 59% 70%, rgba(255, 218, 103, 0.45) 71% 73%, transparent 74% 100%),
+    linear-gradient(180deg, #c84b42, #69121b);
+  box-shadow: inset 0 10px 10px rgba(255, 210, 150, 0.22);
+  clip-path: polygon(12% 0, 88% 0, 100% 100%, 74% 82%, 58% 100%, 45% 80%, 27% 100%, 0 96%);
+  transform: translateX(-50%);
 }
 
 .friend-card__name {
@@ -377,33 +380,6 @@
   line-height: 1.35;
   text-align: center;
   overflow-wrap: anywhere;
-}
-
-.friend-card__detail-title {
-  color: var(--golden-accent);
-  font-family: var(--font-display), var(--font-chinese);
-  font-size: 1.3rem;
-  letter-spacing: 0;
-  overflow-wrap: anywhere;
-}
-
-.friend-card__subtitle,
-.friend-card__date,
-.friend-card__edit-count {
-  color: var(--stone);
-  font-size: 0.9rem;
-}
-
-.friend-card__dates {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 6px;
-  flex: 0 0 auto;
-}
-
-.friend-card__date {
-  white-space: nowrap;
 }
 
 .friend-card__birthday-badge {
@@ -422,30 +398,10 @@
   box-shadow: 0 0 14px rgba(255, 205, 94, 0.12);
 }
 
-.friend-card__lantern > .friend-card__birthday-badge {
-  position: absolute;
-  top: 56px;
-  right: 0;
-  z-index: 2;
-  max-width: 112px;
-}
-
 .friend-card__birthday-badge--today {
   color: var(--night-purple);
   background: linear-gradient(135deg, #ffe8a3, #d4af37);
   border-color: rgba(255, 238, 174, 0.82);
-}
-
-.friend-card__main {
-  display: none;
-  position: relative;
-  z-index: 1;
-  padding: 4px 0 0;
-}
-
-.friend-card.is-expanded .friend-card__main {
-  display: block;
-  animation: fadeIn var(--transition-slow);
 }
 
 .friend-card__tags {
@@ -464,34 +420,152 @@
   font-size: 0.85rem;
 }
 
-.friend-card__fields {
-  display: grid;
-  gap: 10px;
-  margin-top: 14px;
+.friend-postcard-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(18, 9, 32, 0.76);
+  backdrop-filter: blur(8px);
+  animation: fadeIn var(--transition-fast);
 }
 
-.friend-card__field span {
+.friend-postcard {
+  position: relative;
+  width: min(900px, 100%);
+  max-height: min(720px, calc(100vh - 48px));
+  display: grid;
+  grid-template-columns: minmax(220px, 0.9fr) minmax(0, 1.1fr);
+  gap: 26px;
+  overflow: auto;
+  padding: 34px;
+  border: 1px solid rgba(212, 175, 55, 0.45);
+  border-radius: var(--radius-md);
+  color: #3b244c;
+  background:
+    linear-gradient(90deg, transparent calc(48% - 1px), rgba(107, 76, 154, 0.18) calc(48% - 1px), rgba(107, 76, 154, 0.18) calc(48% + 1px), transparent calc(48% + 1px)),
+    radial-gradient(circle at 88% 16%, rgba(212, 175, 55, 0.18), transparent 90px),
+    linear-gradient(135deg, #f9f0dc, #efe0c0);
+  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.42);
+  animation: postcardIn var(--transition-slow);
+}
+
+.friend-postcard__close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 34px;
+  height: 34px;
+  border: 1px solid rgba(107, 76, 154, 0.28);
+  border-radius: 50%;
+  color: #4d315f;
+  background: rgba(255, 255, 255, 0.42);
+  cursor: pointer;
+  font-size: 1.3rem;
+  line-height: 1;
+}
+
+.friend-postcard__stamp {
+  position: absolute;
+  top: 36px;
+  right: 58px;
+  width: 76px;
+  height: 62px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px dashed rgba(107, 76, 154, 0.45);
+  color: rgba(107, 76, 154, 0.62);
+  font-family: var(--font-chinese), var(--font-body);
+  font-size: 0.85rem;
+  transform: rotate(5deg);
+}
+
+.friend-postcard__front {
+  min-height: 280px;
+  padding: 20px 18px;
+  border-right: 1px solid rgba(107, 76, 154, 0.18);
+}
+
+.friend-postcard__eyebrow {
+  color: rgba(77, 49, 95, 0.72);
+  font-size: 0.86rem;
+  margin-bottom: 12px;
+}
+
+.friend-postcard__title {
+  color: #3b244c;
+  font-family: var(--font-display), var(--font-chinese);
+  font-size: clamp(1.65rem, 5vw, 2.4rem);
+  letter-spacing: 0;
+  overflow-wrap: anywhere;
+}
+
+.friend-postcard__subtitle {
+  margin-top: 8px;
+  color: rgba(59, 36, 76, 0.72);
+  overflow-wrap: anywhere;
+}
+
+.friend-postcard__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.friend-postcard__meta span:not(.friend-card__birthday-badge) {
+  padding: 3px 9px;
+  border: 1px solid rgba(107, 76, 154, 0.18);
+  border-radius: var(--radius-sm);
+  color: #4d315f;
+  background: rgba(255, 255, 255, 0.35);
+  font-size: 0.85rem;
+}
+
+.friend-postcard .friend-card__tags span {
+  color: #4d315f;
+  border-color: rgba(107, 76, 154, 0.2);
+  background: rgba(107, 76, 154, 0.08);
+}
+
+.friend-postcard__message {
+  display: grid;
+  gap: 12px;
+  align-content: start;
+  padding: 76px 6px 0 0;
+}
+
+.friend-postcard__field span {
   display: block;
-  color: var(--stone);
+  color: rgba(77, 49, 95, 0.66);
   font-size: 0.82rem;
   margin-bottom: 2px;
 }
 
-.friend-card__field p {
-  color: var(--mist-purple);
+.friend-postcard__field p {
+  color: #3b244c;
   line-height: 1.7;
   white-space: pre-wrap;
   overflow-wrap: anywhere;
 }
 
-.friend-card__footer {
+.friend-postcard__footer {
+  grid-column: 1 / -1;
   display: flex;
   justify-content: space-between;
   gap: 12px;
   align-items: center;
-  margin-top: 16px;
-  padding-top: 12px;
-  border-top: 1px solid rgba(212, 175, 55, 0.14);
+  padding-top: 16px;
+  border-top: 1px solid rgba(107, 76, 154, 0.16);
+}
+
+.friend-card__edit-count {
+  color: rgba(77, 49, 95, 0.62);
+  font-size: 0.9rem;
 }
 
 .friend-card__actions {
@@ -502,9 +576,9 @@
 .friend-card__actions button {
   padding: 6px 12px;
   background: transparent;
-  border: 1px solid var(--stone);
+  border: 1px solid rgba(77, 49, 95, 0.45);
   border-radius: var(--radius-sm);
-  color: var(--stone);
+  color: #4d315f;
   cursor: pointer;
   font-family: var(--font-body), var(--font-chinese);
   transition: border-color var(--transition-fast), color var(--transition-fast);
@@ -522,19 +596,6 @@
 }
 
 @media (max-width: 680px) {
-  .journey-timeline__header {
-    display: block;
-  }
-
-  .journey-timeline__header p {
-    margin-top: 6px;
-    text-align: left;
-  }
-
-  .journey-timeline__track {
-    grid-auto-columns: minmax(150px, 82vw);
-  }
-
   .friend-form__grid,
   .friend-card {
     grid-template-columns: 1fr;
@@ -544,26 +605,32 @@
     grid-template-columns: 1fr;
   }
 
-  .friend-card.is-expanded {
+  .friend-postcard {
     grid-template-columns: 1fr;
+    gap: 16px;
+    padding: 28px 22px;
   }
 
-  .friend-card__lantern {
-    min-height: 188px;
+  .friend-postcard__front {
+    min-height: 0;
+    padding: 16px 0;
+    border-right: 0;
+    border-bottom: 1px solid rgba(107, 76, 154, 0.16);
   }
 
-  .friend-card__header,
-  .friend-card__footer {
+  .friend-postcard__message {
+    padding-top: 12px;
+  }
+
+  .friend-postcard__stamp {
+    position: static;
+    margin-left: auto;
+    transform: rotate(3deg);
+  }
+
+  .friend-postcard__footer {
     flex-direction: column;
     align-items: flex-start;
-  }
-
-  .friend-card__dates {
-    align-items: flex-start;
-  }
-
-  .friend-card__actions {
-    width: 100%;
   }
 
   .friend-card__actions button {
@@ -571,17 +638,13 @@
   }
 }
 
-@keyframes lampFlicker {
-  0%, 100% {
-    transform: translateX(-50%) scaleY(1) rotate(-2deg);
-    opacity: 0.92;
+@keyframes postcardIn {
+  from {
+    opacity: 0;
+    transform: translateY(18px) rotate(-1deg) scale(0.98);
   }
-  45% {
-    transform: translateX(-50%) scaleY(1.08) rotate(2deg);
+  to {
     opacity: 1;
-  }
-  68% {
-    transform: translateX(-50%) scaleY(0.94) rotate(-1deg);
-    opacity: 0.86;
+    transform: translateY(0) rotate(0) scale(1);
   }
 }
