@@ -286,93 +286,93 @@
 .friend-card__petal {
   position: absolute;
   left: 50%;
-  bottom: 20px;
-  width: 42px;
-  height: 86px;
+  bottom: 24px;
+  width: 100px;
+  height: 34px;
   border: 1px solid rgba(55, 36, 66, 0.46);
-  border-radius: 80% 80% 56% 56%;
+  border-radius: 78% 22% 78% 22%;
   background:
-    repeating-linear-gradient(86deg, rgba(56, 38, 68, 0.12) 0 1px, transparent 1px 5px),
-    radial-gradient(ellipse at 42% 24%, rgba(255, 255, 245, 0.96), transparent 35%),
-    linear-gradient(180deg, rgba(255, 255, 236, 0.94), var(--friend-light) 56%, var(--friend-petal-deep));
+    repeating-linear-gradient(101deg, rgba(56, 38, 68, 0.13) 0 1px, transparent 1px 5px),
+    radial-gradient(ellipse at 22% 42%, rgba(255, 255, 245, 0.96), transparent 34%),
+    linear-gradient(108deg, rgba(255, 255, 236, 0.94), var(--friend-light) 48%, var(--friend-petal-deep));
   box-shadow:
-    inset -7px -12px 13px rgba(0, 0, 0, 0.16),
-    inset 7px 8px 12px rgba(255, 255, 255, 0.28);
-  clip-path: polygon(50% 0, 88% 32%, 80% 84%, 50% 100%, 20% 84%, 12% 32%);
-  transform-origin: 50% 92%;
+    inset -12px -8px 13px rgba(0, 0, 0, 0.17),
+    inset 12px 7px 13px rgba(255, 255, 255, 0.3);
+  clip-path: polygon(0 52%, 18% 14%, 76% 4%, 100% 44%, 82% 88%, 20% 92%);
+  transform-origin: 100% 58%;
 }
 
 .friend-card__petal::after {
   content: '';
   position: absolute;
-  inset: 10px 16px;
-  border-left: 1px solid rgba(62, 40, 75, 0.2);
+  inset: 7px 14px;
+  border-top: 1px solid rgba(62, 40, 75, 0.22);
   border-radius: 50%;
-  transform: none;
+  transform: rotate(-8deg);
 }
 
 .friend-card__petal--1 {
-  width: 34px;
-  height: 96px;
-  bottom: 8px;
-  transform: translateX(-104px) rotate(-74deg);
+  width: 118px;
+  height: 31px;
+  bottom: 18px;
+  transform: translateX(-108px) rotate(-13deg);
   z-index: 1;
 }
 
 .friend-card__petal--2 {
-  width: 38px;
-  height: 92px;
-  bottom: 18px;
-  transform: translateX(-82px) rotate(-52deg);
+  width: 108px;
+  height: 34px;
+  bottom: 36px;
+  transform: translateX(-92px) rotate(-30deg);
   z-index: 2;
 }
 
 .friend-card__petal--3 {
-  width: 40px;
-  height: 88px;
-  bottom: 30px;
-  transform: translateX(-54px) rotate(-28deg);
+  width: 92px;
+  height: 38px;
+  bottom: 52px;
+  transform: translateX(-66px) rotate(-48deg);
   z-index: 2;
 }
 
 .friend-card__petal--4 {
-  width: 40px;
-  height: 88px;
-  bottom: 30px;
-  transform: translateX(14px) rotate(28deg);
+  width: 92px;
+  height: 38px;
+  bottom: 52px;
+  transform: translateX(-26px) rotate(48deg) scaleX(-1);
   z-index: 2;
 }
 
 .friend-card__petal--5 {
-  width: 38px;
-  height: 92px;
-  bottom: 18px;
-  transform: translateX(44px) rotate(52deg);
+  width: 108px;
+  height: 34px;
+  bottom: 36px;
+  transform: translateX(-16px) rotate(30deg) scaleX(-1);
   z-index: 2;
 }
 
 .friend-card__petal--6 {
-  width: 34px;
-  height: 96px;
-  bottom: 8px;
-  transform: translateX(70px) rotate(74deg);
+  width: 118px;
+  height: 31px;
+  bottom: 18px;
+  transform: translateX(-10px) rotate(13deg) scaleX(-1);
   z-index: 1;
 }
 
 .friend-card__petal--7 {
-  width: 36px;
-  height: 82px;
-  bottom: 38px;
-  transform: translateX(-72px) rotate(-42deg);
+  width: 86px;
+  height: 44px;
+  bottom: 58px;
+  transform: translateX(-76px) rotate(-67deg);
   opacity: 0.9;
   z-index: 1;
 }
 
 .friend-card__petal--8 {
-  width: 36px;
-  height: 82px;
-  bottom: 38px;
-  transform: translateX(36px) rotate(42deg);
+  width: 86px;
+  height: 44px;
+  bottom: 58px;
+  transform: translateX(-8px) rotate(67deg) scaleX(-1);
   opacity: 0.9;
   z-index: 1;
 }
@@ -507,7 +507,6 @@
   border-radius: var(--radius-md);
   color: #3b244c;
   background:
-    linear-gradient(90deg, transparent calc(48% - 1px), rgba(107, 76, 154, 0.18) calc(48% - 1px), rgba(107, 76, 154, 0.18) calc(48% + 1px), transparent calc(48% + 1px)),
     radial-gradient(circle at 88% 16%, rgba(212, 175, 55, 0.18), transparent 90px),
     linear-gradient(135deg, #f9f0dc, #efe0c0);
   box-shadow: 0 28px 80px rgba(0, 0, 0, 0.42);
@@ -540,15 +539,54 @@
   justify-content: center;
   border: 2px dashed rgba(107, 76, 154, 0.45);
   color: rgba(107, 76, 154, 0.62);
-  font-family: var(--font-chinese), var(--font-body);
-  font-size: 0.85rem;
+  font-family: 'STXingkai', 'KaiTi', 'Kaiti SC', var(--font-chinese), cursive;
+  font-size: 2.05rem;
+  line-height: 1;
   transform: rotate(5deg);
+}
+
+.friend-postcard__doodle {
+  position: absolute;
+  left: 30px;
+  bottom: 66px;
+  width: 54px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(107, 76, 154, 0.72);
+  font-family: 'Comic Sans MS', 'Segoe Print', var(--font-chinese), cursive;
+  font-size: 2rem;
+  transform: rotate(-9deg);
+  opacity: 0.78;
+}
+
+.friend-postcard__doodle::before {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  border-radius: 45% 55% 50% 40%;
+  background: rgba(255, 255, 255, 0.32);
+  box-shadow: 0 6px 14px rgba(107, 76, 154, 0.12);
+  z-index: -1;
+}
+
+.friend-postcard__doodle--cloud {
+  color: rgba(127, 157, 205, 0.76);
+}
+
+.friend-postcard__doodle--heart {
+  color: rgba(190, 103, 142, 0.72);
+}
+
+.friend-postcard__doodle--spark,
+.friend-postcard__doodle--star {
+  color: rgba(199, 151, 48, 0.78);
 }
 
 .friend-postcard__front {
   min-height: 280px;
   padding: 20px 18px;
-  border-right: 1px solid rgba(107, 76, 154, 0.18);
 }
 
 .friend-postcard__eyebrow {

@@ -141,6 +141,16 @@
     if (postcard) postcard.remove();
   }
 
+  function getRandomPostcardDoodle() {
+    const doodles = [
+      { className: 'friend-postcard__doodle--star', text: '✦' },
+      { className: 'friend-postcard__doodle--cloud', text: '☁' },
+      { className: 'friend-postcard__doodle--spark', text: '✧' },
+      { className: 'friend-postcard__doodle--heart', text: '♡' }
+    ];
+    return doodles[Math.floor(Math.random() * doodles.length)];
+  }
+
   function openPostcard(entry) {
     if (!entry) return;
 
@@ -149,12 +159,14 @@
     const tags = normalizeTags(entry.tags || []);
     const displayName = entry.friendName || entry.title || '未命名来客';
     const birthdayState = getBirthdayState(entry.birthday);
+    const doodle = getRandomPostcardDoodle();
     const overlay = document.createElement('div');
     overlay.className = 'friend-postcard-overlay';
     overlay.innerHTML = `
       <article class="friend-postcard" role="dialog" aria-modal="true" aria-labelledby="friend-postcard-title">
         <button class="friend-postcard__close" type="button" aria-label="关闭明信片">×</button>
-        <div class="friend-postcard__stamp" aria-hidden="true">浮生驿</div>
+        <div class="friend-postcard__stamp" aria-hidden="true">缘</div>
+        <div class="friend-postcard__doodle ${doodle.className}" aria-hidden="true">${doodle.text}</div>
         <div class="friend-postcard__front">
           <p class="friend-postcard__eyebrow">一张寄存在驿站的明信片</p>
           <h2 id="friend-postcard-title" class="friend-postcard__title">${escapeHtml(displayName)}</h2>
