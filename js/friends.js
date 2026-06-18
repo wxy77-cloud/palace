@@ -26,6 +26,88 @@
     return `${year}-${month}-${day}`;
   }
 
+  function formatDisplayDate(value) {
+    if (!value) return '未记年岁';
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) return value;
+    return formatDate(date);
+  }
+
+  function getLampTone(tags) {
+    if (tags.includes('家人')) return 'ember';
+    if (tags.includes('挚友') || tags.includes('可靠')) return 'gold';
+    if (tags.includes('网友') || tags.includes('游戏')) return 'blue';
+    if (tags.includes('旅行')) return 'green';
+    if (tags.includes('饭搭子')) return 'rose';
+    return 'violet';
+  }
+
+  function getBirthdayState(birthday) {
+    if (!birthday) return null;
+
+    const [, month, day] = birthday.split('-').map(Number);
+    if (!month || !day) return null;
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    let nextBirthday = new Date(today.getFullYear(), month - 1, day);
+    if (nextBirthday < today) {
+      nextBirthday = new Date(today.getFullYear() + 1, month - 1, day);
+    }
+
+    const daysUntil = Math.round((nextBirthday - today) / 86400000);
+    if (daysUntil === 0) {
+      return { className: 'friend-card--birthday-today', text: '今日生辰', tone: 'today' };
+    }
+
+    if (daysUntil <= 30) {
+      return { className: 'friend-card--birthday-soon', text: `${daysUntil} 天后生辰`, tone: 'soon' };
+    }
+
+    return null;
+  }
+
+  function getJourneyDate(entry) {
+    return entry.createdAt || entry.date || entry.birthday || '';
+  }
+
+  function getJourneyTime(entry) {
+    const date = new Date(getJourneyDate(entry));
+    return Number.isNaN(date.getTime()) ? Number.MAX_SAFE_INTEGER : date.getTime();
+  }
+
+  function renderTimeline() {
+    const timelineItems = entries
+      .slice()
+      .sort((a, b) => getJourneyTime(a) - getJourneyTime(b))
+      .map((entry, index) => {
+        const name = entry.friendName || entry.title || '未命名来客';
+        const dateText = formatDisplayDate(getJourneyDate(entry));
+        return `
+          <div class="journey-timeline__item">
+            <span class="journey-timeline__lamp" aria-hidden="true"></span>
+            <span class="journey-timeline__date">${escapeHtml(dateText)}</span>
+            <span class="journey-timeline__name">${escapeHtml(name)}</span>
+            <span class="journey-timeline__step">${index + 1}</span>
+          </div>
+        `;
+      })
+      .join('');
+
+    return `
+      <section class="journey-timeline" aria-label="旅途时间线">
+        <div class="journey-timeline__header">
+          <h2>旅途时间线</h2>
+          <p>每一次记录，都是驿路上新点起的一盏灯。</p>
+        </div>
+        <div class="journey-timeline__track">
+          ${timelineItems}
+        </div>
+      </section>
+    `;
+  }
+
   function getSelectedTags() {
     const selected = Array.from(document.querySelectorAll('.friend-tag-option.active'))
       .map((button) => button.dataset.tag);
@@ -105,29 +187,39 @@
 
     if (entries.length === 0) {
       container.innerHTML = `
-        <div class="empty-state">
+        <div class="empty-state friend-empty-state">
           <div class="empty-state__icon">🕯</div>
-          <p class="empty-state__text">暂无记录，点击上方按钮添加第一位友人。</p>
+          <p class="empty-state__text">驿站还未点灯，点击上方按钮迎来第一位来客。</p>
         </div>
       `;
       return;
     }
 
     container.innerHTML = `
+      ${renderTimeline()}
       <div class="friend-list">
         ${entries.map((entry) => {
           const tags = normalizeTags(entry.tags || []);
           const initials = (entry.friendName || entry.title || '?').trim().slice(0, 2);
+          const lampTone = getLampTone(tags);
+          const birthdayState = getBirthdayState(entry.birthday);
+          const birthdayClass = birthdayState ? ` ${birthdayState.className}` : '';
           return `
-            <article class="friend-card" data-id="${escapeHtml(entry.id)}">
-              <div class="friend-card__avatar" aria-hidden="true">${escapeHtml(initials)}</div>
+            <article class="friend-card friend-card--${lampTone}${birthdayClass}" data-id="${escapeHtml(entry.id)}">
+              <div class="friend-card__lamp" aria-hidden="true">
+                <span class="friend-card__flame"></span>
+                <span class="friend-card__avatar">${escapeHtml(initials)}</span>
+              </div>
               <div class="friend-card__main">
                 <div class="friend-card__header">
                   <div>
                     <h2 class="friend-card__name">${escapeHtml(entry.friendName || entry.title)}</h2>
                     <p class="friend-card__subtitle">${escapeHtml(entry.realName || entry.relationship || '未记录更多称呼')}</p>
                   </div>
-                  ${entry.birthday ? `<span class="friend-card__date">生日 ${escapeHtml(entry.birthday)}</span>` : ''}
+                  <div class="friend-card__dates">
+                    ${birthdayState ? `<span class="friend-card__birthday-badge friend-card__birthday-badge--${birthdayState.tone}">🏮 ${escapeHtml(birthdayState.text)}</span>` : ''}
+                    ${entry.birthday ? `<span class="friend-card__date">生日 ${escapeHtml(entry.birthday)}</span>` : ''}
+                  </div>
                 </div>
                 ${tags.length > 0 ? `<div class="friend-card__tags">${tags.map((tag) => `<span>${escapeHtml(tag)}</span>`).join('')}</div>` : ''}
                 <div class="friend-card__fields">

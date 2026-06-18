@@ -38,6 +38,109 @@
   color: var(--golden-accent);
 }
 
+.journey-timeline {
+  position: relative;
+  margin: 0 0 28px;
+  padding: 22px 0 4px;
+  overflow: hidden;
+}
+
+.journey-timeline__header {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 16px;
+}
+
+.journey-timeline__header h2 {
+  color: var(--golden-accent);
+  font-size: 1.25rem;
+  letter-spacing: 0;
+}
+
+.journey-timeline__header p {
+  max-width: 360px;
+  color: var(--stone);
+  font-size: 0.92rem;
+  line-height: 1.6;
+  text-align: right;
+}
+
+.journey-timeline__track {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(160px, 1fr);
+  gap: 14px;
+  overflow-x: auto;
+  padding: 20px 2px 18px;
+  scrollbar-width: thin;
+}
+
+.journey-timeline__item {
+  position: relative;
+  min-height: 118px;
+  padding: 44px 14px 14px;
+  border: 1px solid rgba(212, 175, 55, 0.24);
+  border-radius: var(--radius-md);
+  background:
+    linear-gradient(180deg, rgba(212, 175, 55, 0.1), transparent 42px),
+    rgba(0, 0, 0, 0.18);
+}
+
+.journey-timeline__item::before {
+  content: '';
+  position: absolute;
+  top: 26px;
+  left: -14px;
+  width: 28px;
+  height: 1px;
+  background: rgba(212, 175, 55, 0.34);
+}
+
+.journey-timeline__item:first-child::before {
+  display: none;
+}
+
+.journey-timeline__lamp {
+  position: absolute;
+  top: 13px;
+  left: 14px;
+  width: 20px;
+  height: 26px;
+  border: 1px solid rgba(255, 222, 128, 0.78);
+  border-radius: 10px 10px 7px 7px;
+  background:
+    radial-gradient(circle at 50% 44%, rgba(255, 244, 185, 0.95), rgba(212, 175, 55, 0.55) 42%, transparent 68%),
+    rgba(30, 17, 50, 0.84);
+  box-shadow: 0 0 18px rgba(212, 175, 55, 0.38);
+}
+
+.journey-timeline__date {
+  display: block;
+  color: var(--stone);
+  font-size: 0.78rem;
+  line-height: 1.4;
+}
+
+.journey-timeline__name {
+  display: block;
+  margin-top: 3px;
+  color: var(--mist-purple);
+  font-family: var(--font-chinese), var(--font-body);
+  font-size: 0.96rem;
+  overflow-wrap: anywhere;
+}
+
+.journey-timeline__step {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  color: rgba(212, 175, 55, 0.58);
+  font-family: var(--font-display), var(--font-body);
+  font-size: 0.9rem;
+}
+
 .friend-list {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -45,33 +148,147 @@
 }
 
 .friend-card {
+  --friend-light: rgba(212, 175, 55, 0.7);
+  --friend-light-soft: rgba(212, 175, 55, 0.18);
   display: grid;
-  grid-template-columns: 72px minmax(0, 1fr);
+  grid-template-columns: 86px minmax(0, 1fr);
   gap: 18px;
   padding: 20px;
   border: 1px solid rgba(212, 175, 55, 0.3);
   border-radius: var(--radius-md);
+  position: relative;
+  overflow: hidden;
   background:
-    radial-gradient(circle at 30px 28px, rgba(212, 175, 55, 0.18), transparent 58px),
+    radial-gradient(circle at 44px 42px, var(--friend-light-soft), transparent 78px),
     linear-gradient(145deg, rgba(74, 52, 98, 0.82), rgba(45, 27, 78, 0.82));
   box-shadow: 0 14px 34px rgba(0, 0, 0, 0.22);
   animation: fadeIn var(--transition-slow);
+  transition: border-color var(--transition-normal), box-shadow var(--transition-normal), transform var(--transition-normal);
 }
 
-.friend-card__avatar {
-  width: 72px;
-  height: 72px;
+.friend-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(110deg, transparent, rgba(255, 255, 255, 0.04), transparent);
+  opacity: 0;
+  transform: translateX(-30%);
+  transition: opacity var(--transition-normal), transform var(--transition-slow);
+}
+
+.friend-card:hover {
+  border-color: var(--friend-light);
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.28), 0 0 24px var(--friend-light-soft);
+  transform: translateY(-3px);
+}
+
+.friend-card:hover::after {
+  opacity: 1;
+  transform: translateX(30%);
+}
+
+.friend-card--gold {
+  --friend-light: rgba(255, 218, 103, 0.82);
+  --friend-light-soft: rgba(255, 218, 103, 0.2);
+}
+
+.friend-card--ember {
+  --friend-light: rgba(255, 159, 92, 0.82);
+  --friend-light-soft: rgba(255, 159, 92, 0.2);
+}
+
+.friend-card--blue {
+  --friend-light: rgba(129, 203, 255, 0.78);
+  --friend-light-soft: rgba(129, 203, 255, 0.18);
+}
+
+.friend-card--green {
+  --friend-light: rgba(136, 221, 173, 0.78);
+  --friend-light-soft: rgba(136, 221, 173, 0.18);
+}
+
+.friend-card--rose {
+  --friend-light: rgba(255, 168, 190, 0.78);
+  --friend-light-soft: rgba(255, 168, 190, 0.18);
+}
+
+.friend-card--violet {
+  --friend-light: rgba(190, 161, 255, 0.72);
+  --friend-light-soft: rgba(190, 161, 255, 0.17);
+}
+
+.friend-card--birthday-soon,
+.friend-card--birthday-today {
+  border-color: rgba(255, 205, 94, 0.72);
+}
+
+.friend-card--birthday-today {
+  box-shadow: 0 16px 42px rgba(0, 0, 0, 0.28), 0 0 28px rgba(255, 205, 94, 0.3);
+}
+
+.friend-card__lamp {
+  position: relative;
+  width: 86px;
+  min-height: 112px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 2px solid rgba(212, 175, 55, 0.55);
-  border-radius: 50%;
-  color: var(--golden-accent);
-  background: rgba(0, 0, 0, 0.22);
+}
+
+.friend-card__lamp::before {
+  content: '';
+  position: absolute;
+  top: 8px;
+  width: 54px;
+  height: 76px;
+  border: 1px solid var(--friend-light);
+  border-radius: 28px 28px 16px 16px;
+  background:
+    radial-gradient(circle at 50% 42%, rgba(255, 255, 220, 0.86), var(--friend-light-soft) 44%, transparent 72%),
+    rgba(0, 0, 0, 0.24);
+  box-shadow: 0 0 28px var(--friend-light-soft);
+}
+
+.friend-card__lamp::after {
+  content: '';
+  position: absolute;
+  bottom: 10px;
+  width: 66px;
+  height: 12px;
+  border-radius: 999px;
+  background: radial-gradient(ellipse, var(--friend-light-soft), transparent 68%);
+}
+
+.friend-card__flame {
+  position: absolute;
+  top: 29px;
+  width: 18px;
+  height: 26px;
+  border-radius: 50% 50% 46% 46%;
+  background: linear-gradient(180deg, #fff7bc, var(--friend-light));
+  box-shadow: 0 0 18px var(--friend-light);
+  transform-origin: 50% 80%;
+  animation: lampFlicker 2.8s ease-in-out infinite;
+}
+
+.friend-card__avatar {
+  position: relative;
+  z-index: 1;
+  margin-top: 48px;
+  width: 54px;
+  min-height: 32px;
+  padding: 4px 6px;
+  border: 1px solid rgba(212, 175, 55, 0.38);
+  border-radius: var(--radius-sm);
+  color: var(--ivory);
+  background: rgba(14, 8, 24, 0.58);
   font-family: var(--font-chinese), var(--font-body);
-  font-size: 1.15rem;
+  font-size: 0.98rem;
   font-weight: 600;
+  text-align: center;
   overflow: hidden;
+  overflow-wrap: anywhere;
 }
 
 .friend-card__header {
@@ -96,9 +313,38 @@
   font-size: 0.9rem;
 }
 
-.friend-card__date {
+.friend-card__dates {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
   flex: 0 0 auto;
+}
+
+.friend-card__date {
   white-space: nowrap;
+}
+
+.friend-card__birthday-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 28px;
+  padding: 3px 9px;
+  border: 1px solid rgba(255, 205, 94, 0.58);
+  border-radius: var(--radius-sm);
+  color: #ffe8a3;
+  background: rgba(255, 133, 75, 0.16);
+  font-family: var(--font-chinese), var(--font-body);
+  font-size: 0.82rem;
+  white-space: nowrap;
+  box-shadow: 0 0 14px rgba(255, 205, 94, 0.12);
+}
+
+.friend-card__birthday-badge--today {
+  color: var(--night-purple);
+  background: linear-gradient(135deg, #ffe8a3, #d4af37);
+  border-color: rgba(255, 238, 174, 0.82);
 }
 
 .friend-card__tags {
@@ -175,14 +421,36 @@
 }
 
 @media (max-width: 680px) {
+  .journey-timeline__header {
+    display: block;
+  }
+
+  .journey-timeline__header p {
+    margin-top: 6px;
+    text-align: left;
+  }
+
+  .journey-timeline__track {
+    grid-auto-columns: minmax(150px, 82vw);
+  }
+
   .friend-form__grid,
   .friend-card {
     grid-template-columns: 1fr;
   }
 
+  .friend-card__lamp {
+    width: 100%;
+    min-height: 96px;
+  }
+
   .friend-card__header,
   .friend-card__footer {
     flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .friend-card__dates {
     align-items: flex-start;
   }
 
@@ -192,5 +460,20 @@
 
   .friend-card__actions button {
     flex: 1;
+  }
+}
+
+@keyframes lampFlicker {
+  0%, 100% {
+    transform: scaleY(1) rotate(-2deg);
+    opacity: 0.92;
+  }
+  45% {
+    transform: scaleY(1.08) rotate(2deg);
+    opacity: 1;
+  }
+  68% {
+    transform: scaleY(0.94) rotate(-1deg);
+    opacity: 0.86;
   }
 }
