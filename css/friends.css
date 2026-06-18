@@ -286,92 +286,93 @@
 .friend-card__petal {
   position: absolute;
   left: 50%;
-  bottom: 18px;
-  width: 86px;
-  height: 30px;
+  bottom: 20px;
+  width: 42px;
+  height: 86px;
   border: 1px solid rgba(55, 36, 66, 0.46);
-  border-radius: 50% 88% 50% 88%;
+  border-radius: 80% 80% 56% 56%;
   background:
-    repeating-linear-gradient(96deg, rgba(56, 38, 68, 0.12) 0 1px, transparent 1px 4px),
-    radial-gradient(ellipse at 28% 30%, rgba(255, 255, 245, 0.96), transparent 36%),
-    linear-gradient(105deg, rgba(255, 255, 236, 0.94), var(--friend-light) 52%, var(--friend-petal-deep));
+    repeating-linear-gradient(86deg, rgba(56, 38, 68, 0.12) 0 1px, transparent 1px 5px),
+    radial-gradient(ellipse at 42% 24%, rgba(255, 255, 245, 0.96), transparent 35%),
+    linear-gradient(180deg, rgba(255, 255, 236, 0.94), var(--friend-light) 56%, var(--friend-petal-deep));
   box-shadow:
-    inset -10px -8px 13px rgba(0, 0, 0, 0.16),
-    inset 9px 6px 12px rgba(255, 255, 255, 0.28);
-  transform-origin: 50% 82%;
+    inset -7px -12px 13px rgba(0, 0, 0, 0.16),
+    inset 7px 8px 12px rgba(255, 255, 255, 0.28);
+  clip-path: polygon(50% 0, 88% 32%, 80% 84%, 50% 100%, 20% 84%, 12% 32%);
+  transform-origin: 50% 92%;
 }
 
 .friend-card__petal::after {
   content: '';
   position: absolute;
-  inset: 5px 10px;
-  border-top: 1px solid rgba(62, 40, 75, 0.2);
+  inset: 10px 16px;
+  border-left: 1px solid rgba(62, 40, 75, 0.2);
   border-radius: 50%;
-  transform: rotate(-8deg);
+  transform: none;
 }
 
 .friend-card__petal--1 {
-  width: 104px;
-  height: 28px;
-  bottom: 18px;
-  transform: translateX(-104px) rotate(-14deg);
+  width: 34px;
+  height: 96px;
+  bottom: 8px;
+  transform: translateX(-104px) rotate(-74deg);
   z-index: 1;
 }
 
 .friend-card__petal--2 {
-  width: 96px;
-  height: 31px;
-  bottom: 28px;
-  transform: translateX(-88px) rotate(-31deg);
+  width: 38px;
+  height: 92px;
+  bottom: 18px;
+  transform: translateX(-82px) rotate(-52deg);
   z-index: 2;
 }
 
 .friend-card__petal--3 {
-  width: 92px;
-  height: 33px;
-  bottom: 36px;
-  transform: translateX(-65px) rotate(-52deg);
+  width: 40px;
+  height: 88px;
+  bottom: 30px;
+  transform: translateX(-54px) rotate(-28deg);
   z-index: 2;
 }
 
 .friend-card__petal--4 {
-  width: 92px;
-  height: 33px;
-  bottom: 36px;
-  transform: translateX(-28px) rotate(38deg) scaleX(-1);
+  width: 40px;
+  height: 88px;
+  bottom: 30px;
+  transform: translateX(14px) rotate(28deg);
   z-index: 2;
 }
 
 .friend-card__petal--5 {
-  width: 96px;
-  height: 31px;
-  bottom: 28px;
-  transform: translateX(-8px) rotate(19deg) scaleX(-1);
+  width: 38px;
+  height: 92px;
+  bottom: 18px;
+  transform: translateX(44px) rotate(52deg);
   z-index: 2;
 }
 
 .friend-card__petal--6 {
-  width: 104px;
-  height: 28px;
-  bottom: 18px;
-  transform: translateX(0) rotate(14deg) scaleX(-1);
+  width: 34px;
+  height: 96px;
+  bottom: 8px;
+  transform: translateX(70px) rotate(74deg);
   z-index: 1;
 }
 
 .friend-card__petal--7 {
-  width: 80px;
-  height: 43px;
-  bottom: 45px;
-  transform: translateX(-74px) rotate(-63deg);
+  width: 36px;
+  height: 82px;
+  bottom: 38px;
+  transform: translateX(-72px) rotate(-42deg);
   opacity: 0.9;
   z-index: 1;
 }
 
 .friend-card__petal--8 {
-  width: 80px;
-  height: 43px;
-  bottom: 45px;
-  transform: translateX(-6px) rotate(63deg) scaleX(-1);
+  width: 36px;
+  height: 82px;
+  bottom: 38px;
+  transform: translateX(36px) rotate(42deg);
   opacity: 0.9;
   z-index: 1;
 }
