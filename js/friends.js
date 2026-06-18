@@ -33,13 +33,9 @@
     return formatDate(date);
   }
 
-  function getLampTone(tags) {
-    if (tags.includes('家人')) return 'ember';
-    if (tags.includes('挚友') || tags.includes('可靠')) return 'gold';
-    if (tags.includes('网友') || tags.includes('游戏')) return 'blue';
-    if (tags.includes('旅行')) return 'green';
-    if (tags.includes('饭搭子')) return 'rose';
-    return 'violet';
+  function getLampColor(entry) {
+    const allowedColors = ['gray', 'gold', 'rose', 'blue', 'green', 'violet', 'ember'];
+    return allowedColors.includes(entry.lampColor) ? entry.lampColor : 'gray';
   }
 
   function getBirthdayState(birthday) {
@@ -115,6 +111,11 @@
     return normalizeTags([...selected, custom]);
   }
 
+  function getSelectedLampColor() {
+    const selected = document.querySelector('.friend-color-option.active');
+    return selected ? selected.dataset.color : 'gray';
+  }
+
   function setSelectedTags(tags) {
     const normalized = normalizeTags(tags || []);
     document.querySelectorAll('.friend-tag-option').forEach((button) => {
@@ -127,11 +128,19 @@
     document.getElementById('friend-custom-tags').value = customTags.join('，');
   }
 
+  function setSelectedLampColor(color) {
+    const selectedColor = color || 'gray';
+    document.querySelectorAll('.friend-color-option').forEach((button) => {
+      button.classList.toggle('active', button.dataset.color === selectedColor);
+    });
+  }
+
   function resetForm() {
     const form = document.getElementById('input-form');
     form.reset();
     delete form.dataset.editId;
     setSelectedTags([]);
+    setSelectedLampColor('gray');
   }
 
   function closeForm() {
@@ -156,6 +165,7 @@
       document.getElementById('friend-preferences').value = entry.preferences || '';
       document.getElementById('friend-notes').value = entry.notes || entry.content || '';
       setSelectedTags(entry.tags || []);
+      setSelectedLampColor(entry.lampColor);
     } else {
       resetForm();
     }
@@ -200,20 +210,23 @@
       <div class="friend-list">
         ${entries.map((entry) => {
           const tags = normalizeTags(entry.tags || []);
-          const initials = (entry.friendName || entry.title || '?').trim().slice(0, 2);
-          const lampTone = getLampTone(tags);
+          const displayName = entry.friendName || entry.title || '未命名来客';
+          const lampColor = getLampColor(entry);
           const birthdayState = getBirthdayState(entry.birthday);
           const birthdayClass = birthdayState ? ` ${birthdayState.className}` : '';
           return `
-            <article class="friend-card friend-card--${lampTone}${birthdayClass}" data-id="${escapeHtml(entry.id)}">
-              <div class="friend-card__lamp" aria-hidden="true">
-                <span class="friend-card__flame"></span>
-                <span class="friend-card__avatar">${escapeHtml(initials)}</span>
+            <article class="friend-card friend-card--${lampColor}${birthdayClass}" data-id="${escapeHtml(entry.id)}" tabindex="0" role="button" aria-expanded="false">
+              <div class="friend-card__lantern">
+                <span class="friend-card__handle" aria-hidden="true"></span>
+                <span class="friend-card__body" aria-hidden="true">
+                  <span class="friend-card__flame"></span>
+                </span>
+                <h2 class="friend-card__name">${escapeHtml(displayName)}</h2>
               </div>
-              <div class="friend-card__main">
+              <div class="friend-card__main" aria-hidden="true">
                 <div class="friend-card__header">
                   <div>
-                    <h2 class="friend-card__name">${escapeHtml(entry.friendName || entry.title)}</h2>
+                    <h3 class="friend-card__detail-title">${escapeHtml(displayName)}</h3>
                     <p class="friend-card__subtitle">${escapeHtml(entry.realName || entry.relationship || '未记录更多称呼')}</p>
                   </div>
                   <div class="friend-card__dates">
@@ -249,8 +262,29 @@
   function bindEntryEvents() {
     document.querySelectorAll('.friend-card').forEach((card) => {
       const entry = entries.find((item) => item.id === card.dataset.id);
-      card.querySelector('.friend-edit-btn').addEventListener('click', () => openForm(entry));
-      card.querySelector('.friend-delete-btn').addEventListener('click', async () => {
+      const toggleCard = () => {
+        const isExpanded = card.classList.toggle('is-expanded');
+        card.setAttribute('aria-expanded', String(isExpanded));
+        card.querySelector('.friend-card__main').setAttribute('aria-hidden', String(!isExpanded));
+      };
+
+      card.addEventListener('click', (event) => {
+        if (event.target.closest('.friend-card__actions')) return;
+        toggleCard();
+      });
+
+      card.addEventListener('keydown', (event) => {
+        if (event.key !== 'Enter' && event.key !== ' ') return;
+        event.preventDefault();
+        toggleCard();
+      });
+
+      card.querySelector('.friend-edit-btn').addEventListener('click', (event) => {
+        event.stopPropagation();
+        openForm(entry);
+      });
+      card.querySelector('.friend-delete-btn').addEventListener('click', async (event) => {
+        event.stopPropagation();
         if (!entry || !confirm('确定要删除这位友人的记录吗？')) return;
         try {
           await window.PalaceDB.deleteEntry(entry.id);
@@ -268,12 +302,19 @@
     });
   }
 
+  function initLampColorOptions() {
+    document.querySelectorAll('.friend-color-option').forEach((button) => {
+      button.addEventListener('click', () => setSelectedLampColor(button.dataset.color));
+    });
+  }
+
   function init() {
     const addBtn = document.getElementById('add-btn');
     const form = document.getElementById('input-form');
     const cancelBtn = document.getElementById('cancel-form');
 
     initTagOptions();
+    initLampColorOptions();
     renderEntries();
 
     addBtn.addEventListener('click', () => openForm());
@@ -289,6 +330,7 @@
       const contact = document.getElementById('friend-contact').value.trim();
       const met = document.getElementById('friend-met').value.trim();
       const tags = getSelectedTags();
+      const lampColor = getSelectedLampColor();
       const preferences = document.getElementById('friend-preferences').value.trim();
       const notes = document.getElementById('friend-notes').value.trim();
 
@@ -311,6 +353,7 @@
         contact,
         met,
         tags,
+        lampColor,
         preferences,
         notes,
         content: contentParts.join('\n\n') || realName || friendName,

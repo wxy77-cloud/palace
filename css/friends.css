@@ -38,6 +38,32 @@
   color: var(--golden-accent);
 }
 
+.friend-color-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.friend-color-option {
+  width: 34px;
+  height: 34px;
+  border: 1px solid rgba(212, 175, 55, 0.28);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 34% 28%, rgba(255, 255, 255, 0.88), transparent 22%),
+    var(--swatch-color);
+  cursor: pointer;
+  box-shadow: inset 0 0 0 4px rgba(0, 0, 0, 0.16);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast), transform var(--transition-fast);
+}
+
+.friend-color-option:hover,
+.friend-color-option.active {
+  border-color: var(--golden-accent);
+  box-shadow: inset 0 0 0 4px rgba(0, 0, 0, 0.12), 0 0 16px rgba(212, 175, 55, 0.28);
+  transform: translateY(-2px);
+}
+
 .journey-timeline {
   position: relative;
   margin: 0 0 28px;
@@ -143,27 +169,35 @@
 
 .friend-list {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 18px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+  align-items: start;
 }
 
 .friend-card {
-  --friend-light: rgba(212, 175, 55, 0.7);
-  --friend-light-soft: rgba(212, 175, 55, 0.18);
+  --friend-light: #a9a9b5;
+  --friend-light-soft: rgba(169, 169, 181, 0.18);
+  --friend-shell: rgba(118, 118, 130, 0.54);
   display: grid;
-  grid-template-columns: 86px minmax(0, 1fr);
-  gap: 18px;
-  padding: 20px;
-  border: 1px solid rgba(212, 175, 55, 0.3);
+  grid-template-columns: 1fr;
+  gap: 0;
+  min-height: 236px;
+  padding: 18px 16px;
+  border: 1px solid rgba(212, 175, 55, 0.24);
   border-radius: var(--radius-md);
   position: relative;
   overflow: hidden;
   background:
-    radial-gradient(circle at 44px 42px, var(--friend-light-soft), transparent 78px),
+    radial-gradient(circle at 50% 36%, var(--friend-light-soft), transparent 72px),
     linear-gradient(145deg, rgba(74, 52, 98, 0.82), rgba(45, 27, 78, 0.82));
   box-shadow: 0 14px 34px rgba(0, 0, 0, 0.22);
+  cursor: pointer;
   animation: fadeIn var(--transition-slow);
-  transition: border-color var(--transition-normal), box-shadow var(--transition-normal), transform var(--transition-normal);
+  transition:
+    border-color var(--transition-normal),
+    box-shadow var(--transition-normal),
+    transform var(--transition-normal),
+    grid-column var(--transition-normal);
 }
 
 .friend-card::after {
@@ -188,34 +222,54 @@
   transform: translateX(30%);
 }
 
+.friend-card.is-expanded {
+  grid-column: 1 / -1;
+  grid-template-columns: minmax(180px, 240px) minmax(0, 1fr);
+  gap: 24px;
+  min-height: 0;
+  cursor: default;
+}
+
+.friend-card--gray {
+  --friend-light: #a9a9b5;
+  --friend-light-soft: rgba(169, 169, 181, 0.22);
+  --friend-shell: rgba(118, 118, 130, 0.56);
+}
+
 .friend-card--gold {
-  --friend-light: rgba(255, 218, 103, 0.82);
-  --friend-light-soft: rgba(255, 218, 103, 0.2);
+  --friend-light: #ffda67;
+  --friend-light-soft: rgba(255, 218, 103, 0.22);
+  --friend-shell: rgba(155, 122, 36, 0.56);
 }
 
 .friend-card--ember {
-  --friend-light: rgba(255, 159, 92, 0.82);
-  --friend-light-soft: rgba(255, 159, 92, 0.2);
+  --friend-light: #ff9f5c;
+  --friend-light-soft: rgba(255, 159, 92, 0.22);
+  --friend-shell: rgba(162, 83, 42, 0.56);
 }
 
 .friend-card--blue {
-  --friend-light: rgba(129, 203, 255, 0.78);
-  --friend-light-soft: rgba(129, 203, 255, 0.18);
+  --friend-light: #7fc7ff;
+  --friend-light-soft: rgba(129, 203, 255, 0.2);
+  --friend-shell: rgba(63, 110, 154, 0.56);
 }
 
 .friend-card--green {
-  --friend-light: rgba(136, 221, 173, 0.78);
-  --friend-light-soft: rgba(136, 221, 173, 0.18);
+  --friend-light: #86ddae;
+  --friend-light-soft: rgba(136, 221, 173, 0.2);
+  --friend-shell: rgba(56, 130, 90, 0.56);
 }
 
 .friend-card--rose {
-  --friend-light: rgba(255, 168, 190, 0.78);
-  --friend-light-soft: rgba(255, 168, 190, 0.18);
+  --friend-light: #ff9fb7;
+  --friend-light-soft: rgba(255, 168, 190, 0.22);
+  --friend-shell: rgba(150, 73, 101, 0.56);
 }
 
 .friend-card--violet {
-  --friend-light: rgba(190, 161, 255, 0.72);
-  --friend-light-soft: rgba(190, 161, 255, 0.17);
+  --friend-light: #bda2ff;
+  --friend-light-soft: rgba(190, 161, 255, 0.2);
+  --friend-shell: rgba(103, 74, 162, 0.56);
 }
 
 .friend-card--birthday-soon,
@@ -227,68 +281,84 @@
   box-shadow: 0 16px 42px rgba(0, 0, 0, 0.28), 0 0 28px rgba(255, 205, 94, 0.3);
 }
 
-.friend-card__lamp {
+.friend-card__lantern {
   position: relative;
-  width: 86px;
-  min-height: 112px;
+  min-height: 198px;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
+  gap: 10px;
+  z-index: 1;
 }
 
-.friend-card__lamp::before {
-  content: '';
+.friend-card__handle {
   position: absolute;
-  top: 8px;
-  width: 54px;
-  height: 76px;
-  border: 1px solid var(--friend-light);
-  border-radius: 28px 28px 16px 16px;
-  background:
-    radial-gradient(circle at 50% 42%, rgba(255, 255, 220, 0.86), var(--friend-light-soft) 44%, transparent 72%),
-    rgba(0, 0, 0, 0.24);
-  box-shadow: 0 0 28px var(--friend-light-soft);
+  top: 0;
+  width: 94px;
+  height: 58px;
+  border: 2px solid rgba(212, 175, 55, 0.54);
+  border-bottom: 0;
+  border-radius: 56px 56px 0 0;
 }
 
-.friend-card__lamp::after {
+.friend-card__handle::after {
   content: '';
   position: absolute;
-  bottom: 10px;
-  width: 66px;
+  left: 50%;
+  top: -9px;
+  width: 20px;
   height: 12px;
-  border-radius: 999px;
-  background: radial-gradient(ellipse, var(--friend-light-soft), transparent 68%);
+  border: 1px solid rgba(212, 175, 55, 0.48);
+  border-radius: 10px 10px 4px 4px;
+  transform: translateX(-50%);
+}
+
+.friend-card__body {
+  position: relative;
+  width: min(124px, 82%);
+  height: 132px;
+  border: 2px solid rgba(212, 175, 55, 0.58);
+  border-radius: 52px 52px 18px 18px;
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.12), transparent 20%, transparent 80%, rgba(0, 0, 0, 0.18)),
+    radial-gradient(circle at 50% 38%, rgba(255, 255, 232, 0.88), var(--friend-light) 36%, transparent 65%),
+    var(--friend-shell);
+  box-shadow:
+    inset 0 -18px 26px rgba(0, 0, 0, 0.24),
+    0 0 34px var(--friend-light-soft);
+}
+
+.friend-card__body::before,
+.friend-card__body::after {
+  content: '';
+  position: absolute;
+  top: 13px;
+  bottom: 13px;
+  width: 1px;
+  background: rgba(255, 232, 172, 0.36);
+}
+
+.friend-card__body::before {
+  left: 25%;
+}
+
+.friend-card__body::after {
+  right: 25%;
 }
 
 .friend-card__flame {
   position: absolute;
-  top: 29px;
-  width: 18px;
-  height: 26px;
+  left: 50%;
+  top: 45px;
+  width: 20px;
+  height: 32px;
   border-radius: 50% 50% 46% 46%;
   background: linear-gradient(180deg, #fff7bc, var(--friend-light));
   box-shadow: 0 0 18px var(--friend-light);
+  transform: translateX(-50%);
   transform-origin: 50% 80%;
   animation: lampFlicker 2.8s ease-in-out infinite;
-}
-
-.friend-card__avatar {
-  position: relative;
-  z-index: 1;
-  margin-top: 48px;
-  width: 54px;
-  min-height: 32px;
-  padding: 4px 6px;
-  border: 1px solid rgba(212, 175, 55, 0.38);
-  border-radius: var(--radius-sm);
-  color: var(--ivory);
-  background: rgba(14, 8, 24, 0.58);
-  font-family: var(--font-chinese), var(--font-body);
-  font-size: 0.98rem;
-  font-weight: 600;
-  text-align: center;
-  overflow: hidden;
-  overflow-wrap: anywhere;
 }
 
 .friend-card__header {
@@ -299,9 +369,20 @@
 }
 
 .friend-card__name {
+  width: 100%;
+  color: var(--ivory);
+  font-family: var(--font-chinese), var(--font-body);
+  font-size: 1.08rem;
+  letter-spacing: 0;
+  line-height: 1.35;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
+.friend-card__detail-title {
   color: var(--golden-accent);
   font-family: var(--font-display), var(--font-chinese);
-  font-size: 1.25rem;
+  font-size: 1.3rem;
   letter-spacing: 0;
   overflow-wrap: anywhere;
 }
@@ -341,10 +422,30 @@
   box-shadow: 0 0 14px rgba(255, 205, 94, 0.12);
 }
 
+.friend-card__lantern > .friend-card__birthday-badge {
+  position: absolute;
+  top: 56px;
+  right: 0;
+  z-index: 2;
+  max-width: 112px;
+}
+
 .friend-card__birthday-badge--today {
   color: var(--night-purple);
   background: linear-gradient(135deg, #ffe8a3, #d4af37);
   border-color: rgba(255, 238, 174, 0.82);
+}
+
+.friend-card__main {
+  display: none;
+  position: relative;
+  z-index: 1;
+  padding: 4px 0 0;
+}
+
+.friend-card.is-expanded .friend-card__main {
+  display: block;
+  animation: fadeIn var(--transition-slow);
 }
 
 .friend-card__tags {
@@ -416,7 +517,7 @@
 
 @media (max-width: 900px) {
   .friend-list {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
@@ -439,9 +540,16 @@
     grid-template-columns: 1fr;
   }
 
-  .friend-card__lamp {
-    width: 100%;
-    min-height: 96px;
+  .friend-list {
+    grid-template-columns: 1fr;
+  }
+
+  .friend-card.is-expanded {
+    grid-template-columns: 1fr;
+  }
+
+  .friend-card__lantern {
+    min-height: 188px;
   }
 
   .friend-card__header,
@@ -465,15 +573,15 @@
 
 @keyframes lampFlicker {
   0%, 100% {
-    transform: scaleY(1) rotate(-2deg);
+    transform: translateX(-50%) scaleY(1) rotate(-2deg);
     opacity: 0.92;
   }
   45% {
-    transform: scaleY(1.08) rotate(2deg);
+    transform: translateX(-50%) scaleY(1.08) rotate(2deg);
     opacity: 1;
   }
   68% {
-    transform: scaleY(0.94) rotate(-1deg);
+    transform: translateX(-50%) scaleY(0.94) rotate(-1deg);
     opacity: 0.86;
   }
 }
