@@ -75,7 +75,6 @@
   --friend-light: #a9a9b5;
   --friend-light-soft: rgba(169, 169, 181, 0.18);
   --friend-shell: rgba(118, 118, 130, 0.54);
-  --friend-petal-deep: #767682;
   display: grid;
   grid-template-columns: 1fr;
   gap: 0;
@@ -123,49 +122,72 @@
   --friend-light: #a9a9b5;
   --friend-light-soft: rgba(169, 169, 181, 0.22);
   --friend-shell: rgba(118, 118, 130, 0.56);
-  --friend-petal-deep: #666674;
 }
 
 .friend-card--gold {
   --friend-light: #ffda67;
   --friend-light-soft: rgba(255, 218, 103, 0.22);
   --friend-shell: rgba(155, 122, 36, 0.56);
-  --friend-petal-deep: #ad7c2e;
 }
 
 .friend-card--ember {
   --friend-light: #ff9f5c;
   --friend-light-soft: rgba(255, 159, 92, 0.22);
   --friend-shell: rgba(162, 83, 42, 0.56);
-  --friend-petal-deep: #a6532a;
 }
 
 .friend-card--blue {
   --friend-light: #7fc7ff;
   --friend-light-soft: rgba(129, 203, 255, 0.2);
   --friend-shell: rgba(63, 110, 154, 0.56);
-  --friend-petal-deep: #3f6e9a;
 }
 
 .friend-card--green {
   --friend-light: #86ddae;
   --friend-light-soft: rgba(136, 221, 173, 0.2);
   --friend-shell: rgba(56, 130, 90, 0.56);
-  --friend-petal-deep: #38825a;
 }
 
 .friend-card--rose {
   --friend-light: #ff9fb7;
   --friend-light-soft: rgba(255, 168, 190, 0.22);
   --friend-shell: rgba(150, 73, 101, 0.56);
-  --friend-petal-deep: #964965;
 }
 
 .friend-card--violet {
   --friend-light: #bda2ff;
   --friend-light-soft: rgba(190, 161, 255, 0.2);
   --friend-shell: rgba(103, 74, 162, 0.56);
-  --friend-petal-deep: #674aa2;
+}
+
+.friend-card--teal {
+  --friend-light: #74d6d0;
+  --friend-light-soft: rgba(116, 214, 208, 0.2);
+  --friend-shell: rgba(48, 129, 127, 0.56);
+}
+
+.friend-card--peach {
+  --friend-light: #ffc09b;
+  --friend-light-soft: rgba(255, 192, 155, 0.22);
+  --friend-shell: rgba(168, 98, 71, 0.52);
+}
+
+.friend-card--moon {
+  --friend-light: #f6f0b8;
+  --friend-light-soft: rgba(246, 240, 184, 0.2);
+  --friend-shell: rgba(150, 139, 82, 0.48);
+}
+
+.friend-card--crimson {
+  --friend-light: #e45a72;
+  --friend-light-soft: rgba(228, 90, 114, 0.2);
+  --friend-shell: rgba(139, 42, 65, 0.56);
+}
+
+.friend-card--indigo {
+  --friend-light: #8ea7ff;
+  --friend-light-soft: rgba(142, 167, 255, 0.2);
+  --friend-shell: rgba(72, 83, 156, 0.56);
 }
 
 .friend-card--birthday-soon,
@@ -177,7 +199,7 @@
   box-shadow: 0 16px 42px rgba(0, 0, 0, 0.28), 0 0 28px rgba(255, 205, 94, 0.3);
 }
 
-.friend-card__lotus-lamp {
+.friend-card__paper-boat {
   position: relative;
   min-height: 278px;
   display: flex;
@@ -188,248 +210,197 @@
   z-index: 1;
 }
 
-.friend-card__cord {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  width: 2px;
-  height: 64px;
-  background: linear-gradient(180deg, rgba(255, 222, 168, 0.16), #8e2d34 42%, #d67660);
-  box-shadow: 0 0 7px rgba(212, 175, 55, 0.18);
-  transform: translateX(-50%);
-}
-
-.friend-card__cord::after {
-  content: '';
+.friend-card__candle {
   position: absolute;
   left: 50%;
-  bottom: -6px;
-  width: 10px;
-  height: 10px;
-  border: 1px solid rgba(255, 230, 172, 0.82);
-  border-radius: 50%;
-  background: radial-gradient(circle at 35% 28%, #fff7cf, #d4af37 48%, #633a21);
-  transform: translateX(-50%);
-}
-
-.friend-card__orb {
-  position: absolute;
-  top: 46px;
-  left: 50%;
-  width: 92px;
+  top: 52px;
+  width: 34px;
   height: 92px;
-  margin-bottom: 0;
-  border: 1px solid rgba(255, 248, 219, 0.7);
-  border-radius: 50%;
+  border: 2px solid rgba(250, 246, 232, 0.9);
+  border-top-width: 3px;
+  border-radius: 16px 16px 5px 5px;
   background:
-    linear-gradient(38deg, transparent 24%, rgba(255, 255, 255, 0.32) 25%, transparent 27%, transparent 58%, rgba(255, 255, 255, 0.24) 59%, transparent 61%),
-    linear-gradient(128deg, transparent 18%, rgba(74, 52, 98, 0.24) 19%, transparent 21%, transparent 68%, rgba(74, 52, 98, 0.18) 69%, transparent 71%),
-    radial-gradient(circle at 36% 28%, rgba(255, 255, 255, 0.86), transparent 18%),
-    radial-gradient(circle at 50% 54%, rgba(255, 250, 220, 0.72), rgba(255, 255, 255, 0.14) 56%, transparent 72%);
+    radial-gradient(ellipse at 50% 8%, rgba(255, 255, 255, 0.96), rgba(255, 255, 255, 0.28) 24%, transparent 26%),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.9), rgba(250, 245, 222, 0.72) 48%, rgba(185, 172, 145, 0.28));
   box-shadow:
-    inset 0 -14px 22px rgba(45, 27, 78, 0.16),
-    0 0 22px rgba(255, 244, 202, 0.26);
+    inset -5px 0 8px rgba(70, 52, 88, 0.18),
+    0 0 22px var(--friend-light-soft);
   transform: translateX(-50%);
-  z-index: 1;
+  z-index: 4;
 }
 
-.friend-card__orb::before,
-.friend-card__orb::after {
+.friend-card__candle::before {
   content: '';
   position: absolute;
-  inset: 12px;
-  border: 1px solid rgba(74, 52, 98, 0.18);
+  left: 50%;
+  top: -14px;
+  width: 2px;
+  height: 19px;
+  border-radius: 999px;
+  background: rgba(40, 28, 44, 0.86);
+  transform: translateX(-50%);
+}
+
+.friend-card__candle::after {
+  content: '';
+  position: absolute;
+  inset: 9px 5px auto;
+  height: 1px;
   border-radius: 50%;
+  background: rgba(57, 38, 68, 0.24);
+  box-shadow: 0 22px 0 rgba(57, 38, 68, 0.08), 0 45px 0 rgba(57, 38, 68, 0.07);
 }
 
-.friend-card__orb::after {
-  inset: 22px 10px;
-  border-left-color: transparent;
-  border-right-color: transparent;
-  transform: rotate(32deg);
+.friend-card__flame {
+  position: absolute;
+  left: 50%;
+  top: -62px;
+  width: 34px;
+  height: 54px;
+  border: 2px solid rgba(255, 244, 188, 0.86);
+  border-radius: 56% 44% 56% 44%;
+  background:
+    radial-gradient(ellipse at 52% 65%, rgba(255, 255, 240, 0.98), rgba(255, 220, 104, 0.82) 34%, transparent 36%),
+    linear-gradient(180deg, rgba(255, 247, 188, 0.96), var(--friend-light) 54%, rgba(255, 132, 72, 0.5));
+  box-shadow: 0 0 20px var(--friend-light-soft);
+  transform: translateX(-50%) rotate(6deg);
+  animation: candleFlicker 3s ease-in-out infinite;
 }
 
-.friend-card__lotus {
+.friend-card__boat {
   position: relative;
   width: min(210px, 100%);
-  height: 114px;
-  margin-top: 90px;
-  filter: drop-shadow(0 9px 14px rgba(0, 0, 0, 0.24));
-  z-index: 2;
+  height: 112px;
+  margin-top: 112px;
+  filter: drop-shadow(0 10px 14px rgba(0, 0, 0, 0.22));
+  z-index: 3;
 }
 
-.friend-card__lotus::before {
+.friend-card__boat::before {
   content: '';
   position: absolute;
   left: 50%;
-  bottom: 19px;
-  width: 116px;
-  height: 20px;
-  border-radius: 50%;
-  background: radial-gradient(ellipse, rgba(255, 255, 235, 0.72), var(--friend-light-soft) 56%, transparent 72%);
+  bottom: 12px;
+  width: 154px;
+  height: 54px;
+  border: 3px solid rgba(250, 246, 232, 0.94);
+  border-top: 0;
+  border-radius: 0 0 16px 16px;
+  background:
+    linear-gradient(135deg, transparent 49%, rgba(43, 31, 54, 0.36) 50%, transparent 51%),
+    linear-gradient(45deg, transparent 49%, rgba(43, 31, 54, 0.3) 50%, transparent 51%),
+    linear-gradient(180deg, rgba(255, 255, 246, 0.9), rgba(236, 229, 202, 0.7));
+  clip-path: polygon(0 0, 50% 98%, 100% 0, 88% 78%, 50% 92%, 12% 78%);
   transform: translateX(-50%);
 }
 
-.friend-card__lotus::after {
+.friend-card__boat::after {
   content: '';
   position: absolute;
   left: 50%;
   bottom: 8px;
-  width: 178px;
-  height: 44px;
-  border-bottom: 1px solid rgba(52, 35, 63, 0.34);
-  border-radius: 50%;
-  opacity: 0.7;
-  transform: translateX(-50%);
-}
-
-.friend-card__petal {
-  position: absolute;
-  left: 50%;
-  bottom: 24px;
-  width: 100px;
-  height: 34px;
-  border: 1px solid rgba(55, 36, 66, 0.46);
-  border-radius: 78% 22% 78% 22%;
-  background:
-    repeating-linear-gradient(101deg, rgba(56, 38, 68, 0.13) 0 1px, transparent 1px 5px),
-    radial-gradient(ellipse at 22% 42%, rgba(255, 255, 245, 0.96), transparent 34%),
-    linear-gradient(108deg, rgba(255, 255, 236, 0.94), var(--friend-light) 48%, var(--friend-petal-deep));
-  box-shadow:
-    inset -12px -8px 13px rgba(0, 0, 0, 0.17),
-    inset 12px 7px 13px rgba(255, 255, 255, 0.3);
-  clip-path: polygon(0 52%, 18% 14%, 76% 4%, 100% 44%, 82% 88%, 20% 92%);
-  transform-origin: 100% 58%;
-}
-
-.friend-card__petal::after {
-  content: '';
-  position: absolute;
-  inset: 7px 14px;
-  border-top: 1px solid rgba(62, 40, 75, 0.22);
-  border-radius: 50%;
-  transform: rotate(-8deg);
-}
-
-.friend-card__petal--1 {
-  width: 118px;
-  height: 31px;
-  bottom: 18px;
-  transform: translateX(-108px) rotate(-13deg);
-  z-index: 1;
-}
-
-.friend-card__petal--2 {
-  width: 108px;
-  height: 34px;
-  bottom: 36px;
-  transform: translateX(-92px) rotate(-30deg);
-  z-index: 2;
-}
-
-.friend-card__petal--3 {
-  width: 92px;
-  height: 38px;
-  bottom: 52px;
-  transform: translateX(-66px) rotate(-48deg);
-  z-index: 2;
-}
-
-.friend-card__petal--4 {
-  width: 92px;
-  height: 38px;
-  bottom: 52px;
-  transform: translateX(-26px) rotate(48deg) scaleX(-1);
-  z-index: 2;
-}
-
-.friend-card__petal--5 {
-  width: 108px;
-  height: 34px;
-  bottom: 36px;
-  transform: translateX(-16px) rotate(30deg) scaleX(-1);
-  z-index: 2;
-}
-
-.friend-card__petal--6 {
-  width: 118px;
-  height: 31px;
-  bottom: 18px;
-  transform: translateX(-10px) rotate(13deg) scaleX(-1);
-  z-index: 1;
-}
-
-.friend-card__petal--7 {
-  width: 86px;
-  height: 44px;
-  bottom: 58px;
-  transform: translateX(-76px) rotate(-67deg);
-  opacity: 0.9;
-  z-index: 1;
-}
-
-.friend-card__petal--8 {
-  width: 86px;
-  height: 44px;
-  bottom: 58px;
-  transform: translateX(-8px) rotate(67deg) scaleX(-1);
-  opacity: 0.9;
-  z-index: 1;
-}
-
-.friend-card__petal--center {
-  width: 58px;
-  height: 70px;
-  bottom: 28px;
-  border-radius: 82% 82% 62% 62%;
-  background:
-    repeating-linear-gradient(96deg, rgba(84, 55, 105, 0.16) 0 1px, transparent 1px 5px),
-    radial-gradient(circle at 45% 26%, rgba(255, 255, 245, 0.95), transparent 33%),
-    linear-gradient(180deg, rgba(255, 255, 238, 0.95), var(--friend-light) 58%, var(--friend-petal-deep));
-  transform: translateX(-50%);
-  z-index: 3;
-}
-
-.friend-card__petal--center::after {
-  inset: 10px 18px;
+  width: 126px;
+  height: 16px;
+  border: 3px solid rgba(250, 246, 232, 0.94);
   border-top: 0;
-  border-left: 1px solid rgba(62, 40, 75, 0.22);
-  transform: none;
+  border-radius: 0 0 50% 50%;
+  background: rgba(255, 255, 248, 0.74);
+  transform: translateX(-50%);
 }
 
-.friend-card__tassel {
+.friend-card__fold {
+  position: absolute;
+  display: block;
+  border: 3px solid rgba(250, 246, 232, 0.92);
+  background: linear-gradient(135deg, rgba(255, 255, 248, 0.86), rgba(225, 218, 194, 0.56));
+}
+
+.friend-card__fold--left {
+  left: 6px;
+  bottom: 37px;
+  width: 98px;
+  height: 62px;
+  clip-path: polygon(0 0, 100% 48%, 28% 100%);
+}
+
+.friend-card__fold--right {
+  right: 6px;
+  bottom: 37px;
+  width: 98px;
+  height: 62px;
+  clip-path: polygon(100% 0, 72% 100%, 0 48%);
+}
+
+.friend-card__fold--front-left {
+  left: 33px;
+  bottom: 22px;
+  width: 82px;
+  height: 45px;
+  border-right-width: 1px;
+  clip-path: polygon(0 0, 100% 100%, 0 76%);
+  opacity: 0.82;
+}
+
+.friend-card__fold--front-right {
+  right: 33px;
+  bottom: 22px;
+  width: 82px;
+  height: 45px;
+  border-left-width: 1px;
+  clip-path: polygon(100% 0, 100% 76%, 0 100%);
+  opacity: 0.82;
+}
+
+.friend-card__water {
   position: relative;
-  width: 54px;
-  height: 92px;
-  margin-top: -18px;
+  width: min(222px, 100%);
+  height: 50px;
+  margin-top: -8px;
+  border-top: 2px solid rgba(183, 210, 238, 0.46);
+  border-bottom: 1px solid rgba(183, 210, 238, 0.22);
+  border-radius: 50%;
+  background:
+    radial-gradient(ellipse at 50% 18%, rgba(255, 255, 255, 0.28), transparent 50%),
+    repeating-radial-gradient(ellipse at 50% 28%, transparent 0 19px, rgba(190, 215, 238, 0.28) 20px 21px, transparent 22px 32px);
   z-index: 1;
 }
 
-.friend-card__tassel::before {
+.friend-card__water::before,
+.friend-card__water::after {
   content: '';
   position: absolute;
   left: 50%;
-  top: -24px;
-  width: 1px;
-  height: 34px;
-  background: linear-gradient(rgba(212, 175, 55, 0.86), rgba(183, 150, 215, 0.56));
+  height: 1px;
+  border-radius: 50%;
+  background: rgba(222, 235, 247, 0.58);
   transform: translateX(-50%);
 }
 
-.friend-card__tassel::after {
-  content: '';
+.friend-card__water::before {
+  top: 15px;
+  width: 172px;
+}
+
+.friend-card__water::after {
+  top: 31px;
+  width: 116px;
+}
+
+.friend-card__reflection {
   position: absolute;
   left: 50%;
-  top: 5px;
-  width: 46px;
-  height: 84px;
-  border-radius: 50%;
+  bottom: 42px;
+  width: 104px;
+  height: 68px;
+  border-left: 2px solid rgba(218, 226, 246, 0.32);
+  border-right: 2px solid rgba(218, 226, 246, 0.2);
   background:
-    linear-gradient(90deg, transparent 0 6%, rgba(213, 193, 235, 0.34) 7% 8%, transparent 9% 15%, rgba(184, 152, 216, 0.44) 16% 17%, transparent 18% 28%, rgba(232, 219, 247, 0.38) 29% 30%, transparent 31% 42%, rgba(177, 139, 209, 0.46) 43% 44%, transparent 45% 56%, rgba(226, 209, 245, 0.36) 57% 58%, transparent 59% 70%, rgba(188, 155, 222, 0.4) 71% 72%, transparent 73% 84%, rgba(236, 224, 249, 0.32) 85% 86%, transparent 87% 100%),
-    linear-gradient(180deg, rgba(207, 183, 236, 0.42), rgba(156, 118, 190, 0.18));
-  box-shadow: inset 0 8px 10px rgba(255, 255, 255, 0.14);
-  clip-path: polygon(18% 0, 82% 0, 96% 100%, 82% 86%, 68% 100%, 55% 84%, 43% 100%, 31% 84%, 16% 100%, 4% 94%);
+    linear-gradient(165deg, transparent 0 32%, rgba(218, 226, 246, 0.24) 33% 36%, transparent 37% 100%),
+    linear-gradient(20deg, transparent 0 45%, rgba(218, 226, 246, 0.22) 46% 49%, transparent 50% 100%);
+  clip-path: polygon(34% 0, 66% 0, 100% 100%, 0 100%);
   transform: translateX(-50%);
+  opacity: 0.8;
+  z-index: 0;
 }
 
 .friend-card__name {
@@ -545,48 +516,13 @@
   transform: rotate(5deg);
 }
 
-.friend-postcard__doodle {
-  position: absolute;
-  left: 30px;
-  bottom: 66px;
-  width: 54px;
-  height: 48px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: rgba(107, 76, 154, 0.72);
-  font-family: 'Comic Sans MS', 'Segoe Print', var(--font-chinese), cursive;
-  font-size: 2rem;
-  transform: rotate(-9deg);
-  opacity: 0.78;
-}
-
-.friend-postcard__doodle::before {
-  content: '';
-  position: absolute;
-  inset: 4px;
-  border-radius: 45% 55% 50% 40%;
-  background: rgba(255, 255, 255, 0.32);
-  box-shadow: 0 6px 14px rgba(107, 76, 154, 0.12);
-  z-index: -1;
-}
-
-.friend-postcard__doodle--cloud {
-  color: rgba(127, 157, 205, 0.76);
-}
-
-.friend-postcard__doodle--heart {
-  color: rgba(190, 103, 142, 0.72);
-}
-
-.friend-postcard__doodle--spark,
-.friend-postcard__doodle--star {
-  color: rgba(199, 151, 48, 0.78);
-}
-
 .friend-postcard__front {
   min-height: 280px;
   padding: 20px 18px;
+}
+
+.friend-postcard__front > .friend-postcard__field {
+  margin-top: 16px;
 }
 
 .friend-postcard__eyebrow {
@@ -745,5 +681,20 @@
   to {
     opacity: 1;
     transform: translateY(0) rotate(0) scale(1);
+  }
+}
+
+@keyframes candleFlicker {
+  0%, 100% {
+    transform: translateX(-50%) rotate(5deg) scaleY(1);
+    opacity: 0.94;
+  }
+  45% {
+    transform: translateX(-50%) rotate(-3deg) scaleY(1.08);
+    opacity: 1;
+  }
+  70% {
+    transform: translateX(-50%) rotate(8deg) scaleY(0.96);
+    opacity: 0.9;
   }
 }

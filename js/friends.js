@@ -27,7 +27,7 @@
   }
 
   function getLampColor(entry) {
-    const allowedColors = ['gray', 'gold', 'rose', 'blue', 'green', 'violet', 'ember'];
+    const allowedColors = ['gray', 'gold', 'rose', 'blue', 'green', 'violet', 'ember', 'teal', 'peach', 'moon', 'crimson', 'indigo'];
     return allowedColors.includes(entry.lampColor) ? entry.lampColor : 'gray';
   }
 
@@ -141,16 +141,6 @@
     if (postcard) postcard.remove();
   }
 
-  function getRandomPostcardDoodle() {
-    const doodles = [
-      { className: 'friend-postcard__doodle--star', text: '✦' },
-      { className: 'friend-postcard__doodle--cloud', text: '☁' },
-      { className: 'friend-postcard__doodle--spark', text: '✧' },
-      { className: 'friend-postcard__doodle--heart', text: '♡' }
-    ];
-    return doodles[Math.floor(Math.random() * doodles.length)];
-  }
-
   function openPostcard(entry) {
     if (!entry) return;
 
@@ -159,14 +149,12 @@
     const tags = normalizeTags(entry.tags || []);
     const displayName = entry.friendName || entry.title || '未命名来客';
     const birthdayState = getBirthdayState(entry.birthday);
-    const doodle = getRandomPostcardDoodle();
     const overlay = document.createElement('div');
     overlay.className = 'friend-postcard-overlay';
     overlay.innerHTML = `
       <article class="friend-postcard" role="dialog" aria-modal="true" aria-labelledby="friend-postcard-title">
         <button class="friend-postcard__close" type="button" aria-label="关闭明信片">×</button>
         <div class="friend-postcard__stamp" aria-hidden="true">缘</div>
-        <div class="friend-postcard__doodle ${doodle.className}" aria-hidden="true">${doodle.text}</div>
         <div class="friend-postcard__front">
           <p class="friend-postcard__eyebrow">一张寄存在驿站的明信片</p>
           <h2 id="friend-postcard-title" class="friend-postcard__title">${escapeHtml(displayName)}</h2>
@@ -174,13 +162,12 @@
           <div class="friend-postcard__meta">
             ${birthdayState ? `<span class="friend-card__birthday-badge friend-card__birthday-badge--${birthdayState.tone}">🏮 ${escapeHtml(birthdayState.text)}</span>` : ''}
             ${entry.birthday ? `<span>生日 ${escapeHtml(entry.birthday)}</span>` : ''}
-            ${entry.date ? `<span>入站 ${escapeHtml(entry.date)}</span>` : ''}
           </div>
+          ${renderField('联系方式', entry.contact)}
           ${tags.length > 0 ? `<div class="friend-card__tags">${tags.map((tag) => `<span>${escapeHtml(tag)}</span>`).join('')}</div>` : ''}
         </div>
         <div class="friend-postcard__message">
           ${renderField('关系', entry.relationship)}
-          ${renderField('联系方式', entry.contact)}
           ${renderField('初识', entry.met)}
           ${renderField('偏好 / 雷区', entry.preferences)}
           ${renderField('近况 / 备注', entry.notes || entry.content)}
@@ -249,21 +236,18 @@
           const birthdayClass = birthdayState ? ` ${birthdayState.className}` : '';
           return `
             <article class="friend-card friend-card--${lampColor}${birthdayClass}" data-id="${escapeHtml(entry.id)}" tabindex="0" role="button">
-              <div class="friend-card__lotus-lamp">
-                <span class="friend-card__cord" aria-hidden="true"></span>
-                <span class="friend-card__orb" aria-hidden="true"></span>
-                <span class="friend-card__lotus" aria-hidden="true">
-                  <span class="friend-card__petal friend-card__petal--1"></span>
-                  <span class="friend-card__petal friend-card__petal--2"></span>
-                  <span class="friend-card__petal friend-card__petal--3"></span>
-                  <span class="friend-card__petal friend-card__petal--4"></span>
-                  <span class="friend-card__petal friend-card__petal--5"></span>
-                  <span class="friend-card__petal friend-card__petal--6"></span>
-                  <span class="friend-card__petal friend-card__petal--7"></span>
-                  <span class="friend-card__petal friend-card__petal--8"></span>
-                  <span class="friend-card__petal friend-card__petal--center"></span>
+              <div class="friend-card__paper-boat">
+                <span class="friend-card__candle" aria-hidden="true">
+                  <span class="friend-card__flame"></span>
                 </span>
-                <span class="friend-card__tassel" aria-hidden="true"></span>
+                <span class="friend-card__boat" aria-hidden="true">
+                  <span class="friend-card__fold friend-card__fold--left"></span>
+                  <span class="friend-card__fold friend-card__fold--right"></span>
+                  <span class="friend-card__fold friend-card__fold--front-left"></span>
+                  <span class="friend-card__fold friend-card__fold--front-right"></span>
+                </span>
+                <span class="friend-card__water" aria-hidden="true"></span>
+                <span class="friend-card__reflection" aria-hidden="true"></span>
                 <h2 class="friend-card__name">${escapeHtml(displayName)}</h2>
               </div>
             </article>
